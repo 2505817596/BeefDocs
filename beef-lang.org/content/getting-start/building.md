@@ -1,51 +1,51 @@
 +++
-title = "Building from Source"
+title = "从源码构建"
 weight = 2
 +++
 
-## Building overview
+## 构建概览
 
-Building Beef from source is not required for platforms that have binary distributions available (ie: Windows). 
+对于已有二进制发行版的平台（如 Windows），无需从源码构建。
 
-Source code is available at https://github.com/beefytech/Beef.
+源码位于 https://github.com/beefytech/Beef。
 
-### Bootstrapping
+### 引导构建
 
-The core of the Beef compiler is written in C++, while the IDE and command-line BeefBuild build system is written in Beef itself. For bootstrapping purposes, Beef includes a minimal bootstrapping compiler whose sole job is to perform an initial BeefBuild build, which then performs a 'proper' build of itself.
+Beef 编译器核心使用 C++ 编写，而 IDE 与命令行构建系统 BeefBuild 使用 Beef 本身编写。为实现引导构建，Beef 提供了一个最小引导编译器，其唯一职责是先构建一次 BeefBuild，随后由 BeefBuild 再进行“正式”的自举构建。
 
 ---
 
-### Building on Windows
+### 在 Windows 上构建
 
-#### Requirements
+#### 要求
 
-* Microsoft C++ build tools for Visual Studio 2017 or later. You can install just Microsoft Visual C++ Build Tools or the entire Visual Studio suite from https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022.
+* Visual Studio 2017 或更高版本的 Microsoft C++ 构建工具。可仅安装 Microsoft Visual C++ Build Tools，也可安装完整的 Visual Studio 套件：https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022。
 * Platform Toolset 141 (VS2017)
 * Windows SDK 10.0.17763.0
 * CMake 3.15 or newer
 * Python 3.6 or newer
 * Git command line tools
 
-#### Build Steps
-* Execute bin/build.bat
+#### 构建步骤
+* 执行 bin/build.bat
 
-Note that this will first download and build LLVM, which will take some time.
-The build results will be in IDE/dist
+注意：该过程会先下载并构建 LLVM，需要一些时间。
+构建产物位于 IDE/dist。
 
 ---
 
-### Building on Linux and macOS
+### 在 Linux 和 macOS 上构建
 
-#### Requirements
+#### 要求
 
 * CMake 3.15 or newer
 * LLVM-18
 * Git
 
-### Build Steps
+### 构建步骤
 
-* Build Beef with bin/build.sh
+* 使用 bin/build.sh 构建 Beef
 
-The build results will be in IDE/dist
+构建产物位于 IDE/dist。
 
-Please note that the CLI tools such as BeefBuild are supported on these platforms, but the the IDE is currently only available for Windows.
+请注意，这些平台支持 BeefBuild 等 CLI 工具，但 IDE 目前仅支持 Windows。

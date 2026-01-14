@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IDE on Beef 编程语言</title>
+    <link>https://2505817596.github.io/BeefDocs/docs/ide/</link>
+    <description>Recent content in IDE on Beef 编程语言</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    
+	<atom:link href="https://2505817596.github.io/BeefDocs/docs/ide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>主题</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/themes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/themes/</guid>
+      <description>主题 IDE 支持主题文件，可用于自定义外观。主题文件应放置在 bin/themes 目录下的子目录中。用户可在 File\Preferences\Settings 的 UI\Theme 中设置主题。该值可以是相对于 themes 目录的目录名，或相对于 theme 目录的主题 .toml 文件。
+替换图像需要提供包含图像分片的 PSD 文件，以覆盖标准的 bin/images/DarkUI.png、bin/images/DarkUI_2.png 和 bin/images/DarkUI_4.png。主题文件应分别命名为 UI.psd、UI_2.psd 和 UI_4.psd，它们对应不同的缩放等级。
+并非所有图像文件都必须存在，也不必在每个文件中填充所有图像分片。缺失的部分会用其他主题图像文件的缩放分片或默认分片补齐。例如，仅提供一个 UI_4.psd 文件并只替换复选框分片也是可以的。但对于需要清晰边缘的分片，一般建议提供 1x 缩放的 UI.png 图像，因为缩放可能导致边缘对不齐或模糊。
+当用户在 IDE 中选择你的主题时，会执行 bin/images/ImgCreate.exe，通过缩放并合并 PSD 生成 UI.png、UI_2.png 和 UI_4.png。这些文件应视为缓存文件，当源文件变化时会自动重建，从而既能更新主题，也能兼容未来 IDE 版本新增的图像分片。
+主题还支持通过 theme.toml 覆盖颜色设置。
+[Colors] Text = 0xFFFFFFFF Window = 0xFF595962 Background = 0xFF26262A SelectedOutline = 0xFFCFAE11 MenuFocused = 0xFFE5A910 MenuSelected = 0xFFCB9B80 Code = 0xFFFFFFFF Keyword = 0xFFE1AE9A Literal = 0xFFC8A0FF Identifier = 0xFFFFFFFF Comment = 0xFF75715E Method = 0xFFA6E22A Type = 0xFF66D9EF RefType = 0xFF66D9EF Interface = 0xFF66D9EF Namespace = 0xFF7BEEB7 DisassemblyText = 0xFFB0B0B0 DisassemblyFileName = 0XFFFF0000 Error = 0xFFFF0000 BuildError = 0xFFFF8080 BuildWarning = 0xFFFFFF80 VisibleWhiteSpace = 0xFF9090C0  用户可在主题目录中提供 user.</description>
+    </item>
+    
+    <item>
+      <title>代码生成</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/codegeneration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/codegeneration/</guid>
+      <description>生成器概览 Beef IDE 允许通过源代码中的生成器来生成源文件。最简单的例子是 NewClassGenerator。在工作区面板中右键并选择 “Generate File&amp;hellip;” 即可访问。继承自 Compiler.Generator 的类会自动显示在 “Generate File” 面板的 “Generator” 下拉框中。生成器方法由编译器直接执行，无需手动编译。
+生成器既可用于创建自定义文件模板，也可生成包含完整源码的整份文件。
+public class NewClassGenerator : Compiler.Generator { public override String Name =&amp;gt; &amp;#34;New Class&amp;#34;; // This is was the generator will show up as in the &amp;#34;Generator&amp;#34; dropdown  public override void InitUI() { AddEdit(&amp;#34;name&amp;#34;, &amp;#34;Class Name&amp;#34;, &amp;#34;&amp;#34;); } public override void Generate(String outFileName, String outText, ref Flags generateFlags) { var name = mParams[&amp;#34;name&amp;#34;]; if (name.</description>
+    </item>
+    
+    <item>
+      <title>命令行参数</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/commandline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/commandline/</guid>
+      <description> Beef IDE 命令行参数 Beef IDE 是一款 GUI 应用，本身不需要参数，但支持一些可选参数。
+   参数 说明     -config=&amp;lt;config&amp;gt; 设置配置   -launch 在调试器中编译并运行工作区启动项目。&amp;rsquo;&amp;ndash;&amp;rsquo; 之后的内容会作为参数传入   -launch=&amp;lt;path&amp;gt; 在调试器中编译并运行可执行文件 &amp;lsquo;path&amp;rsquo;。&amp;rsquo;&amp;ndash;&amp;rsquo; 之后的内容会作为参数传入   -launchDir=&amp;lt;path&amp;gt; 设置启动工作目录   -launchPaused 与 &amp;lsquo;-launch&amp;rsquo; 一起使用，启动调试器时暂停   -new 创建新的工作区和项目   -path&amp;lt;Path&amp;gt; 设置目标文件（具体操作取决于文件类型）   -platform=&amp;lt;platform&amp;gt; 设置平台   -test=&amp;lt;path&amp;gt; 执行测试脚本   -verbosity=&amp;lt;verbosity&amp;gt; 设置详细程度：quiet/minimal/normal/detailed/diagnostics   -workspace=&amp;lt;path&amp;gt; 设置工作区路径    </description>
+    </item>
+    
+    <item>
+      <title>性能分析</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/profiling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/profiling/</guid>
+      <description>性能分析概览 Beef IDE 的性能分析器是采样式分析器，会在每秒多次采集目标应用的调用栈样本，并在分析会话结束后生成整体性能报告。延长采样时间或提高采样率可提升报告准确性。
+在目标程序执行期间可随时启动性能分析，甚至可由目标程序通过 &amp;ldquo;System.Diagnostics.Profiler&amp;rdquo; 类主动请求。这在需要对程序定义的时间段进行分析时很有用，例如执行某个长计算时。</description>
+    </item>
+    
+    <item>
+      <title>文档</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/documentation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/documentation/</guid>
+      <description>文档注释 IDE 支持使用 /// 或 /** */ 为类型和方法编写文档（使用哪种都可以）。自动补全建议以及调用/使用这些类型或函数时的提示，会显示对应文档。
+static { /// Must be placed directly above the method, including attributes. 	/// Using multiple lines like this is also fine. Both will be recognized. [Optimize] public static void DoAThing() {} /// Documentation also works for types. 	struct SomeStruct { /** * Multiline comment with two ** at the start works in the same way. */ void PrivateMethod() {} } /** * If you have a really long explainer here, you may not actually want to show that in autcompletion prompts.</description>
+    </item>
+    
+    <item>
+      <title>热编译</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/hotcompile/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/hotcompile/</guid>
+      <description>热编译概览 当通过 IDE 执行 Beef 应用时，允许对源码进行“热”修改。编译请求成功完成后，新生成的目标文件（如有）会被热补丁到正在运行的可执行文件中。修改后的方法通过在旧方法开头（安全地）插入跳转到新方法来完成替换。这意味着对于长时间运行的方法，旧代码可与新代码并行存在，因为热补丁后调用的方法才会“切换”到新代码。IDE 会维护旧源码映射，用于在被替换方法中单步调试、将新的断点映射到旧方法等。
+许多其他编译器特性也对热代码修改提供特殊调试支持，包括添加/移除虚方法、向字符串驻留表添加新字面量、添加新的 DLL 导入方法、修改反射信息、保持函数指针地址一致性等。
+如果程序能够热补丁到仅使用新数据布局，结构体和类的数据布局变更也是允许的。因此，只要仍存在旧布局的活动分配，或在活动调用栈中使用旧布局，就会产生编译错误（但不会导致运行时数据损坏或崩溃）。</description>
+    </item>
+    
+    <item>
+      <title>调试器表达式</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/ide/watch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/ide/watch/</guid>
+      <description> 调试器监视表达式 调试器监视表达式求值器可评估大多数常规 Beef 表达式，包括访问属性与调用方法。 除这些表达式外，还支持一些特殊监视表达式。
+   表达式 说明     {&amp;lt;number&amp;gt;} &amp;lt;expr&amp;gt; or {^&amp;lt;number&amp;gt;} &amp;lt;expr&amp;gt; 在调用栈向上第 &amp;lt;number&amp;gt; 层处求值表达式   {MethodName} &amp;lt;expr&amp;gt; 在调用栈向上第一个名为 MethodName 的方法中求值表达式   {MethodName^&amp;lt;number&amp;gt;} &amp;lt;expr&amp;gt; 在调用栈向上第 &amp;lt;number&amp;gt; 个名为 MethodName 的方法中求值表达式   {*} &amp;lt;expr&amp;gt; 在调用栈中第一个表达式有效的作用域里求值    格式标志 以下标志可加在监视表达式之后，用逗号分隔。
+   标志 说明     this=&amp;lt;expr&amp;gt; 为表达式显式设置 &amp;lsquo;this&amp;rsquo; 值   arraysize=&amp;lt;number&amp;gt; 将表达式显示为包含 &amp;lt;number&amp;gt; 个元素的数组   &amp;lt;number&amp;gt; 将表达式显示为包含 &amp;lt;number&amp;gt; 个元素的数组   d 十进制   s ASCII   s8 UTF8   s16 UTF16   s32 UTF32   na 隐藏指针   nv 不使用可视化器   x 十六进制（小写）   X 十六进制（大写）    </description>
+    </item>
+    
+  </channel>
+</rss>

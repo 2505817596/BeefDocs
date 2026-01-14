@@ -1,13 +1,13 @@
 +++
-title = "Error Handling"
+title = "错误处理"
 weight=75
 +++
 
-## Error handling
+## 错误处理
 
-Some languages such as C# use exceptions for error handling, but Beef does not support exceptions. By convention, error handing is implemented using the System.Result<T> and System.Result<T, TError> enum types which implement two values: .Ok(T) and .Err(TError). The version that is parameterized by TError supports returning an explicit error value, otherwise the error type is unspecified. Generics can be parameterized by "void", so Result<void> is used for methods which may return errors but have no value to return.
+一些语言如 C# 使用异常处理，但 Beef 不支持异常。按照约定，错误处理使用 System.Result<T> 和 System.Result<T, TError> 枚举类型，它们包含 .Ok(T) 与 .Err(TError) 两个值。带 TError 参数的版本支持返回显式错误值，否则错误类型未指定。泛型可用 "void" 作为参数，因此 Result<void> 用于可能返回错误但没有返回值的方法。
 
-If a returned error is not handled, it will cause a fatal runtime error.
+若未处理返回的错误，将导致运行时致命错误。
 ```C#
 static Result<uint> GetMinusOne(uint i)
 {
@@ -36,7 +36,7 @@ void Use()
 }
 ```
 
-Result<T> can also be handled using if statements. Use [case]({{< ref "pattern.md#enum" >}}) to match the .Err or .Ok enum values.
+Result<T> 也可通过 if 语句处理。使用 [case]({{< ref "pattern.md#enum" >}}) 匹配 .Err 或 .Ok 枚举值。
 
 ```C#
 void Use()
@@ -47,14 +47,14 @@ void Use()
 }
 ```
 
-## Assertions
+## 断言
 
-Assertions are implemented via `Debug.Assert()` and `Runtime.Assert()`. `Debug.Assert(cond)` call will result in a fatal error in debug mode if `cond` evaluates to `false`, but will not generate any instructions in release mode (even if `cond` includes method calls or other complex expressions). Generally assertions are used as a "fail fast" method to ensure legal program state, but is not used to handle errors that can validly occur (ie: user input errors, timeout errors, etc).
+断言通过 `Debug.Assert()` 与 `Runtime.Assert()` 实现。`Debug.Assert(cond)` 在调试模式下若 `cond` 为 `false` 会触发致命错误，但在发布模式下不会生成任何指令（即使 `cond` 含有方法调用或复杂表达式）。断言通常用于“快速失败”以确保程序状态合法，而不用于处理可合法发生的错误（例如用户输入错误、超时等）。
 
-## Fatal errors
+## 致命错误
 
-`Runtime.FatalError` can be used to manually "crash" a program when unrecoverable errors are detected.
+当检测到不可恢复的错误时，可使用 `Runtime.FatalError` 手动“崩溃”程序。
 
-## Crashing
+## 崩溃处理
 
-By default, GUI programs show a custom crash dialog that includes a backtrace, and console programs write a crash report to the console. Crash behavior can be changed via `Runtime.SetCrashReportKind`.
+默认情况下，GUI 程序会显示包含回溯的崩溃对话框，控制台程序则输出崩溃报告到控制台。可通过 `Runtime.SetCrashReportKind` 更改崩溃处理方式。

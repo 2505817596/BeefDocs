@@ -1,9 +1,9 @@
 +++
-title = "Profiling"
+title = "性能分析"
 +++
 
-## Profiling overview
+## 性能分析概览
 
-The Beef IDE profiler is a sampling profiler, which takes callstack samples of the target application many times per second and generates an overal performance report after the profiling session has ended. The accuracy of the report is increased by profiling over a longer period of time or by increasing the sample rate. 
+Beef IDE 的性能分析器是采样式分析器，会在每秒多次采集目标应用的调用栈样本，并在分析会话结束后生成整体性能报告。延长采样时间或提高采样率可提升报告准确性。
 
-Profiling can be initiated at any point during the execution of the target program, and can even be initiated by request of the target program via the "System.Diagnostics.Profiler" class. This can be useful for profiling over a program-defined time period such as while performing a specific long calculation.
+在目标程序执行期间可随时启动性能分析，甚至可由目标程序通过 "System.Diagnostics.Profiler" 类主动请求。这在需要对程序定义的时间段进行分析时很有用，例如执行某个长计算时。

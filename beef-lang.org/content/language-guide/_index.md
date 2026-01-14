@@ -1,9 +1,9 @@
 +++
-title = "Language Guide"
+title = "语言指南"
 alwaysopen = true
 weight = 20
 +++
 
-## Language guide overview
+## 语言指南概览
 
-The Beef ecosystem is is composed of the language, the core libraries, and the Beef tools (including the IDE). Although all three parts work closely together, this section of the documentation specifically covers only the language.
+Beef 生态由语言、核心库以及 Beef 工具（含 IDE）组成。虽然三者紧密协作，但本节文档仅覆盖语言本身。

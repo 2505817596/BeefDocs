@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beef 编程语言</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2026-01-14T11:04:40 CST">
+<title>反射 :: Beef 编程语言</title>
+<link rel="shortcut icon" href="/BeefDocs/docs/images/favicon.png" type="image/x-icon" />
+<link href="/BeefDocs/docs/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BeefDocs/docs/css/nucleus.css" rel="stylesheet">
+<link href="/BeefDocs/docs/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/BeefDocs/docs/css/bootstrap.min.css">
+<link href="/BeefDocs/docs/css/syntax.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/BeefDocs/docs/language-guide/reflection/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="/">Beef 编程语言</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/BeefDocs/docs/" class="dd-item">
+          <a href="/BeefDocs/docs/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/BeefDocs/docs/releases/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/releases/">发布说明</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_0/">
+            版本 0.42.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_1/">
+            版本 0.42.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_2/">
+            版本 0.42.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_3/">
+            版本 0.42.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_4/">
+            版本 0.42.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_5/">
+            版本 0.42.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_6/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_6/">
+            版本 0.42.6
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_7/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_7/">
+            版本 0.42.7
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_8/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_8/">
+            版本 0.42.8
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_0/">
+            版本 0.43.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_1/">
+            版本 0.43.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_2/">
+            版本 0.43.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_3/">
+            版本 0.43.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_4/">
+            版本 0.43.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_5/">
+            版本 0.43.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/foreward/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/foreward/">简介</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/license/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/license/">许可证</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/getting-start/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/getting-start/">入门指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/getting-start/installation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/installation/">
+            安装
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/getting-start/building/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/building/">
+            从源码构建
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/">语言指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/basics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/basics/">
+            基础知识
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/safety/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/safety/">
+            安全特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/memory/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/memory/">
+            内存管理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/namespaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/namespaces/">
+            命名空间
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/datatypes/">数据类型</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interfaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interfaces/">
+            接口
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/statements/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/statements/">
+            语句
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/expressions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/expressions/">
+            表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interop/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interop/">
+            互操作
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/generics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/generics/">
+            泛型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/reflection/" class="dd-item active">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/reflection/">
+            反射
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/literals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/literals/">
+            字面量
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/pattern/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/pattern/">
+            模式匹配
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/operators/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/operators/">
+            运算符
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/errors/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/errors/">
+            错误处理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/preprocessor/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/preprocessor/">
+            预处理器
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/strings/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/strings/">
+            字符串
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/typerefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/typerefs/">
+            类型引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/comptime/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/comptime/">
+            编译期（Comptime）
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/corlib/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/corlib/">核心库</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/projects/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/projects/">项目与工作区</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/platforms/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/platforms/">平台</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/ide/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/ide/">IDE</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/beefbuild/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/beefbuild/">BeefBuild</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/packman/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/packman/">包管理器</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/testing/">测试</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/faq/">常见问题</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/BeefDocs/docs/releases/" >
+   发布说明</option>
+    <option value="/BeefDocs/docs/foreward/" >
+   简介</option>
+    <option value="/BeefDocs/docs/license/" >
+   许可证</option>
+    <option value="/BeefDocs/docs/getting-start/" >
+   入门指南</option> 
+      <option value="/BeefDocs/docs/getting-start/installation/" >- 安装</option>
+      <option value="/BeefDocs/docs/getting-start/building/" >- 从源码构建</option>
+  
+    <option value="/BeefDocs/docs/language-guide/" >
+   语言指南</option> 
+      <option value="/BeefDocs/docs/language-guide/basics/" >- 基础知识</option>
+      <option value="/BeefDocs/docs/language-guide/safety/" >- 安全特性</option>
+      <option value="/BeefDocs/docs/language-guide/memory/" >- 内存管理</option>
+      <option value="/BeefDocs/docs/language-guide/namespaces/" >- 命名空间</option>
+    <option value="/BeefDocs/docs/language-guide/datatypes/" >
+  - 
+   数据类型</option> 
+      <option value="/BeefDocs/docs/language-guide/datatypes/members/" >-- 类型成员</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/attributes/" >-- 特性</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/initialization/" >-- 初始化</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/extensions/" >-- 扩展</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/anon/" >-- 匿名类型</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/globals/" >-- 全局</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/methodrefs/" >-- 方法引用</option>
+  
+      <option value="/BeefDocs/docs/language-guide/interfaces/" >- 接口</option>
+      <option value="/BeefDocs/docs/language-guide/statements/" >- 语句</option>
+      <option value="/BeefDocs/docs/language-guide/expressions/" >- 表达式</option>
+      <option value="/BeefDocs/docs/language-guide/interop/" >- 互操作</option>
+      <option value="/BeefDocs/docs/language-guide/generics/" >- 泛型</option>
+      <option value="/BeefDocs/docs/language-guide/reflection/"  selected>- 反射</option>
+      <option value="/BeefDocs/docs/language-guide/literals/" >- 字面量</option>
+      <option value="/BeefDocs/docs/language-guide/pattern/" >- 模式匹配</option>
+      <option value="/BeefDocs/docs/language-guide/operators/" >- 运算符</option>
+      <option value="/BeefDocs/docs/language-guide/errors/" >- 错误处理</option>
+      <option value="/BeefDocs/docs/language-guide/preprocessor/" >- 预处理器</option>
+      <option value="/BeefDocs/docs/language-guide/strings/" >- 字符串</option>
+      <option value="/BeefDocs/docs/language-guide/typerefs/" >- 类型引用</option>
+      <option value="/BeefDocs/docs/language-guide/comptime/" >- 编译期（Comptime）</option>
+  
+    <option value="/BeefDocs/docs/corlib/" >
+   核心库</option>
+    <option value="/BeefDocs/docs/projects/" >
+   项目与工作区</option> 
+  
+    <option value="/BeefDocs/docs/platforms/" >
+   平台</option> 
+  
+    <option value="/BeefDocs/docs/ide/" >
+   IDE</option> 
+      <option value="/BeefDocs/docs/ide/themes/" >- 主题</option>
+      <option value="/BeefDocs/docs/ide/codegeneration/" >- 代码生成</option>
+      <option value="/BeefDocs/docs/ide/commandline/" >- 命令行参数</option>
+      <option value="/BeefDocs/docs/ide/profiling/" >- 性能分析</option>
+      <option value="/BeefDocs/docs/ide/documentation/" >- 文档</option>
+      <option value="/BeefDocs/docs/ide/hotcompile/" >- 热编译</option>
+      <option value="/BeefDocs/docs/ide/watch/" >- 调试器表达式</option>
+  
+    <option value="/BeefDocs/docs/beefbuild/" >
+   BeefBuild</option>
+    <option value="/BeefDocs/docs/packman/" >
+   包管理器</option>
+    <option value="/BeefDocs/docs/testing/" >
+   测试</option>
+    <option value="/BeefDocs/docs/faq/" >
+   常见问题</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="">
+        </div>
+        <script type="text/javascript" src="/BeefDocs/docs/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/auto-complete.js"></script>
+        <link href="/BeefDocs/docs/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+          
+        </script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/search.js"></script>
+      </div>
+    
+
+    <h1>反射</h1>
+    
+    
+    
+    
+
+<h2 id="反射">反射</h2>
+
+<p>Beef 支持运行时反射，可枚举并访问类型、字段、方法和属性。默认情况下，为了减小可执行文件，仅包含最少的反射信息。可以通过代码特性标注需要额外输出的类成员信息。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">public</span> <span class="k">struct</span> <span class="nc">Options</span>
+<span class="p">{</span><span class="na">
+</span><span class="na">	[Reflect]</span>
+	<span class="k">public</span> <span class="kt">bool</span> <span class="n">mFlag</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">void</span> <span class="n">Use</span><span class="p">(</span><span class="k">ref</span> <span class="n">Options</span> <span class="n">options</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="cm">/* 注意此处使用 &amp;options，以装箱指向 &#39;options&#39; 的指针，而不是装箱 &#39;options&#39; 的副本 */</span>
+	<span class="n">options</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;mFlag&#34;</span><span class="p">).</span><span class="n">Value</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(&amp;</span><span class="n">options</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="反射构造">反射构造</h2>
+
+<p>可以通过反射信息创建值。需要确保相关类型确实被包含在构建产物中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 由于我们仅通过反射实例化该类型，需要强制包含所需数据 */</span>
+<span class="cm">/* 如果在已包含的代码中创建 TestClass 实例，则此处不一定需要 AlwaysInclude 特性 */</span><span class="na">
+</span><span class="na">[Reflect(.DefaultConstructor), AlwaysInclude(AssumeInstantiated=true)]</span>
+<span class="k">class</span> <span class="nc">TestClass</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">void</span> <span class="n">DynamicCreate</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="cm">/* CreateObject() 返回 Result&lt;Object&gt;，可这样处理 */</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">Object</span> <span class="n">obj</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TestClass</span><span class="p">).</span><span class="n">CreateObject</span><span class="p">())</span>
+	<span class="p">{</span>
+		<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Successfully created TestClass instance&#34;</span><span class="p">);</span>
+		<span class="n">UseObject</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+		<span class="cm">/* 通过反射创建的对象和值在堆上分配，需要 delete */</span>
+		<span class="n">delete</span> <span class="n">obj</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="反射自定义特性">反射自定义特性</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 该特性会出现在用户的反射信息中，使用该特性的类型会导出其使用的方法的反射信息 */</span><span class="na">
+</span><span class="na">[AttributeUsage(.Class | .Struct, .ReflectAttribute, ReflectUser=.Methods)]</span>
+<span class="k">struct</span> <span class="nc">ScriptableAttribute</span> <span class="p">:</span> <span class="n">Attribute</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="n">String</span> <span class="n">mName</span><span class="p">;</span>
+	<span class="k">public</span> <span class="k">this</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">mName</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* 该类将提供可反射的默认构造函数，且所有方法都会被包含在构建中，即使它们未被直接调用 */</span><span class="na">
+</span><span class="na">[Scriptable(&#34;Main Test Class&#34;), AlwaysInclude(AssumeInstantiated=true, IncludeAllMethods=true)]</span>
+<span class="k">class</span> <span class="nc">TestClass</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Test</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;TestClass.Test&#34;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">type</span> <span class="k">in</span> <span class="n">Type</span><span class="p">.</span><span class="n">Types</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="k">let</span> <span class="n">scriptableAttribute</span> <span class="p">=</span> <span class="n">type</span><span class="p">.</span><span class="n">GetCustomAttribute</span><span class="p">&lt;</span><span class="n">ScriptableAttribute</span><span class="p">&gt;())</span>
+			<span class="p">{</span>
+				<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">method</span> <span class="k">in</span> <span class="n">type</span><span class="p">.</span><span class="n">GetMethods</span><span class="p">(.</span><span class="n">Static</span><span class="p">))</span>
+				<span class="p">{</span>
+					<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Calling method {} on {}&#34;</span><span class="p">,</span> <span class="n">method</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">scriptableAttribute</span><span class="p">.</span><span class="n">mName</span><span class="p">);</span>
+					<span class="n">method</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">null</span><span class="p">);</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>或者也可以把 <code>AlwaysInclude</code> 的效果直接写到 <code>Scriptable</code> 特性上。使用下列结构体时，<code>TestClass</code> 只需要标注 <code>Scriptable</code> 特性即可。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[AttributeUsage(.Class | .Struct, .ReflectAttribute, ReflectUser=.Methods, AlwaysIncludeUser=.AssumeInstantiated | .IncludeAllMethods)]</span>
+<span class="k">struct</span> <span class="nc">ScriptableAttribute</span> <span class="p">:</span> <span class="n">Attribute</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="n">String</span> <span class="n">mName</span><span class="p">;</span>
+	<span class="k">public</span> <span class="k">this</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">mName</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="调用反射方法">调用反射方法</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[AlwaysInclude(IncludeAllMethods=true), Reflect(.Methods)]</span>
+<span class="k">class</span> <span class="nc">MethodHolder</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="kt">int</span> <span class="n">mIdentifier</span><span class="p">;</span>
+
+	<span class="k">static</span> <span class="kt">int</span> <span class="n">GiveMeFive</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="m">5</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">String</span> <span class="n">message</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">scope</span> <span class="s">$&#34;{num}: {message}&#34;</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">public</span> <span class="k">void</span> <span class="n">ChangeIdentifier</span><span class="p">(</span><span class="kt">int</span> <span class="n">newIdent</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">mIdentifier</span> <span class="p">=</span> <span class="n">newIdent</span><span class="p">;</span>
+		<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">scope</span> <span class="s">$&#34;I am now number {newIdent}&#34;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Program</span>
+<span class="p">{</span>
+	<span class="k">static</span> <span class="k">void</span> <span class="n">InvokeFuncs</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="cm">/* 调用成员方法 */</span>
+		<span class="p">{</span>
+			<span class="k">let</span> <span class="n">mh</span> <span class="p">=</span> <span class="n">scope</span> <span class="n">MethodHolder</span><span class="p">();</span>
+
+			<span class="cm">/* 将 &#39;mh&#39; 作为 target，并传入方法参数。注意此处未处理错误 */</span>
+			<span class="k">typeof</span><span class="p">(</span><span class="n">MethodHolder</span><span class="p">).</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;ChangeIdentifier&#34;</span><span class="p">).</span><span class="n">Get</span><span class="p">().</span><span class="n">Invoke</span><span class="p">(</span><span class="n">mh</span><span class="p">,</span> <span class="m">14</span><span class="p">);</span>
+
+			<span class="n">Runtime</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">mh</span><span class="p">.</span><span class="n">mIdentifier</span> <span class="p">==</span> <span class="m">14</span><span class="p">);</span>
+		<span class="p">}</span>
+
+		<span class="cm">/* 调用所有静态方法 */</span>
+		<span class="kt">int</span> <span class="n">passInt</span> <span class="p">=</span> <span class="m">8</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">m</span> <span class="k">in</span> <span class="k">typeof</span><span class="p">(</span><span class="n">MethodHolder</span><span class="p">).</span><span class="n">GetMethods</span><span class="p">(.</span><span class="n">Static</span><span class="p">))</span>
+		<span class="n">PARAMS</span><span class="p">:</span>
+		<span class="p">{</span>
+			<span class="cm">/* 根据函数参数传入参数 */</span>
+			<span class="k">let</span> <span class="n">methodParams</span> <span class="p">=</span> <span class="n">scope</span> <span class="n">Object</span><span class="na">[m.ParamCount]</span><span class="p">;</span>
+			<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">m</span><span class="p">.</span><span class="n">ParamCount</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">Object</span> <span class="n">param</span><span class="p">;</span>
+				<span class="k">switch</span> <span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">GetParamType</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="cm">/* 覆盖此示例中的所有情况 */</span>
+				<span class="p">{</span>
+				<span class="k">case</span> <span class="k">typeof</span><span class="p">(</span><span class="n">String</span><span class="p">):</span>
+					<span class="n">param</span> <span class="p">=</span> <span class="s">&#34;A nice string message&#34;</span><span class="p">;</span>
+				<span class="k">case</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">):</span>
+
+					<span class="cm">/* 需要手动装箱，确保调用方法时不会因离开作用域而被释放 */</span>
+					<span class="cm">/* param = passInt; 会隐式装箱 passInt，但会在离开 &#39;for (let i &lt; m.ParamCount)&#39; 循环后被删除 */</span>
+					<span class="cm">/* 而我们需要其在外层 &#34;method&#34; 循环的周期内保持有效，以便 Invoke() 调用 */</span>
+					<span class="n">param</span> <span class="p">=</span> <span class="n">scope</span><span class="p">:</span><span class="n">PARAMS</span> <span class="n">box</span> <span class="n">passInt</span><span class="p">;</span>
+				<span class="k">default</span><span class="p">:</span>
+					<span class="n">param</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+				<span class="p">}</span>
+
+				<span class="n">methodParams</span><span class="na">[i]</span> <span class="p">=</span> <span class="n">param</span><span class="p">;</span>
+			<span class="p">}</span>
+
+			<span class="cm">/* 调用方法并处理结果/返回值。静态方法没有 target */</span>
+			<span class="cm">/* 注意 &#39;Invoke(null, methodParams)&#39; 会将 Object[] 作为唯一参数传入 */</span>
+			<span class="k">switch</span> <span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">params</span> <span class="n">methodParams</span><span class="p">))</span>
+			<span class="p">{</span>
+			<span class="k">case</span> <span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="k">let</span> <span class="n">val</span><span class="p">):</span>
+
+				<span class="cm">/* 处理返回的 int variant */</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">val</span><span class="p">.</span><span class="n">VariantType</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span>
+				<span class="p">{</span>
+					<span class="k">let</span> <span class="n">num</span> <span class="p">=</span> <span class="n">val</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+					<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">scope</span> <span class="s">$&#34;Method {m.Name} returned {num}&#34;</span><span class="p">);</span>
+				<span class="p">}</span>
+
+			<span class="k">case</span> <span class="p">.</span><span class="n">Err</span><span class="p">:</span>
+				<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">scope</span> <span class="s">$&#34;无法调用方法 {m.Name}&#34;</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* 输出：
+</span><span class="cm">	I am now number 14
+</span><span class="cm">	Method GiveMeFive returned 5
+</span><span class="cm">	8: A nice string message
+</span><span class="cm">*/</span>
+</code></pre></div>
+<h3 id="从接口反射">从接口反射</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 实现该接口的所有类型都会启用动态装箱 */</span><span class="na">
+</span><span class="na">[Reflect(.None, ReflectImplementer=.DynamicBoxing)]</span>
+<span class="k">interface</span> <span class="n">ISerializable</span>
+<span class="p">{</span>
+	<span class="k">void</span> <span class="n">Serialize</span><span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span> <span class="nn">System</span>
+<span class="p">{</span>
+	<span class="n">extension</span> <span class="n">StringView</span> <span class="p">:</span> <span class="n">ISerializable</span>
+	<span class="p">{</span>
+		<span class="k">void</span> <span class="n">ISerializable</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">stream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">mLength</span><span class="p">);</span>
+			<span class="n">stream</span><span class="p">.</span><span class="n">TryWrite</span><span class="p">(.((</span><span class="n">uint8</span><span class="p">*)</span><span class="n">mPtr</span><span class="p">,</span> <span class="n">mLength</span><span class="p">));</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Serializer</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="n">Serialize</span><span class="p">(</span><span class="n">Variant</span> <span class="n">v</span><span class="p">,</span> <span class="n">Stream</span> <span class="n">stream</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">ISerializable</span> <span class="n">iSerializable</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">IsObject</span><span class="p">)</span>
+			<span class="n">iSerializable</span> <span class="p">=</span> <span class="n">v</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">Object</span><span class="p">&gt;()</span> <span class="k">as</span> <span class="n">ISerializable</span><span class="p">;</span>
+		<span class="k">else</span>
+		<span class="p">{</span>
+			<span class="cm">/* 由于 &#39;ReflectImplementer=.DynamicBoxing&#39; 特性，&#39;v.GetBoxed&#39; 可用于实现 ISerializable 的类型 */</span>
+			<span class="n">iSerializable</span> <span class="p">=</span> <span class="n">v</span><span class="p">.</span><span class="n">GetBoxed</span><span class="p">().</span><span class="n">GetValueOrDefault</span><span class="p">()</span> <span class="k">as</span> <span class="n">ISerializable</span><span class="p">;</span>
+			<span class="n">defer</span><span class="p">::</span> <span class="n">delete</span> <span class="n">iSerializable</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">iSerializable</span><span class="p">?.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="编译期类型枚举">编译期类型枚举</h3>
+
+<p>在编译期通过 <code>Type.Types</code> 枚举类型是不允许的，因为在编译完全结束之前无法得知所有类型的集合。不过可以在编译期枚举工作区的类型*声明*。类型声明不包含泛型实例、数组、元组、可空类型或其他按需类型，也不包含只有在类型闭合后才知道的信息（如大小或成员列表）。类型声明仅在编译期可用，运行时不可用。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="na">[Comptime]</span>
+<span class="kt">int</span> <span class="n">GetSerializableCount</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">count</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">typeDecl</span> <span class="k">in</span> <span class="n">Type</span><span class="p">.</span><span class="n">TypeDeclarations</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">typeDecl</span><span class="p">.</span><span class="n">HasCustomAttribute</span><span class="p">&lt;</span><span class="n">SerializableAttribute</span><span class="p">&gt;())</span>
+			<span class="n">count</span><span class="p">++;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="distinct-build-options">Distinct Build Options</h3>
+
+<p>反射信息可在工作区与项目的 Distinct Build Options 中配置。例如，如果你需要为所有 <code>System.Collection.List&lt;T&gt;</code> 实例反射 <code>Add</code> 与 <code>Remove</code> 方法，可以在 Distinct Build Options 下添加 <code>System.Collections.List&lt;*&gt;</code>：
+    * 将 &ldquo;Reflect\Method Filter&rdquo; 设为 &ldquo;Add;Remove&rdquo;，确保设置仅应用于这些方法
+    * 将 &ldquo;Reflect\Always Include&rdquo; 设为 &ldquo;Include All&rdquo;，确保指定方法即使未被显式使用也会编译进构建
+    * 将 &ldquo;Reflect\Non-Static Methods&rdquo; 设为 &ldquo;Yes&rdquo;，确保指定的非静态方法添加反射信息</p>
+
+<p>Distinct Build Options 过滤器支持：
+    * 类型名匹配（如 <code>System.Collections.List&lt;*&gt;</code>）
+    * 类型特性匹配（如 <code>[System.Optimize]</code>）
+    * 接口实现匹配（如 <code>:System.IDisposable</code>）</p>
+
+<h3 id="动态装箱">动态装箱</h3>
+
+<p><code>Variant.GetBoxed</code> 可用于动态创建堆分配的装箱对象。如果编译器未通过按需编译或反射选项生成存储值类型的盒类型（如为值类型标注 <code>[Reflect(.DynamicBoxing)]</code> 或在 Distinct Build Options 中设置 &ldquo;Dynamic Boxing&rdquo;），则调用会失败。</p>
+
+<h3 id="常见反射问题">常见反射问题</h3>
+
+<p>Beef 致力于生成尽可能小的可执行文件——一个 “Hello World” 程序理想情况下只应包含打印 “Hello World” 所需的最小机器码和数据。如果你为该程序增加功能，让用户传入类型名与方法名，并期望基于反射信息构造该类型并调用该方法，那么除非可执行文件包含 corlib 中每个方法的机器码和反射信息，否则显然无法实现，这将违背“最小二进制”的目标。</p>
+
+<p>首先，Beef 按需包含类型，因此未被程序直接使用的类型不会包含在构建中。可添加 <code>[AlwaysInclude]</code> 特性强制在所有构建中包含该类型。如果需要动态构造该类型，使用 <code>[AlwaysInclude(AssumeInstantiated=true)]</code>。单个方法也会按需编译，但可通过 <code>[AlwaysInclude(IncludeAllMethods=true)]</code> 强制将所有方法编译进构建。</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/BeefDocs/docs/language-guide/generics/" title="泛型"> <i class="fa fa-chevron-left"></i><label>泛型</label></a>
+    <a class="nav nav-next" href="/BeefDocs/docs/language-guide/literals/" title="字面量" style="margin-right: 0px;"><label>字面量</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/beefytech/Beef_website/edit/master/beef-lang.org/content/language-guide/reflection.md" target="blank"><i class="fa fa-code-fork"></i>
+        </a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/BeefDocs/docs/js/clipboard.min.js"></script>
+
+<link href="/BeefDocs/docs/css/featherlight.min.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/featherlight.min.js"></script>
+
+
+
+<script src="/BeefDocs/docs/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

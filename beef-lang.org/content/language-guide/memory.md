@@ -1,10 +1,10 @@
 +++
-title = "Memory Management"
+title = "内存管理"
 weight = 30
 +++
 
-## Memory Allocation {#allocating}
-Allocations can be placed on the stack, the global allocator, or a custom allocator. Stack allocations use the "scope" keyword, which can specify a scope from the current scope (ie: code block) to the scope of the whole method (even in a loop).
+## 内存分配 {#allocating}
+分配可以发生在栈、全局分配器或自定义分配器上。栈分配使用 "scope" 关键字，可指定从当前作用域（如代码块）到整个方法的作用域（即使在循环中）。
 
 ```C#
 static void Test(StreamReader fs)
@@ -12,7 +12,7 @@ static void Test(StreamReader fs)
 	let strList = scope List<String>();
 	for (let line in fs.Lines)
 	{
-		/* The scope of this string is the whole method */
+		/* 该字符串的作用域为整个方法 */
 		let lineStr = scope:: String(line);
 		strList.Add(lineStr);
 	}
@@ -26,7 +26,7 @@ static void Test(StreamReader fs)
 		let strList = scope List<String>();
 		for (let line in fs.Lines)
 		{
-			/* The scope of this string is the "Sort" scope */
+			/* 该字符串的作用域为 "Sort" 作用域 */
 			let lineStr = scope:Sort String(line);
 			strList.Add(lineStr);
 		}
@@ -35,9 +35,9 @@ static void Test(StreamReader fs)
 }
 ```
 
-Scoped allocations can dynamically increase stack size, and care must be used to ensure enough stack space is available for the given computation, just as recursive methods must ensure recursion depth won't exhaust the stack.
+作用域分配可能动态增加栈大小，需要确保为给定计算提供足够的栈空间，就像递归方法必须保证递归深度不会耗尽栈一样。
 
-Allocations through the global allocator use the "new" keyword.
+通过全局分配器分配使用 "new" 关键字。
 
 ```C#
 String AllocGlobalString(int len)
@@ -46,7 +46,7 @@ String AllocGlobalString(int len)
 }
 ```
 
-Allocations through a custom allocator uses the "new" keyword with a custom allocator instance specified.
+通过自定义分配器分配时，使用带自定义分配器实例的 "new" 关键字。
 ```C#
 String AllocCustomString(int len)
 {
@@ -54,7 +54,7 @@ String AllocCustomString(int len)
 }
 ```
 
-At minimum, a custom allocator must implement only a single `Alloc` method, but an `AllocTyped` method can be added to add type-specific allocation logic. Memory is freed through a `Free` method.
+自定义分配器最少只需实现一个 `Alloc` 方法，但可额外实现 `AllocTyped` 方法以添加类型特定的分配逻辑。内存通过 `Free` 方法释放。
 ```C#
 struct ArenaAlloc
 {
@@ -78,14 +78,14 @@ struct ArenaAlloc
 
 	public void MarkRequiresDeletion(void* obj)
 	{
-		/* TODO: call this object's destructor when the allocator is disposed */
+		/* TODO: 当分配器释放时调用该对象的析构函数 */
 	}
 }
 ```
 
-Note that if realtime leak checking is enabled and custom allocators utilize memory that isn't already tracked by the leak checker, the allocator will need to report its memory for scanning for object references. See the corlib BumpAllocator for an example of how to cooperate with the leak checker, in particular the 'GCMarkMembers' method.
+注意：若启用了实时泄漏检查，而自定义分配器使用的内存未被泄漏检查器追踪，则分配器需要报告其内存以便扫描对象引用。可参考 corlib 的 BumpAllocator，特别是其中的 'GCMarkMembers' 方法，了解如何与泄漏检查器协作。
 
-Custom allocations can also allocate through [mixins]({{< ref "language-guide/datatypes/members.md#mixins" >}}), which can even allow for conditionally allocating on the stack. The ScopedAlloc mixin, for example, will perform small allocations on the stack and large objects on the heap.
+自定义分配也可通过 [mixin]({{< ref "language-guide/datatypes/members.md#mixins" >}}) 进行，甚至可以根据条件在栈上分配。例如 ScopedAlloc mixin 会在栈上进行小规模分配，在堆上分配较大对象。
 ```C#
 static mixin ScopedAlloc(int size, int align)
 {
@@ -110,20 +110,20 @@ void ReadString(int reserveLen)
 }
 ```
 
-Note the use of `delete:null` in the case above. The `ScopedAlloc!` call will release the actual memory that is allocated, but it will not call the String destructor. If `UseString` were to append additional data to `str` that extends beyond `reserveLen`, a heap allocation would occur which would need to be freed by the `String` destructor. The `delete:null` allows you to perform that destruction without requesting the release of any memory.
+注意上述示例中使用了 `delete:null`。`ScopedAlloc!` 调用会释放实际分配的内存，但不会调用 String 的析构函数。如果 `UseString` 向 `str` 追加了超过 `reserveLen` 的数据，则会发生堆分配，需要由 `String` 析构函数释放。`delete:null` 允许你执行析构而不请求释放任何内存。
 
-Many corlib classes such as [System.String](../../doxygen/corlib/html/class_system_1_1_string.html) and [System.Collections.List<T>](../../doxygen/corlib/html/class_system_1_1_collections_1_1_list.html) need to dynamically allocate memory. By convention, these classes allocate from the global allocator, and they support custom allocator for their internal allocations through virtual method overrides such as `String.Alloc` and `String.Free`.
+许多 corlib 类（如 [System.String](../../doxygen/corlib/html/class_system_1_1_string.html) 和 [System.Collections.List<T>](../../doxygen/corlib/html/class_system_1_1_collections_1_1_list.html)）需要动态分配内存。按惯例，这些类从全局分配器分配，并通过 `String.Alloc`、`String.Free` 等虚方法重写支持其内部使用自定义分配器。
 
-### Global allocator
-The global allocator is selected on a per-workspace basis. By default, the CRT malloc/free allocators are used, but any C-style global allocator can be used, such as TCMalloc or JEMalloc. In addition, Beef contains a special debug allocator which enables features such as real-time leak checking and hot compilation.
+### 全局分配器
+全局分配器以工作区为单位选择。默认使用 CRT malloc/free 分配器，但也可使用任意 C 风格全局分配器，如 TCMalloc 或 JEMalloc。此外，Beef 还提供特殊的调试分配器，用于实时泄漏检查与热编译等功能。
 
-Beef allocations are C-style in that they are non-relocatable and there is no garbage collector.
+Beef 的分配是 C 风格的：不可移动，且没有垃圾回收器。
 
-### Releasing memory
-Scoped allocations are automatically released at the end of the scope, but manual allocations must be manually released with the "delete" keyword. Similarly as with custom allocator allocations, the delete can specify a custom allocator target for releasing memory from custom allocators.
+### 释放内存
+作用域分配会在作用域结束时自动释放，但手动分配必须使用 "delete" 关键字手动释放。与自定义分配器分配类似，delete 也可以指定自定义分配器目标来释放该分配器的内存。
 
-### Append allocations {#append}
-Append allocations are a special category of allocations that can be placed in constructors, which can manually request additional memory to be allocated along with the allocation of the owning object. This is used in corlib for strings that accept a "size" argument and such.
+### 追加分配 {#append}
+追加分配是一类可放在构造函数中的特殊分配，可在分配所属对象时手动请求额外内存。这在 corlib 中用于接受 "size" 参数的字符串等场景。
 
 ```C#
 class FloatArray
@@ -140,8 +140,8 @@ class FloatArray
 	}
 }
 
-/* Append allocations are guaranteed to occur immediately after the object's own memory (with respect to alignment). We can use this knowledge to calculate the storage location of the array rather than storing it internally. Note the "ZeroGap" property being used here, which ensures that no classes can extend this type and add
-additional fields which would invalidate our append location assumption. */
+/* 追加分配保证紧随对象自身内存之后（考虑对齐）。我们可以利用这一点计算数组存储位置，而不需要在内部保存指针。
+注意这里使用了 "ZeroGap" 属性，确保没有类能扩展该类型并添加字段，从而破坏追加位置的假设。 */
 class FloatArray
 {
 	int mLength;
@@ -164,20 +164,20 @@ class FloatArray
 
 ```
 
-Internally, append allocations work by creating a size-calculation function that is called before the allocation occurs. The compiler will attempt to perform constant evaluation on this function and the relevant arguments at the callsite, and can result in a fixed-sized allocation rather than a dynamic-sized one, which removed the extra call and can also be faster for some stack allocations.
+在内部，追加分配通过在分配发生前调用尺寸计算函数来实现。编译器会尝试对该函数及其在调用点的相关参数进行常量求值，从而得到固定大小的分配而非动态大小分配，这样可省去额外调用，并可能提升某些栈分配的性能。
 
-Append-allocated memory does not need to be explicitly released, but object destructors can still be called via a `delete:append obj` statement.
+追加分配的内存不需要显式释放，但仍可通过 `delete:append obj` 语句调用对象析构函数。
 
-### Boxing {#boxing}
-All value types (primitives, structs, tuples, pointers, enums) can be 'boxed' into an Object, which can be useful for dynamic type handling and interface dispatching. Primitive types all have library-defined struct wrappers that are used for boxing (ie: the int32 primitive gets wrapped by System.Int32). Boxing is an allocating operation which implicitly occurs as a temporary stack allocation on a cast to System.Object, but long-term boxing and longer-lived stack allocations can be explicitly specified. When a valuetype is boxed, a special "box type" is statically generated that wraps around the given valuetype. This incurs some code bloat, which is why these box types are only generated on demand per valuetype.
+### 装箱 {#boxing}
+所有值类型（基础类型、结构体、元组、指针、枚举）都可“装箱”为 Object，这对于动态类型处理与接口派发很有用。基础类型都对应库内定义的结构体包装，用于装箱（例如 int32 会被 System.Int32 包装）。装箱是分配操作，转换为 System.Object 时会隐式进行临时栈分配，但也可显式指定长期装箱与更长生命周期的栈分配。装箱值类型时，会静态生成一个包裹该值类型的特殊“盒类型”。这会带来一定代码膨胀，因此这些盒类型按需为每个值类型生成。
 
 ```C#
-// Format calls rely on boxing to handle incoming types
+// 格式化调用依赖装箱以处理传入类型
 Console.WriteLine("a + b = {}", a + b);
-Object a = 1.2f; // Implicitly boxed on stack to current scope on
-Object b = scope box:: 2.3f; // Explicitly boxed on stack to method scope
-Object c = new:allok box 4.5f; // Explicitly boxed through a custom allocator 'allok'
+Object a = 1.2f; // 隐式在栈上装箱到当前作用域
+Object b = scope box:: 2.3f; // 显式在栈上装箱到方法作用域
+Object c = new:allok box 4.5f; // 通过自定义分配器 'allok' 显式装箱
 ```
 
-### Variants
-The variant type `System.Variant` is an alternative to boxing. A variant is not an object type, and thus cannot perform dynamic interface dispatching, but a variant has the advantage that it can store small data types without allocation and it does not incur boxing code bloat. A variant can be converted into a heap-allocated boxed object via `Variant.GetBoxed`, but it will fail if the compiler hasn't generated an on-demand box type for the stored valuetype. Boxed type generation can be specifically requested via [reflection options]({{< ref "reflection.md" >}}).
+### Variant
+`System.Variant` 是装箱的替代方案。Variant 不是对象类型，因此无法进行动态接口派发，但其优势是可在不分配的情况下存储小型数据类型，且不会产生装箱代码膨胀。Variant 可通过 `Variant.GetBoxed` 转换为堆分配的装箱对象，但如果编译器尚未为存储的值类型生成按需盒类型，该操作会失败。可通过 [反射选项]({{< ref "reflection.md" >}}) 明确请求生成盒类型。

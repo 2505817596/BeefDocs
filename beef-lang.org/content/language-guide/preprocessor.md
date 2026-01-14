@@ -1,42 +1,42 @@
 +++
-title = "Preprocessor"
+title = "预处理器"
 weight=75
 +++
 
-## Preprocessor
-The Beef preprocessor is intended for conditionally including blocks of text before the parser runs over it and modifying warning options. It is much less flexible than the C preprocessor and cannot be used for implementing macros or for other "code generation" purposes.
+## 预处理器
+Beef 预处理器用于在解析器运行前按条件包含文本块并修改警告选项。它比 C 预处理器灵活性低，不能用于实现宏或其他“代码生成”用途。
 
-* #define <X> - sets the symbol value "X" to true 
-* #endif - ends a #if, #else, or #elif block
-* #else - processes the block down to the next #endif if the previous #if/#elif was false 
-* #elif <X> - processes the block down to the next #endif if the previous #if/#elif was false and "X" is true
-* #error <Message> - Created error at parse time
-* #if <X> - processes the block down to the next #endif if "X" is true
-* #pragma format disable - disable formatting
-* #pragma format restore - restore formatting
-* #pragma warning disable <X> - disable warning number X
-* #pragma warning restore <X> - restore warning number X
-* #undef <X> - sets the symbol value "X" to false
-* #unwarn - disables the warning on the next source code line.
-* #warn <Message> - Creates warning at parse time
+* #define <X> - 将符号 "X" 设为 true
+* #endif - 结束 #if、#else 或 #elif 块
+* #else - 若前一 #if/#elif 为 false，则处理直到下一个 #endif
+* #elif <X> - 若前一 #if/#elif 为 false 且 "X" 为 true，则处理直到下一个 #endif
+* #error <Message> - 在解析时创建错误
+* #if <X> - 若 "X" 为 true，则处理直到下一个 #endif
+* #pragma format disable - 禁用格式化
+* #pragma format restore - 恢复格式化
+* #pragma warning disable <X> - 禁用编号为 X 的警告
+* #pragma warning restore <X> - 恢复编号为 X 的警告
+* #undef <X> - 将符号 "X" 设为 false
+* #unwarn - 禁用下一行源代码的警告
+* #warn <Message> - 在解析时创建警告
 
-## Built-in preprocessor symbols
+## 内置预处理器符号
 
-* BF_32_BIT - Is targeting 32-bit target
-* BF_64_BIT - Is targeting 64-bit target
-* BF_ALLOW_HOT_SWAPPING - Code hot swapping is enabled
-* BF_DEBUG_ALLOC - The debug allocator is being used
-* BF_DYNAMIC_CAST_CHECK - Dynamic cast checks are enabled
-* BF_ENABLE_OBJECT_DEBUG_FLAGS - Objects have debug flags in their header
-* BF_ENABLE_REALTIME_LEAK_CHECK - Real-time leak checking is enabled
-* BF_HAS_VDATA_EXTENDER - Classes have vdata extenders (for extending the vtable during hot swapping)
-* BF_LARGE_COLLECTIONS - Large collections (>1GB) are enabled
-* BF_LARGE_STRINGS - Large strings (>1GB) are enabled
-* BF_LITTLE_ENDIAN - Target is little endian
-* BF_PLATFORM_IOS - iOS target
-* BF_PLATFORM_LINUX - Linux target
-* BF_PLATFORM_MACOS - macOS target
-* BF_PLATFORM_WINDOWS - Windows target
-* BF_RUNTIME_CHECKS - Runtime checks are enabled (such as bounds checks)
-* BF_TEST_BUILD - The current build is a 'test' build
-* DEBUG - The current build is a 'debug' debug
+* BF_32_BIT - 目标为 32 位
+* BF_64_BIT - 目标为 64 位
+* BF_ALLOW_HOT_SWAPPING - 启用热代码替换
+* BF_DEBUG_ALLOC - 使用调试分配器
+* BF_DYNAMIC_CAST_CHECK - 启用动态转换检查
+* BF_ENABLE_OBJECT_DEBUG_FLAGS - 对象头包含调试标志
+* BF_ENABLE_REALTIME_LEAK_CHECK - 启用实时泄漏检查
+* BF_HAS_VDATA_EXTENDER - 类带有 vdata 扩展器（用于热替换期间扩展 vtable）
+* BF_LARGE_COLLECTIONS - 启用大集合（>1GB）
+* BF_LARGE_STRINGS - 启用大字符串（>1GB）
+* BF_LITTLE_ENDIAN - 目标为小端
+* BF_PLATFORM_IOS - iOS 目标
+* BF_PLATFORM_LINUX - Linux 目标
+* BF_PLATFORM_MACOS - macOS 目标
+* BF_PLATFORM_WINDOWS - Windows 目标
+* BF_RUNTIME_CHECKS - 启用运行时检查（如越界检查）
+* BF_TEST_BUILD - 当前构建为 'test' 构建
+* DEBUG - 当前构建为 'debug' 构建

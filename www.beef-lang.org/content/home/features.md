@@ -5,15 +5,15 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 
 img0 = "img/screen0.png"
-txt0 = "<h2>Custom IDE</h2>The Beef Development Tools include an IDE with a general-purpose debugger capable of debugging native applications written in any language."
+txt0 = "<h2>自定义 IDE</h2>Beef 开发工具包含一个 IDE，内置通用调试器，可调试任何语言编写的原生应用。"
 
 img1 = "img/screen1.gif"
-txt1 = "<h2>Productivity Features</h2>The IDE supports productivity features such as autocomplete, fixits, reformatting, refactoring tools, type inspection, hot compilation, and a built-in profiler."
+txt1 = "<h2>生产力特性</h2>IDE 支持自动补全、修复建议、重排格式、重构工具、类型检查、热编译和内置分析器等功能。"
 
 img2 = "img/screen2.png"
-txt2 = "<h2>Mixed Builds</h2>Beef allows for safely mixing different optimization levels on a per-type or per-method level, allowing for performance-critical code to be executed at maximum speed without affecting debuggability of the rest of the application."
+txt2 = "<h2>混合构建</h2>Beef 允许在类型或方法级别安全地混用不同的优化级别，使性能关键代码以最高速度运行，同时不影响应用其余部分的可调试性。"
 
 img3 = "img/screen3.png"
-txt3 = "<h2>Real-time Leak Detection</h2>Beef can detect memory leaks in real-time. As with most safety features in Beef, this can be turned off in Release builds for performance-critical applications."
+txt3 = "<h2>实时泄漏检测</h2>Beef 可实时检测内存泄漏。与 Beef 的多数安全特性一样，出于性能考虑，Release 构建中可关闭此功能。"
 
 +++

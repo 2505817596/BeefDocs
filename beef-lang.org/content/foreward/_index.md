@@ -1,35 +1,35 @@
 +++
-title = "Introduction"
+title = "简介"
 weight = 1
 +++
 
-## Beef Overview
+## Beef 概览
 
-Beef is a performance-oriented statically-compiled programming language. The language and environment focus on developer productivity, and careful attention has been paid to the holistic pleasurability of developing, debugging, and maintaining Beef applications. The intended audience is the performance-minded developer who values simplicity, code readability, fast development iteration, and good debuggability.
+Beef 是一门面向性能、静态编译的编程语言。其语言与环境以开发者生产力为核心，并在开发、调试和维护 Beef 应用的整体体验上投入了大量打磨。目标用户是重视性能、简洁性、代码可读性、快速迭代以及良好可调试性的开发者。
 
-## Design goals
-* High performance execution
- * No GC or ref counting overhead
- * Minimal runtime 
- * Compiled (no JIT delays)
-* Control over memory
- * Extensive support for custom allocators
- * Enhanced control over stack memory
-* Low-friction interop with C and C++
- * Statically or dynamically link to normal C/C++ libraries
- * Support for C/C++ structure layouts and calling conventions
-* Prefer verbosity over conciseness when it aides clarity, readability, or discoverability
-* Enable fluid iterative development
- * Fast incremental compilation and linking
- * Runtime code compilation (code hot swapping), including data layout changes
-* Familiar syntax and programming paradigms for intended audience (C-family)
-* Good debugability
- * Emits standard debug information (PDB/DWARF)
- * Emphasis on good execution speed of debug builds
-* Well-suited to IDE-based workflow
- * Compiler as a service
- * Fast and reliable autocomplete results
- * Fast and trustworthy refactorability (ie: renaming symbols)
-* Leverage LLVM infrastructure
- * Battle-hardened backend optimizer
- * ThinLTO link time optimization support 
+## 设计目标
+* 高性能执行
+ * 无 GC 或引用计数开销
+ * 运行时最小化
+ * 编译执行（无 JIT 延迟）
+* 内存可控
+ * 广泛支持自定义分配器
+ * 增强对栈内存的控制
+* 与 C/C++ 低摩擦互操作
+ * 可静态或动态链接常规 C/C++ 库
+ * 支持 C/C++ 结构体布局与调用约定
+* 当冗长有助于清晰、可读或可发现性时，宁可冗长而非过度简洁
+* 支持流畅的迭代式开发
+ * 快速增量编译与链接
+ * 运行时代码编译（热代码替换），支持数据布局变化
+* 面向目标用户的熟悉语法与编程范式（C 系）
+* 良好可调试性
+ * 生成标准调试信息（PDB/DWARF）
+ * 强调调试构建的执行速度
+* 非常适合 IDE 工作流
+ * 编译器即服务
+ * 快速且可靠的自动补全
+ * 快速且可靠的重构能力（如符号重命名）
+* 利用 LLVM 基础设施
+ * 久经考验的后端优化器
+ * 支持 ThinLTO 链接时优化

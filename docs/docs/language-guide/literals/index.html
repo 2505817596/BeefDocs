@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beef 编程语言</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2026-01-14T11:04:40 CST">
+<title>字面量 :: Beef 编程语言</title>
+<link rel="shortcut icon" href="/BeefDocs/docs/images/favicon.png" type="image/x-icon" />
+<link href="/BeefDocs/docs/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BeefDocs/docs/css/nucleus.css" rel="stylesheet">
+<link href="/BeefDocs/docs/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/BeefDocs/docs/css/bootstrap.min.css">
+<link href="/BeefDocs/docs/css/syntax.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/BeefDocs/docs/language-guide/literals/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="/">Beef 编程语言</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/BeefDocs/docs/" class="dd-item">
+          <a href="/BeefDocs/docs/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/BeefDocs/docs/releases/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/releases/">发布说明</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_0/">
+            版本 0.42.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_1/">
+            版本 0.42.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_2/">
+            版本 0.42.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_3/">
+            版本 0.42.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_4/">
+            版本 0.42.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_5/">
+            版本 0.42.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_6/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_6/">
+            版本 0.42.6
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_7/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_7/">
+            版本 0.42.7
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_8/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_8/">
+            版本 0.42.8
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_0/">
+            版本 0.43.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_1/">
+            版本 0.43.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_2/">
+            版本 0.43.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_3/">
+            版本 0.43.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_4/">
+            版本 0.43.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_5/">
+            版本 0.43.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/foreward/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/foreward/">简介</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/license/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/license/">许可证</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/getting-start/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/getting-start/">入门指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/getting-start/installation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/installation/">
+            安装
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/getting-start/building/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/building/">
+            从源码构建
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/">语言指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/basics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/basics/">
+            基础知识
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/safety/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/safety/">
+            安全特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/memory/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/memory/">
+            内存管理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/namespaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/namespaces/">
+            命名空间
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/datatypes/">数据类型</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interfaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interfaces/">
+            接口
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/statements/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/statements/">
+            语句
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/expressions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/expressions/">
+            表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interop/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interop/">
+            互操作
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/generics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/generics/">
+            泛型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/reflection/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/reflection/">
+            反射
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/literals/" class="dd-item active">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/literals/">
+            字面量
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/pattern/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/pattern/">
+            模式匹配
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/operators/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/operators/">
+            运算符
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/errors/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/errors/">
+            错误处理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/preprocessor/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/preprocessor/">
+            预处理器
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/strings/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/strings/">
+            字符串
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/typerefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/typerefs/">
+            类型引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/comptime/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/comptime/">
+            编译期（Comptime）
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/corlib/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/corlib/">核心库</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/projects/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/projects/">项目与工作区</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/platforms/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/platforms/">平台</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/ide/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/ide/">IDE</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/ide/themes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/themes/">
+            主题
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/codegeneration/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/codegeneration/">
+            代码生成
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/commandline/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/commandline/">
+            命令行参数
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/profiling/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/profiling/">
+            性能分析
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/documentation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/documentation/">
+            文档
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/hotcompile/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/hotcompile/">
+            热编译
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/watch/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/watch/">
+            调试器表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/beefbuild/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/beefbuild/">BeefBuild</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/packman/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/packman/">包管理器</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/testing/">测试</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/faq/">常见问题</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/BeefDocs/docs/releases/" >
+   发布说明</option>
+    <option value="/BeefDocs/docs/foreward/" >
+   简介</option>
+    <option value="/BeefDocs/docs/license/" >
+   许可证</option>
+    <option value="/BeefDocs/docs/getting-start/" >
+   入门指南</option> 
+      <option value="/BeefDocs/docs/getting-start/installation/" >- 安装</option>
+      <option value="/BeefDocs/docs/getting-start/building/" >- 从源码构建</option>
+  
+    <option value="/BeefDocs/docs/language-guide/" >
+   语言指南</option> 
+      <option value="/BeefDocs/docs/language-guide/basics/" >- 基础知识</option>
+      <option value="/BeefDocs/docs/language-guide/safety/" >- 安全特性</option>
+      <option value="/BeefDocs/docs/language-guide/memory/" >- 内存管理</option>
+      <option value="/BeefDocs/docs/language-guide/namespaces/" >- 命名空间</option>
+    <option value="/BeefDocs/docs/language-guide/datatypes/" >
+  - 
+   数据类型</option> 
+      <option value="/BeefDocs/docs/language-guide/datatypes/members/" >-- 类型成员</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/attributes/" >-- 特性</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/initialization/" >-- 初始化</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/extensions/" >-- 扩展</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/anon/" >-- 匿名类型</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/globals/" >-- 全局</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/methodrefs/" >-- 方法引用</option>
+  
+      <option value="/BeefDocs/docs/language-guide/interfaces/" >- 接口</option>
+      <option value="/BeefDocs/docs/language-guide/statements/" >- 语句</option>
+      <option value="/BeefDocs/docs/language-guide/expressions/" >- 表达式</option>
+      <option value="/BeefDocs/docs/language-guide/interop/" >- 互操作</option>
+      <option value="/BeefDocs/docs/language-guide/generics/" >- 泛型</option>
+      <option value="/BeefDocs/docs/language-guide/reflection/" >- 反射</option>
+      <option value="/BeefDocs/docs/language-guide/literals/"  selected>- 字面量</option>
+      <option value="/BeefDocs/docs/language-guide/pattern/" >- 模式匹配</option>
+      <option value="/BeefDocs/docs/language-guide/operators/" >- 运算符</option>
+      <option value="/BeefDocs/docs/language-guide/errors/" >- 错误处理</option>
+      <option value="/BeefDocs/docs/language-guide/preprocessor/" >- 预处理器</option>
+      <option value="/BeefDocs/docs/language-guide/strings/" >- 字符串</option>
+      <option value="/BeefDocs/docs/language-guide/typerefs/" >- 类型引用</option>
+      <option value="/BeefDocs/docs/language-guide/comptime/" >- 编译期（Comptime）</option>
+  
+    <option value="/BeefDocs/docs/corlib/" >
+   核心库</option>
+    <option value="/BeefDocs/docs/projects/" >
+   项目与工作区</option> 
+  
+    <option value="/BeefDocs/docs/platforms/" >
+   平台</option> 
+  
+    <option value="/BeefDocs/docs/ide/" >
+   IDE</option> 
+      <option value="/BeefDocs/docs/ide/themes/" >- 主题</option>
+      <option value="/BeefDocs/docs/ide/codegeneration/" >- 代码生成</option>
+      <option value="/BeefDocs/docs/ide/commandline/" >- 命令行参数</option>
+      <option value="/BeefDocs/docs/ide/profiling/" >- 性能分析</option>
+      <option value="/BeefDocs/docs/ide/documentation/" >- 文档</option>
+      <option value="/BeefDocs/docs/ide/hotcompile/" >- 热编译</option>
+      <option value="/BeefDocs/docs/ide/watch/" >- 调试器表达式</option>
+  
+    <option value="/BeefDocs/docs/beefbuild/" >
+   BeefBuild</option>
+    <option value="/BeefDocs/docs/packman/" >
+   包管理器</option>
+    <option value="/BeefDocs/docs/testing/" >
+   测试</option>
+    <option value="/BeefDocs/docs/faq/" >
+   常见问题</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="">
+        </div>
+        <script type="text/javascript" src="/BeefDocs/docs/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/auto-complete.js"></script>
+        <link href="/BeefDocs/docs/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+          
+        </script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/search.js"></script>
+      </div>
+    
+
+    <h1>字面量</h1>
+    
+    
+    
+    
+
+<h2 id="整数字面量">整数字面量</h2>
+
+<p>整数可以用十进制、十六进制、八进制或二进制表示。此外，分隔符字符 <code>'</code>（单引号）可按需要分隔数字。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">// Decimal numbers
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">dec</span> <span class="p">=</span> <span class="m">1234</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">dec2</span> <span class="p">=</span> <span class="m">12</span><span class="err">&#39;</span><span class="m">345</span><span class="err">&#39;</span><span class="m">678</span><span class="p">;</span>
+
+<span class="c1">// Hexadecimal
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">hex</span> <span class="p">=</span> <span class="m">0</span><span class="n">x12345678</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">hex2</span> <span class="p">=</span> <span class="m">0</span><span class="n">x1235</span><span class="err">&#39;</span><span class="m">5678</span><span class="p">;</span>
+
+<span class="c1">// Octal
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">oct</span> <span class="p">=</span> <span class="m">0</span><span class="n">o666</span><span class="p">;</span>
+
+<span class="c1">// Binary
+</span><span class="c1"></span><span class="n">uint32</span> <span class="n">bin</span> <span class="p">=</span> <span class="m">0</span><span class="n">b</span><span class="err">&#39;</span><span class="m">1111</span><span class="err">&#39;</span><span class="m">0000</span><span class="err">&#39;</span><span class="m">1111</span><span class="err">&#39;</span><span class="m">0000</span><span class="p">;</span>
+</code></pre></div>
+<p>可通过后缀显式指定大小与有符号性。除非使用大小后缀或至少包含一个分隔符字符，否则整数字面量默认限制为 32 位。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">let</span> <span class="n">val</span> <span class="p">=</span> <span class="m">123</span><span class="n">U</span><span class="p">;</span> <span class="c1">// Results in an &#39;uint&#39;
+</span><span class="c1"></span><span class="k">let</span> <span class="n">val2</span> <span class="p">=</span> <span class="m">234L</span><span class="p">;</span> <span class="c1">// Results in an &#39;int64&#39;
+</span><span class="c1"></span><span class="k">let</span> <span class="n">val3</span> <span class="p">=</span> <span class="m">0</span><span class="n">x12</span><span class="err">&#39;</span><span class="m">34567890</span><span class="p">;</span> <span class="c1">// Results in an `int64`
+</span><span class="c1"></span><span class="k">let</span> <span class="n">val4</span> <span class="p">=</span> <span class="m">0</span><span class="n">x1234567890</span><span class="p">;</span> <span class="c1">// ERROR- either an &#39;L&#39; or &#39;`&#39; is required
+</span></code></pre></div>
+<p>当未使用大小后缀时，整数字面量本身没有固定大小，其大小取决于使用上下文：</p>
+
+<ul>
+<li>整数字面量可隐式转换为任何可容纳该值的整数类型。</li>
+<li>作为重载方法的参数时，会选择可适用的最小整数类型的方法。</li>
+<li>若无法确定具体整数类型，则依次使用能容纳该值的第一个类型：int、uint、int64、uint64。</li>
+</ul>
+
+<h2 id="浮点数字面量">浮点数字面量</h2>
+
+<p>浮点数字面量默认为 <code>double</code>，除非以 <code>f</code> 结尾。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">let</span> <span class="n">f</span> <span class="p">=</span> <span class="m">1.2f</span><span class="p">;</span> <span class="c1">// Float
+</span><span class="c1"></span><span class="k">let</span> <span class="n">d</span> <span class="p">=</span> <span class="m">2.3</span><span class="p">;</span> <span class="c1">// Double
+</span></code></pre></div>
+<h2 id="布尔字面量">布尔字面量</h2>
+
+<p>布尔字面量为 <code>true</code> 或 <code>false</code>。</p>
+
+<h2 id="string">字符串字面量</h2>
+
+<p>字符串可为单行或多行，也可为原始或转义字符串。原始字符串允许直接包含反斜杠字符，而不会被解释为“特殊字符”序列的起始。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">String</span> <span class="n">str</span> <span class="p">=</span> <span class="s">&#34;Normal string&#34;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">str2</span> <span class="p">=</span> <span class="s">@&#34;Raw string with \ slashes&#34;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">str3</span> <span class="p">=</span> 
+	<span class="s">&#34;&#34;&#34;
+</span><span class="s"></span>	<span class="n">Multiline</span> <span class="kt">string</span> <span class="n">literal</span>
+		<span class="n">with</span> <span class="n">a</span> <span class="n">tabbed</span> <span class="n">second</span> <span class="n">line</span><span class="p">;</span>
+	<span class="s">&#34;&#34;&#34;;
+</span><span class="s"></span><span class="n">String</span> <span class="n">str4</span> <span class="p">=</span> 
+	<span class="s">@&#34;&#34;&#34;
+</span><span class="s">	Multiline raw string literal
+</span><span class="s">	with embedded \slashes\;
+</span><span class="s">	&#34;&#34;&#34;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">str</span> <span class="p">=</span> <span class="n">scope</span> <span class="err">$</span><span class="s">$&#34;&#34;&#34;
+</span><span class="s">	/* The &#39;$$&#39; means embedded values need to be wrapped with {{ }}, allowing us to not escape { and } for normal text. */
+</span><span class="s">	/* If we used `$$$` then values would need {{{ }}} */
+</span><span class="s">	void SetDefault()
+</span><span class="s">	{
+</span><span class="s">		{{fieldName}} = default;
+</span><span class="s">	}
+</span><span class="s">	&#34;&#34;&#34;</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="字符字面量">字符字面量</h2>
+
+<p>字符字面量可为 char8 或 char32，取决于其数值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">let</span> <span class="n">c</span> <span class="p">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span> <span class="c1">//char8
+</span><span class="c1"></span><span class="k">let</span> <span class="n">c</span> <span class="p">=</span> <span class="sc">&#39;🐱&#39;</span><span class="p">;</span> <span class="c1">//char32 
+</span></code></pre></div>
+<h2 id="字符串与字符字面量中的特殊字符">字符串与字符字面量中的特殊字符</h2>
+
+<ul>
+<li>\0 - 空字符</li>
+<li>\\ - 反斜杠</li>
+<li>\u{n} - Unicode 字符</li>
+<li>\xNN - 十六进制字符 0xNN</li>
+<li>\t - 水平制表符</li>
+<li>\n - 换行符</li>
+<li>\r - 回车符</li>
+<li>\&rdquo; - 双引号</li>
+<li>\&rsquo; - 单引号</li>
+</ul>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/BeefDocs/docs/language-guide/reflection/" title="反射"> <i class="fa fa-chevron-left"></i><label>反射</label></a>
+    <a class="nav nav-next" href="/BeefDocs/docs/language-guide/pattern/" title="模式匹配" style="margin-right: 0px;"><label>模式匹配</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/beefytech/Beef_website/edit/master/beef-lang.org/content/language-guide/literals.md" target="blank"><i class="fa fa-code-fork"></i>
+        </a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/BeefDocs/docs/js/clipboard.min.js"></script>
+
+<link href="/BeefDocs/docs/css/featherlight.min.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/featherlight.min.js"></script>
+
+
+
+<script src="/BeefDocs/docs/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

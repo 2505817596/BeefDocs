@@ -4,32 +4,32 @@ alwaysopen = true
 weight = 50
 +++
 
-## Overview
+## 概览
 
-The Beef IDE is specially designed for working for Beef, but includes a general-purpose debugger, suitable for debugging a native application written in any language. 
+Beef IDE 专为 Beef 开发而设计，同时包含通用调试器，适合调试任何语言编写的原生应用。
 
-### IDE features
-* Autocompletion
-* Refactoring tools - symbol rename, fixits, go to definition, find references, etc
-* Navigation tools - class view, dropdown member list, open file in workspace, find in files, etc
-* Hot code changes
-* Spell checker
-* Built-in code testing
-* Code reformatting
-* Program self-debugging API (ie: requesting profiling)
+### IDE 功能
+* 自动补全
+* 重构工具：符号重命名、修复建议、转到定义、查找引用等
+* 导航工具：类视图、成员下拉列表、在工作区打开文件、文件内搜索等
+* 热代码修改
+* 拼写检查
+* 内置代码测试
+* 代码格式化
+* 程序自调试 API（如请求性能分析）
 
-### General debugger features
+### 通用调试器功能
 
-* Launch external executables or attach to existing process
-* Utilize native system debug information (ie: PDB files on Windows)
-* Windows minidump loading
-* Symbol server and source server support
-* Inline debug info support (properly viewing stack traces with inlined methods, step in/out of inlined methods, etc)
-* Debug visualizers (built-in definitions for many C++ STL types)   
-* Autocomplete while typing debug expressions
-* Step filters for stepping over "uninteresting" functions
-* Conditional breakpoints
-* Memory breakpoints
-* Memory viewer
-* Disassembly view
-* Profiler
+* 启动外部可执行文件或附加到现有进程
+* 使用系统原生调试信息（如 Windows 的 PDB 文件）
+* 加载 Windows minidump
+* 支持符号服务器和源码服务器
+* 支持内联调试信息（可正确查看内联方法的栈追踪、进入/跳出内联方法等）
+* 调试可视化器（内置多种 C++ STL 类型的显示定义）
+* 输入调试表达式时自动补全
+* 使用步进过滤器跳过“不感兴趣”的函数
+* 条件断点
+* 内存断点
+* 内存查看器
+* 反汇编视图
+* 性能分析器

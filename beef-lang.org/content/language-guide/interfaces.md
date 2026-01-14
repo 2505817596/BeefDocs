@@ -1,11 +1,11 @@
 +++
-title = "Interfaces"
+title = "接口"
 weight = 41
 +++
 
-## Interface overview
+## 接口概览
 
-Interfaces define property and method requirements that classes or structs can implement. Interfaces can be used to dynamically dispatch, or interfaces can be used as constraints in generic programming (see Generics section).
+接口定义了类或结构体需要实现的属性与方法要求。接口可用于动态派发，也可作为泛型约束使用（参见“泛型”部分）。
 
 ```C#
 interface IDrawable
@@ -44,11 +44,11 @@ public static void DrawGeneric<T>(T val) where T : IDrawable
 }
 ```
 
-### Default method implementations
-Interfaces can define default implementations of methods by adding a body. This can be important for adding methods to existing interfaces without breaking users of those interfaces.
+### 默认方法实现
+接口可通过提供方法体来定义默认实现。这对于向既有接口添加方法而不破坏已有使用者非常重要。
 
-### Concrete returns
-Interfaces methods can be declared to return a concrete implementation of a specific interface. These methods cannot be used for dynamic dispatch since the specific return type is not defined. This is important for allowing returning valuetype instances and for avoiding dynamic method dispatching, which would be required if the implementing method returned an interface instance reference.
+### 具体返回类型
+接口方法可声明为返回某个接口的具体实现类型。由于未定义具体返回类型，此类方法无法用于动态派发。这有助于返回值类型实例，并避免动态方法派发——如果实现方法返回接口实例引用则必须动态派发。
 
 ```C#
 concrete interface IEnumerable<T>

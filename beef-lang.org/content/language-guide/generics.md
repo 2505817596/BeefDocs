@@ -1,13 +1,13 @@
 +++
-title = "Generics"
+title = "泛型"
 weight = 70
 +++
 
-## Generics overview
+## 泛型概览
 
-Generics enable writing of code abstractions which can be applied to different types at compile time. List<T>, for example, is a basic list abstraction which allows for type-safe storage of values. Using a "List<int32>" type reference creates a specialized int32 list type.
+泛型允许在编译期编写可应用于不同类型的抽象代码。例如 List<T> 是一个基础列表抽象，可安全地存储不同类型的值。使用 "List<int32>" 类型引用会创建特化的 int32 列表类型。
 
-Methods can also have generic parameters, allowing for them to be specialized either explicitly or implicitly based on callsite argument types.
+方法也可以拥有泛型参数，从而根据调用点的参数类型进行显式或隐式特化。
 
 ```C#
 public static T GetFirst<T>(List<T> list)
@@ -20,24 +20,24 @@ intList.Add(123);
 let firstVal = GetFirst(intList);
 ```
 
-Generic constraints can be specified, which describe the 'shape' of the type which the generic code is intended to work with.
+可指定泛型约束，用于描述泛型代码所期望的类型“形状”。
 
-- Interface type - any number of interfaces can be specified for a generic parameter. The incoming type must declare implementations for all these interfaces.
-- Class/struct type - a single concrete type can be specified, which the incoming type must derive from.
-- Delegate type - the incoming type can either be an instance of this delegate type, or it can be a method reference whose signature conforms to the delegate (see Method References)
-- `operator T <op> T2` - type must result from binary operation between the specified types
-- `operator <op> T` - type must result from unary operation on the specified
-- `operator implicit T` - type must be implicitly convertible from the specified type
-- `operator explicit T` - type must be explicitly convertible from the specified type
-- `class` - type must be class
-- `struct` - type must be a value type
-- `enum` - type must be an enum
-- `interface` - type must be an interface
-- `struct*` - type must be a pointer to a value type
-- `new` - type must define an accessible default constructor
-- `delete` - type must define an accessible destructor
-- `const` - type must be a constant value - see "Const Generics"
-- `var` - type is unconstrained. This can be useful for certain kinds of "duck typing", and can generate patterns similar to C++ templates, but in general produces less useful errors and a less pleasant development experience
+- 接口类型 - 可为泛型参数指定任意数量的接口，传入类型必须实现这些接口。
+- 类/结构体类型 - 可指定一个具体类型，传入类型必须从其派生。
+- 委托类型 - 传入类型可为该委托类型实例，或为签名符合该委托的方法引用（参见方法引用）。
+- `operator T <op> T2` - 类型必须由指定类型间的二元运算得到
+- `operator <op> T` - 类型必须由指定类型的一元运算得到
+- `operator implicit T` - 类型必须可从指定类型隐式转换得到
+- `operator explicit T` - 类型必须可从指定类型显式转换得到
+- `class` - 类型必须为类
+- `struct` - 类型必须为值类型
+- `enum` - 类型必须为枚举
+- `interface` - 类型必须为接口
+- `struct*` - 类型必须为值类型指针
+- `new` - 类型必须定义可访问的默认构造函数
+- `delete` - 类型必须定义可访问的析构函数
+- `const` - 类型必须为常量值 - 参见“常量泛型”
+- `var` - 类型不受约束。对某些“鸭子类型”场景有用，可生成类似 C++ 模板的模式，但通常会产生不够友好的错误与较差的开发体验
 
 ```C#
 public static T Abs<T>(T value) where T : IOpComparable, IOpNegatable
@@ -81,7 +81,7 @@ static TTo Convert<TTo, TFrom>(TFrom val) where TTo : operator explicit TFrom
 var val = Convert<int...>(1.2f);
 ```
 
-Generic constructors are supported.
+支持泛型构造函数。
 
 ```C#
 class WriteValue

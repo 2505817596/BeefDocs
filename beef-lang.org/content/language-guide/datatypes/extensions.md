@@ -1,14 +1,14 @@
 +++
-title = "Extensions"
+title = "扩展"
 weight = 20
 +++
 
-## Type Extensions
+## 类型扩展
 
-Type definitions can be extended, and a user project can even extend types originally defined in the core library, even adding additional data fields. 
+类型定义可以被扩展，用户项目甚至可以扩展核心库中定义的类型，并添加额外数据字段。
 
 ```C#
-/* Adds a timestamp to thread creation. This can be included in user code anywhere. */
+/* 为线程创建添加时间戳。可在用户代码任意位置包含。 */
 namespace System.Threading
 {
 	extension Thread
@@ -19,7 +19,7 @@ namespace System.Threading
 ```
 
 
-Generic types can be conditionally extended based on matching interface constraints.
+泛型类型可以基于匹配的接口约束进行条件扩展。
 
 ```C#
 namespace System.Collections
@@ -33,7 +33,7 @@ namespace System.Collections
 			T max = this[0];
 			for (let val in this)
 			{
-				// This '>' check would fail without the IOpComparable constraint
+				// 没有 IOpComparable 约束，这个 '>' 检查会失败
 				if (val > max)
 					max = val;
 			}
@@ -43,11 +43,11 @@ namespace System.Collections
 }
 ```
 
-Extensions can be useful for adding interface conformance to types that are outside your control (ie: system types or types defined in another library).
+扩展可用于为不受你控制的类型（如系统类型或其他库中的类型）添加接口一致性。
 
-Note that methods defined in extensions follow dependency visibility rules: a method can only be invoked if the callsite is defined in a project that has a dependency on the project defining the method, or if a generic argument is defined in a project that has a dependency on the project defining the method. This also applies to operator overloads -- if you provide an `operator==` overload for `System.Collections.List<T>`, for example, that overload will not be called on `List<T>` quality comparisons performed within `corlib` or other libraries.
+注意扩展中定义的方法遵循依赖可见性规则：只有当调用点所在项目依赖于定义该方法的项目，或者某个泛型参数所在项目依赖于定义该方法的项目时，方法才可被调用。这同样适用于运算符重载——例如为 `System.Collections.List<T>` 提供 `operator==` 重载时，该重载不会在 `corlib` 或其他库内部对 `List<T>` 的相等比较中被调用。
 
-Extensions can provide constructors, destructors, and field initializers.
+扩展可以提供构造函数、析构函数和字段初始化器。
 
 ```C#
 namespace System.Collections
@@ -56,20 +56,20 @@ namespace System.Collections
 	{		
 		public int mID = GetId();
 
-		/* Visibility of this constructor follows the visibility rules noted above. */
-		/* We still want the root definition's constructor's initialization, so we can still call that. Note that without `[NoExtension]` we would be calling ourselves */
+		/* 此构造函数的可见性遵循上述规则。 */
+		/* 仍需调用根定义的构造函数进行初始化，因此在此调用它。注意若没有 `[NoExtension]` 将会递归调用自身 */
 		public this() : [NoExtension]this()
 		{
 
 		}
 		
-		/* This initializer block will always run no matter which constructor is invoked */
+		/* 无论调用哪个构造函数，该初始化块都会执行 */
 		this
 		{
 			RegisterList(this);
 		}
 
-		/* This destructor will run before the root definition's destructor */
+		/* 该析构函数在根定义的析构函数之前运行 */
 		public ~this()
 		{
 			UnregisterList(this);
@@ -77,7 +77,7 @@ namespace System.Collections
 	}
 ```
 
-Extensions can also be used for inverting dependencies between projects by providing method declarations whose implementations are provided by dependent projects. This technique provides a static dispatch alternative to virtual methods.
+扩展还可通过提供方法声明并由依赖项目实现的方法来反转项目间依赖关系。这种技术提供了虚方法之外的静态派发方案。
 
 ```C#
 /* In project 'Engine' */
@@ -96,7 +96,7 @@ extension Platform
 }
 ```
 
-We can also use extensions to override virtual methods without requring subclassing. This has the advantage of not requiring an overload but has the downsize of dynamic dispatch.
+我们还可以使用扩展在不需要子类的情况下重写虚方法。其优点是不需要重载，但缺点是仍为动态派发。
 
 ```C#
 /* In project 'Engine' */
@@ -115,14 +115,14 @@ extension Platform
 }
 ```
 
-## Extension Methods
+## 扩展方法
 
-Method extensions can be used to virtually add methods to existing types without modifying the original type. Extension methods are static methods, but they are called as if they are non-static methods on an extended type, or a type that conforms to a set of generic constraints. Extension methods can be preferable over type extensions when you want to limit the scope of a given method to a particular namespace or utility method, or when the method is intended to apply to a broad range of types conforming to specific generic constraints.
+扩展方法可在不修改原始类型的情况下为现有类型“虚拟地”添加方法。扩展方法是静态方法，但调用方式与被扩展类型的实例方法类似，或用于满足一组泛型约束的类型。当你希望将方法范围限制在特定命名空间或工具方法中，或该方法面向符合特定泛型约束的广泛类型时，扩展方法比类型扩展更合适。
 
 ```C#
 
 
-/* This provides a CharCount method in String in total global namespace */
+/* 在全局命名空间为 String 提供 CharCount 方法 */
 static
 {
 	public static int CharCount(this String str, char8 c)
@@ -135,8 +135,8 @@ static
 	}
 }
 
-/* This provides a Total method in List<T> for any T that can be added together. 
- This method is only visible when explicitly importing this type with 'using static'  */ 
+/* 为任何可相加的 T 提供 List<T>.Total 方法。
+ 该方法仅在使用 'using static' 显式导入该类型时可见 */
 static class ListUtils
 {
 	public static T Total<T>(this List<T> list) where T : IOpAddable

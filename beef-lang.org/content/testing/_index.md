@@ -1,10 +1,10 @@
 +++
-title = "Testing"
+title = "测试"
 description = ""
 weight = 90
 +++
 
-Every workspace contains a 'Test' configuration by default, which can be invoked either by passing '-test' to BeefBuild or via the 'Test' menu in the IDE. Tests are defined by using the `[Test]` attribute on any static method.
+每个工作区默认都包含一个 “Test” 配置，可以通过向 BeefBuild 传入 “-test” 或在 IDE 的 “Test” 菜单中执行。测试通过在任意静态方法上添加 `[Test]` 特性来定义。
 
 ```C#
 [Test]
@@ -15,7 +15,7 @@ public static void TestAPI()
 }
 ```
 
-In some cases, tests are expected to fail. The `[Test]` attribute can be used to mark tests accordingly.
+在某些情况下，测试应当失败。可使用 `[Test]` 特性进行标记。
 
 ```C#
 [Test(ShouldFail=true)]
@@ -28,6 +28,6 @@ public static void TestBoundsCheck()
 }
 ```
 
-In the Workspace properties, make sure 'Projects' has the 'Test' configuration specified for any projects that you want to run Tests on. By default, the first project specified in the workspace will be configured for testing.
+在工作区属性中，确保 “Projects” 中需要运行测试的项目都指定了 “Test” 配置。默认情况下，工作区中列出的第一个项目会被用于测试。
 
-Beef tests are suitable for use in CI systems such as Jenkins, as BeefBuild will emit testing text with timing statistics, and will report success or failure via standard return codes.
+Beef 测试适用于 Jenkins 等 CI 系统：BeefBuild 会输出包含耗时统计的测试文本，并通过标准返回码报告成功或失败。

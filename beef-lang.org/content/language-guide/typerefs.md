@@ -1,12 +1,12 @@
 +++
-title = "Type References"
+title = "类型引用"
 weight=80
 +++
 
-### Special type references
+### 特殊类型引用
 
-* Self - the defining type. If used within an interface, it refers to the implementing type.
-* SelfBase - the base class of the defining type
-* SelfOuter - the outer type of the defining type 
-* var/let - used with type inference when creating variables, `var` is used to create a mutable variable, whereas `let` creates a const or read-only variable
-* . - The `.` type is used with type inference, and refers to "the expected type". The most common use is to change an implicit conversion into an explicit conversion without specifying the type name. (ie: intVal = (.)floatVal)
+* Self - 定义该成员的类型；在接口中使用时，表示实现该接口的类型
+* SelfBase - 定义该成员类型的基类
+* SelfOuter - 定义该成员类型的外部类型
+* var/let - 创建变量时用于类型推断，`var` 创建可变变量，`let` 创建常量或只读变量
+* . - `.` 类型用于类型推断，表示“期望类型”。最常见的用途是在不指定类型名的情况下，将隐式转换改为显式转换。（例如：intVal = (.)floatVal）

@@ -1,34 +1,34 @@
 +++
-title = "Debugger Expressions"
+title = "调试器表达式"
 +++
 
-## Debugger watch expressions
+## 调试器监视表达式
 
-The debugger watch evaluator is capable of evaluating most normal Beef expressions, including accessing properties and calling methods. 
-In addition to those expressions, there are some special watch expressions supported.
+调试器监视表达式求值器可评估大多数常规 Beef 表达式，包括访问属性与调用方法。
+除这些表达式外，还支持一些特殊监视表达式。
 
-|Expression|Description|
+|表达式|说明|
 |----|------|
-|{&lt;number>} &lt;expr> or {^&lt;number>} &lt;expr>|Evaluate expression &lt;number> entries up the call stack|
-|{MethodName} &lt;expr>|Evaluate expression in the first method named MethodName up the call stack|
-|{MethodName^&lt;number>} &lt;expr>|Evaluate expression in the method number &lt;number> named MethodName up the call stack|
-|{*} &lt;expr>|Evaluate expression in the first call stack scope where the expression is valid|
+|{&lt;number>} &lt;expr> or {^&lt;number>} &lt;expr>|在调用栈向上第 &lt;number> 层处求值表达式|
+|{MethodName} &lt;expr>|在调用栈向上第一个名为 MethodName 的方法中求值表达式|
+|{MethodName^&lt;number>} &lt;expr>|在调用栈向上第 &lt;number> 个名为 MethodName 的方法中求值表达式|
+|{*} &lt;expr>|在调用栈中第一个表达式有效的作用域里求值|
 
-## Format flags
+## 格式标志
 
-The following flags can be added after a watch expression, separated by commas.
+以下标志可加在监视表达式之后，用逗号分隔。
 
-|Flag|Description|
+|标志|说明|
 |----|------|
-|this=&lt;expr>|Set explicit 'this' value for expression|
-|arraysize=&lt;number>|Display the expression as an array with &lt;number> elements|
-|&lt;number>|Display the expression as an array with &lt;number> elements|
-|d|Decimal|
-|s|Ascii|
+|this=&lt;expr>|为表达式显式设置 'this' 值|
+|arraysize=&lt;number>|将表达式显示为包含 &lt;number> 个元素的数组|
+|&lt;number>|将表达式显示为包含 &lt;number> 个元素的数组|
+|d|十进制|
+|s|ASCII|
 |s8|UTF8|
 |s16|UTF16|
 |s32|UTF32|
-|na|Hide pointers|
-|nv|No visualizers|
-|x|Hexadecimal (lowercase)|
-|X|Hexadecimal (uppercase)|
+|na|隐藏指针|
+|nv|不使用可视化器|
+|x|十六进制（小写）|
+|X|十六进制（大写）|

@@ -1,44 +1,44 @@
 +++
-title = "FAQ"
+title = "常见问题"
 description = ""
 weight = 100
 +++
 
-#### Is there is Visual Studio Code language server extension?
-There has been interest in this, but this is not planned as an official project. If someone from the BeefLang community wishes to work on this, it may be best to start from the BeefBuild/IDE project base, as much of the project-based management is handled from this codebase. Although the IDEHelper project contains the compiler and appears to be the place to start for a language server, there is critical functionality missing.
+#### 是否有 Visual Studio Code 语言服务器扩展？
+对此有过兴趣，但目前未计划作为官方项目。如果 BeefLang 社区有人愿意开展此事，最好从 BeefBuild/IDE 项目基础开始，因为大量项目管理功能都在该代码库中。尽管 IDEHelper 项目包含编译器，看起来是语言服务器的起点，但仍缺少关键功能。
 
-#### Why is the IDE only available for Windows?
-Beef's primary initial target is game development. The majority of game development is performed on Windows, and it's critical to concentrate on making that primary development experience as good as possible.
+#### 为什么 IDE 只支持 Windows？
+Beef 的首要目标是游戏开发。大多数游戏开发在 Windows 上完成，因此必须优先把主要开发体验做到最好。
 
-#### What would it take to make the IDE work on Linux or macOS?
-It's often assumed that the reliance upon DirectX for GUI rendering is the primary issue, but this is only one small part of the work required. In fact, a partial OpenGL rendering backend already exists in BeefySysLib/platform/sdl. There are many other GUI-related issues to work through, such as handling platform-specific Open/Save/Select Folder dialogs, system menus, multimonitor support, alternate hotkey standards, and many other system-undiscovered problems. The debugger is a much larger issue - the Windows IDE utilizes a custom Windows-only debugger engine which is an integral part of the hot code swapping support. Probably the best approach would be to wrap the LLDB engine and then attempt to extend it to support hot code swapping.
+#### 要让 IDE 在 Linux 或 macOS 上运行，需要做哪些工作？
+常见的看法是依赖 DirectX 做 GUI 渲染是主要问题，但这只是工作的一小部分。实际上，BeefySysLib/platform/sdl 已经存在部分 OpenGL 渲染后端。还有许多其他 GUI 相关问题需要解决，例如处理平台特定的打开/保存/选择文件夹对话框、系统菜单、多显示器支持、不同的快捷键标准，以及许多尚未发现的系统问题。调试器是更大的问题——Windows IDE 使用自定义的 Windows 专用调试引擎，这是热代码替换支持的核心部分。较好的方式可能是封装 LLDB 引擎，并扩展其以支持热代码替换。
 
-#### Why aren't there binaries available for Linux or macOS?
-There will be, at some point.
+#### 为什么没有 Linux 或 macOS 的二进制包？
+以后会有的。
 
-#### Is Beef available for consoles?
-Work has not yet started on this, but it is a priority item.
+#### Beef 是否支持主机平台？
+相关工作尚未开始，但这是优先事项之一。
 
-#### How long has BeefLang been in development?
-Work on the language and the IDE started in September 2014, and the first public release was in January 2020.
+#### BeefLang 开发了多久？
+语言与 IDE 的工作于 2014 年 9 月开始，首次公开发布是在 2020 年 1 月。
 
-#### Is Beef suitable for production code right now?
-Beef is a new language, which has it's advantages and disadvantages - early adopters can help shape the direction of the language, and will often receive personal attention for their issues. New languages are subject to breaking changes at times, however, and may contain more bugs than older languages. Beef bugs are usually fixed quickly.
+#### Beef 现在适合用于生产环境吗？
+Beef 是一门新语言，有其优点和缺点——早期使用者可以帮助塑造语言方向，并常能得到针对问题的直接关注。但新语言难免会有不兼容变更，也可能比成熟语言包含更多 bug。Beef 的 bug 通常修复得很快。
 
-#### How can I contribute?
-The best way to help is to to simply use Beef, even for small projects, and report any bugs or suggestions as GitHub issues, and tell others about your experience. Working on the core library is another good area, since it is a little sparse in many obvious areas.
+#### 我可以如何贡献？
+最好的方式是直接使用 Beef，即便是小项目也可以，遇到 bug 或建议可提交 GitHub issue，并向他人分享你的体验。参与核心库建设也是很好的方向，因为在很多明显领域仍有欠缺。
 
-#### Can I help support Beef financially through Patreon or something?
-This project is not in need of financial support.
+#### 我可以通过 Patreon 等方式资助 Beef 吗？
+该项目目前不需要资金支持。
 
-#### Who are you?
-BeefLang was started by Brian Fiete, co-founder of PopCap Games and PopCap employee through 2011. Brian has been working more or less full-time on BeefLang since September 2014.
+#### 你是谁？
+BeefLang 由 PopCap Games 联合创始人 Brian Fiete 发起，他在 2011 年之前一直在 PopCap 任职。自 2014 年 9 月以来，Brian 基本上一直全职投入 BeefLang。
 
-#### I don't like the name or logo of the language. Will you change it please?
-The logo will likely change, but the name will not change.
+#### 我不喜欢语言的名字或标志，会改吗？
+Logo 可能会变，但名称不会更改。
 
-#### Are there any plans for async/await or coroutines?
-These will be considered for a future version of BeefLang.
+#### 有计划支持 async/await 或协程吗？
+这些会在 BeefLang 的未来版本中考虑。
 
-#### How do I get the name of the current executable?
+#### 如何获取当前可执行文件的名称？
 `System.Environment.GetExecutableFilePath`

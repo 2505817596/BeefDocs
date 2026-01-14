@@ -1,51 +1,51 @@
 +++
-title = "Release Notes"
+title = "发布说明"
 weight = 1
 +++
 
-March 19, 2025<br>
+2025 年 3 月 19 日<br>
 [Version 0.43.5](ver_0_43_5)
 
-September 7, 2022<br>
+2022 年 9 月 7 日<br>
 [Version 0.43.4](ver_0_43_4)
 
-June 20, 2022<br>
+2022 年 6 月 20 日<br>
 [Version 0.43.3](ver_0_43_3)
 
-March 29, 2022<br>
+2022 年 3 月 29 日<br>
 [Version 0.43.2](ver_0_43_2)
 
-November 22, 2021<br>
+2021 年 11 月 22 日<br>
 [Version 0.43.1](ver_0_43_1)
 
-February 22, 2021<br>
+2021 年 2 月 22 日<br>
 [Version 0.43.0](ver_0_43_0)
 
-December 9, 2020<br>
+2020 年 12 月 9 日<br>
 [Version 0.42.8](ver_0_42_8)
 
-October 5, 2020<br>
+2020 年 10 月 5 日<br>
 [Version 0.42.7](ver_0_42_7)
 
-September 9, 2020<br>
+2020 年 9 月 9 日<br>
 [Version 0.42.6](ver_0_42_6)
 
-June 25, 2020<br>
+2020 年 6 月 25 日<br>
 [Version 0.42.5](ver_0_42_5)
 
-May 20, 2020<br>
+2020 年 5 月 20 日<br>
 [Version 0.42.4](ver_0_42_4)
 
-April 30, 2020<br>
+2020 年 4 月 30 日<br>
 [Version 0.42.3](ver_0_42_3)
 
-April 7, 2020<br>
+2020 年 4 月 7 日<br>
 [Version 0.42.2](ver_0_42_2)
 
-Public Release<br>
-December 31, 2019<br>
+公开发布<br>
+2019 年 12 月 31 日<br>
 [Version 0.42.1](ver_0_42_1)
 
-Initial Release<br>
-September 29, 2019<br>
+初始发布<br>
+2019 年 9 月 29 日<br>
 [Version 0.42.0](ver_0_42_0)

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beef 编程语言</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2026-01-14T11:04:40 CST">
+<title>语句 :: Beef 编程语言</title>
+<link rel="shortcut icon" href="/BeefDocs/docs/images/favicon.png" type="image/x-icon" />
+<link href="/BeefDocs/docs/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BeefDocs/docs/css/nucleus.css" rel="stylesheet">
+<link href="/BeefDocs/docs/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/BeefDocs/docs/css/bootstrap.min.css">
+<link href="/BeefDocs/docs/css/syntax.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/BeefDocs/docs/language-guide/statements/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="/">Beef 编程语言</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/BeefDocs/docs/" class="dd-item">
+          <a href="/BeefDocs/docs/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/BeefDocs/docs/releases/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/releases/">发布说明</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_0/">
+            版本 0.42.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_1/">
+            版本 0.42.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_2/">
+            版本 0.42.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_3/">
+            版本 0.42.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_4/">
+            版本 0.42.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_5/">
+            版本 0.42.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_6/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_6/">
+            版本 0.42.6
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_7/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_7/">
+            版本 0.42.7
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_8/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_8/">
+            版本 0.42.8
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_0/">
+            版本 0.43.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_1/">
+            版本 0.43.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_2/">
+            版本 0.43.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_3/">
+            版本 0.43.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_4/">
+            版本 0.43.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_5/">
+            版本 0.43.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/foreward/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/foreward/">简介</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/license/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/license/">许可证</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/getting-start/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/getting-start/">入门指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/getting-start/installation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/installation/">
+            安装
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/getting-start/building/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/building/">
+            从源码构建
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/">语言指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/basics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/basics/">
+            基础知识
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/safety/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/safety/">
+            安全特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/memory/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/memory/">
+            内存管理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/namespaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/namespaces/">
+            命名空间
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/datatypes/">数据类型</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interfaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interfaces/">
+            接口
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/statements/" class="dd-item active">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/statements/">
+            语句
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/expressions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/expressions/">
+            表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interop/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interop/">
+            互操作
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/generics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/generics/">
+            泛型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/reflection/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/reflection/">
+            反射
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/literals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/literals/">
+            字面量
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/pattern/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/pattern/">
+            模式匹配
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/operators/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/operators/">
+            运算符
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/errors/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/errors/">
+            错误处理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/preprocessor/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/preprocessor/">
+            预处理器
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/strings/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/strings/">
+            字符串
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/typerefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/typerefs/">
+            类型引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/comptime/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/comptime/">
+            编译期（Comptime）
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/corlib/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/corlib/">核心库</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/projects/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/projects/">项目与工作区</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/platforms/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/platforms/">平台</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/ide/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/ide/">IDE</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/ide/themes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/themes/">
+            主题
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/codegeneration/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/codegeneration/">
+            代码生成
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/commandline/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/commandline/">
+            命令行参数
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/profiling/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/profiling/">
+            性能分析
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/documentation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/documentation/">
+            文档
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/hotcompile/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/hotcompile/">
+            热编译
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/watch/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/watch/">
+            调试器表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/beefbuild/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/beefbuild/">BeefBuild</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/packman/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/packman/">包管理器</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/testing/">测试</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/faq/">常见问题</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/BeefDocs/docs/releases/" >
+   发布说明</option>
+    <option value="/BeefDocs/docs/foreward/" >
+   简介</option>
+    <option value="/BeefDocs/docs/license/" >
+   许可证</option>
+    <option value="/BeefDocs/docs/getting-start/" >
+   入门指南</option> 
+      <option value="/BeefDocs/docs/getting-start/installation/" >- 安装</option>
+      <option value="/BeefDocs/docs/getting-start/building/" >- 从源码构建</option>
+  
+    <option value="/BeefDocs/docs/language-guide/" >
+   语言指南</option> 
+      <option value="/BeefDocs/docs/language-guide/basics/" >- 基础知识</option>
+      <option value="/BeefDocs/docs/language-guide/safety/" >- 安全特性</option>
+      <option value="/BeefDocs/docs/language-guide/memory/" >- 内存管理</option>
+      <option value="/BeefDocs/docs/language-guide/namespaces/" >- 命名空间</option>
+    <option value="/BeefDocs/docs/language-guide/datatypes/" >
+  - 
+   数据类型</option> 
+      <option value="/BeefDocs/docs/language-guide/datatypes/members/" >-- 类型成员</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/attributes/" >-- 特性</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/initialization/" >-- 初始化</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/extensions/" >-- 扩展</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/anon/" >-- 匿名类型</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/globals/" >-- 全局</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/methodrefs/" >-- 方法引用</option>
+  
+      <option value="/BeefDocs/docs/language-guide/interfaces/" >- 接口</option>
+      <option value="/BeefDocs/docs/language-guide/statements/"  selected>- 语句</option>
+      <option value="/BeefDocs/docs/language-guide/expressions/" >- 表达式</option>
+      <option value="/BeefDocs/docs/language-guide/interop/" >- 互操作</option>
+      <option value="/BeefDocs/docs/language-guide/generics/" >- 泛型</option>
+      <option value="/BeefDocs/docs/language-guide/reflection/" >- 反射</option>
+      <option value="/BeefDocs/docs/language-guide/literals/" >- 字面量</option>
+      <option value="/BeefDocs/docs/language-guide/pattern/" >- 模式匹配</option>
+      <option value="/BeefDocs/docs/language-guide/operators/" >- 运算符</option>
+      <option value="/BeefDocs/docs/language-guide/errors/" >- 错误处理</option>
+      <option value="/BeefDocs/docs/language-guide/preprocessor/" >- 预处理器</option>
+      <option value="/BeefDocs/docs/language-guide/strings/" >- 字符串</option>
+      <option value="/BeefDocs/docs/language-guide/typerefs/" >- 类型引用</option>
+      <option value="/BeefDocs/docs/language-guide/comptime/" >- 编译期（Comptime）</option>
+  
+    <option value="/BeefDocs/docs/corlib/" >
+   核心库</option>
+    <option value="/BeefDocs/docs/projects/" >
+   项目与工作区</option> 
+  
+    <option value="/BeefDocs/docs/platforms/" >
+   平台</option> 
+  
+    <option value="/BeefDocs/docs/ide/" >
+   IDE</option> 
+      <option value="/BeefDocs/docs/ide/themes/" >- 主题</option>
+      <option value="/BeefDocs/docs/ide/codegeneration/" >- 代码生成</option>
+      <option value="/BeefDocs/docs/ide/commandline/" >- 命令行参数</option>
+      <option value="/BeefDocs/docs/ide/profiling/" >- 性能分析</option>
+      <option value="/BeefDocs/docs/ide/documentation/" >- 文档</option>
+      <option value="/BeefDocs/docs/ide/hotcompile/" >- 热编译</option>
+      <option value="/BeefDocs/docs/ide/watch/" >- 调试器表达式</option>
+  
+    <option value="/BeefDocs/docs/beefbuild/" >
+   BeefBuild</option>
+    <option value="/BeefDocs/docs/packman/" >
+   包管理器</option>
+    <option value="/BeefDocs/docs/testing/" >
+   测试</option>
+    <option value="/BeefDocs/docs/faq/" >
+   常见问题</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="">
+        </div>
+        <script type="text/javascript" src="/BeefDocs/docs/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/auto-complete.js"></script>
+        <link href="/BeefDocs/docs/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+          
+        </script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/search.js"></script>
+      </div>
+    
+
+    <h1>语句</h1>
+    
+    
+    
+    
+
+<h3 id="break-continue">break/continue</h3>
+
+<p>我们可以使用 &ldquo;break&rdquo; 终止执行 &ldquo;for&rdquo;、&rdquo;while&rdquo; 或 &ldquo;do&rdquo; 语句。使用 &ldquo;continue&rdquo; 可跳到 &ldquo;for&rdquo; 循环的下一次迭代；默认情况下，这些语句作用于当前作用域中最深层的适用语句，但可以使用标签引用更外层的语句。这在跳出嵌套循环等场景中很有用。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="n">Y</span><span class="p">:</span> <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="p">&lt;</span> <span class="n">height</span><span class="p">)</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span> <span class="p">&lt;</span> <span class="n">width</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">Check</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+			<span class="k">break</span> <span class="n">Y</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="defer">defer</h3>
+
+<p>defer 语句用于将方法调用或代码块的执行推迟到退出某个作用域时。当延迟的是方法调用时，其参数（包括 <code>this</code>）会立刻求值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-#C" data-lang="#C">/* 以下将输出 &#34;End:2 B:1 A:0&#34;。注意执行顺序与 defer 的声明顺序相反。 */
+{
+	int i = 0;
+	defer Console.WriteLine(&#34;A:{}&#34;, i);
+	i++;
+	defer Console.WriteLine(&#34;B:{}&#34;, i);
+	i++;
+	Console.WriteLine(&#34;End:{}&#34;, i);
+}
+
+/* 以下将输出 &#34;End:2 B:2 A:2&#34;。defer 位置没有参数需要求值，所以 WriteLine 使用的是作用域结束时的当前 i 值。 */
+{
+	int i = 0;
+	defer
+	{
+		Console.WriteLine(&#34;A:{}&#34;, i);
+	}
+	i++;
+	defer
+	{
+		Console.WriteLine(&#34;B:{}&#34;, i);
+	}
+	i++;
+	Console.WriteLine(&#34;End:{}&#34;, i);
+}
+
+/* defer 语句可指定作用域目标。以下将在退出包含方法时打印 9 到 0。 */
+{
+	for (int i &lt; 10)
+	{
+		defer:: Console.WriteLine(&#34;i={}&#34;, i);
+	}
+}</code></pre></div>
+<h3 id="delete">delete</h3>
+
+<p><code>delete</code> 语句释放已分配的内存。（参见 <a href="https://2505817596.github.io/BeefDocs/docs/language-guide/memory/">内存管理</a>）</p>
+
+<ul>
+<li><code>delete x</code> - 释放由全局分配器分配、由 <code>x</code> 引用的内存。</li>
+<li><code>delete:a x</code> - 释放由自定义分配器 <code>a</code> 分配的内存。</li>
+</ul>
+
+<p>当 <code>x</code> 为对象时，会调用析构函数。</p>
+
+<h3 id="do">do</h3>
+
+<p>允许创建一个可被 break 跳出的非循环代码块，可在某些代码模式中减少 <code>if</code> 嵌套。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">do</span>
+<span class="p">{</span>
+	<span class="n">c</span> <span class="p">=</span> <span class="n">NextChar</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+		<span class="k">break</span><span class="p">;</span>
+	<span class="n">op</span> <span class="p">=</span> <span class="n">NextChar</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="p">!=</span> <span class="sc">&#39;+&#39;</span><span class="p">)</span>
+		<span class="k">break</span><span class="p">;</span>
+	<span class="n">c2</span> <span class="p">=</span> <span class="n">NextChar</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="for">for</h3>
+
+<p>for 循环通常用于遍历集合或数列。可用形式如下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 经典 C 风格循环，包含初始化、条件和迭代器 */</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="cm">/* 上述形式的简写 */</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="cm">/* 遍历 List&lt;int&gt; 中的元素 */</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">val</span> <span class="k">in</span> <span class="n">intList</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+		<span class="n">@val</span><span class="p">.</span><span class="n">Remove</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cm">/* 上述等价于 */</span>
+<span class="kt">var</span> <span class="n">enumerator</span> <span class="p">=</span> <span class="n">intList</span><span class="p">.</span><span class="n">GetEnumerator</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">enumerator</span><span class="p">.</span><span class="n">GetNext</span><span class="p">()</span> <span class="k">case</span> <span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="k">let</span> <span class="n">val</span><span class="p">))</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">val</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+		<span class="n">enumerator</span><span class="p">.</span><span class="n">Remove</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">enumerator</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+
+<span class="cm">/* 我们还可以按引用遍历而非按值遍历 */</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">valRef</span> <span class="k">in</span> <span class="k">ref</span> <span class="n">intList</span><span class="p">)</span>
+	<span class="n">valRef</span> <span class="p">+=</span> <span class="m">100</span><span class="p">;</span>
+
+
+<span class="cm">/* 常见错误：这不会改变 intList 的值，只会改变 enumerator.GetNext() 返回的值 */</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">val</span> <span class="k">in</span> <span class="n">intList</span><span class="p">)</span>
+	<span class="n">val</span> <span class="p">+=</span> <span class="m">100</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="if">if</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+	<span class="n">Use</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+	<span class="n">Use</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+<span class="k">else</span>
+	<span class="k">break</span><span class="p">;</span>
+
+<span class="cm">/* Some variable declarations can be used as a condition */</span>
+
+<span class="cm">/* Use &#39;not null&#39; as a condition */</span>
+<span class="k">if</span> <span class="p">(</span><span class="kt">var</span> <span class="n">str</span> <span class="p">=</span> <span class="n">obj</span> <span class="k">as</span> <span class="n">String</span><span class="p">)</span>
+	<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+
+<span class="cm">/* Unwrap a Result&lt;int&gt; */</span>
+<span class="k">if</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">intResult</span><span class="p">)</span>
+	<span class="n">Use</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+<span class="cm">/* Unwrap an int? */</span>
+<span class="k">if</span> <span class="p">((</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">intNullable</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">i</span> <span class="p">!=</span> <span class="m">0</span><span class="p">))</span>
+	<span class="n">Use</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="return">return</h3>
+
+<p>从方法返回一个值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">int</span> <span class="n">GetSize</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="k">return</span> <span class="n">mSize</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="repeat-while">repeat while</h3>
+
+<p>先执行一次语句，只要条件为真就继续重复执行。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">bool</span> <span class="n">wantsMore</span><span class="p">;</span>
+<span class="n">repeat</span>
+<span class="p">{</span>
+	<span class="n">wantsMore</span> <span class="p">=</span> <span class="n">Write</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">wantsMore</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="switch">switch</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* Note that &#39;break&#39; is not required after a case */</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="p">,</span> <span class="sc">&#39;\t&#39;</span><span class="p">:</span>
+	<span class="n">Space</span><span class="p">();</span>
+<span class="k">case</span> <span class="sc">&#39;\n&#39;</span>
+	<span class="n">NewLine</span><span class="p">();</span>
+<span class="k">default</span><span class="p">:</span>
+	<span class="n">Other</span><span class="p">();</span>  
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cm">/* Cases can contain additional &#39;when&#39; conditions */</span>
+<span class="k">case</span> <span class="sc">&#39;\n&#39;</span> <span class="n">when</span> <span class="n">isLastChar</span><span class="p">:</span>
+	<span class="n">SendCommand</span><span class="p">();</span>
+<span class="k">case</span> <span class="sc">&#39;A&#39;</span><span class="p">:</span>
+	<span class="n">WasA</span><span class="p">();</span>
+	<span class="cm">/* &#39;fallthrough&#39; continues into the next case block*/</span>
+	<span class="n">fallthrough</span><span class="p">;</span>
+<span class="k">case</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;I&#39;</span><span class="p">,</span> <span class="sc">&#39;O&#39;</span><span class="p">,</span> <span class="sc">&#39;U&#39;</span><span class="p">:</span>
+	<span class="n">WasVowel</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cm">/* Pattern match, with &#39;?&#39; discard */</span>
+<span class="k">case</span> <span class="p">.</span><span class="n">Circle</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="p">?):</span>
+	<span class="n">HandleOriginCircle</span><span class="p">();</span>
+<span class="k">case</span> <span class="p">.</span><span class="n">Circle</span><span class="p">(</span><span class="k">let</span> <span class="n">x</span><span class="p">,</span> <span class="k">let</span> <span class="n">y</span><span class="p">,</span> <span class="k">let</span> <span class="n">radius</span><span class="p">):</span>
+	<span class="n">HandleCircle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">radius</span><span class="p">);</span>
+<span class="k">default</span><span class="p">:</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Switches can be used for <a href="https://2505817596.github.io/BeefDocs/docs/language-guide/pattern/">pattern matching</a> (see for further examples) for enums and tuples.</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* Note that switches over enums that do not handle every case and have no &#39;default&#39; case will give a &#34;not exhaustive&#34; compile error. Thus, if we added a new entry to the Shape definition, we would ensure that all switches will make modifications to handle it */</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">case</span> <span class="n">Square</span><span class="p">(</span><span class="k">let</span> <span class="n">x</span><span class="p">,</span> <span class="k">let</span> <span class="n">y</span><span class="p">,</span> <span class="k">let</span> <span class="n">width</span><span class="p">,</span> <span class="k">let</span> <span class="n">height</span><span class="p">):</span>
+	<span class="n">DrawSquare</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+<span class="k">case</span> <span class="n">Circle</span><span class="p">:</span>
+	<span class="n">IgnoreShape</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Switches can operate on non-integral types, as well.</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">switch</span> <span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">case</span> <span class="s">&#34;TEST&#34;</span><span class="p">:</span>
+	<span class="n">PerformTest</span><span class="p">();</span>
+<span class="k">case</span> <span class="s">&#34;EXIT&#34;</span><span class="p">:</span>
+	<span class="n">Exit</span><span class="p">();</span>
+<span class="k">default</span><span class="p">:</span>
+	<span class="n">Fail</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="using">using</h3>
+
+<p><code>using</code> 语句表示对值的作用域使用。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">using</span> <span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&#34;Header&#34;</span><span class="p">))</span>
+<span class="p">{</span>
+	<span class="n">g</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* These are equivalent */</span>
+<span class="p">{</span>
+	<span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="n">g</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&#34;Header&#34;</span><span class="p">);</span>
+	<span class="n">g</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span>
+	<span class="n">res</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cm">/* Or */</span>
+<span class="p">{</span>
+	<span class="n">defer</span> <span class="n">g</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="s">&#34;Header&#34;</span><span class="p">).</span><span class="n">Dispose</span><span class="p">();</span>
+	<span class="n">g</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="变量声明">变量声明</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="c1">// 定义可变变量，显式类型且不赋值
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+<span class="c1">// 定义多个变量，显式类型
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="c1">// 定义可变变量，显式类型并初始化
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">val2</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+<span class="c1">// 定义可变变量，隐式类型并初始化
+</span><span class="c1"></span><span class="kt">var</span> <span class="n">val3</span> <span class="p">=</span> <span class="m">1.2f</span><span class="p">;</span>
+<span class="c1">// 定义不可变变量，隐式类型并初始化
+</span><span class="c1"></span><span class="k">let</span> <span class="n">val4</span> <span class="p">=</span> <span class="m">2.3</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="while">while</h3>
+
+<p>当条件为真时重复执行语句。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="p">&gt;=</span> <span class="m">0</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">i</span><span class="p">--;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/BeefDocs/docs/language-guide/interfaces/" title="接口"> <i class="fa fa-chevron-left"></i><label>接口</label></a>
+    <a class="nav nav-next" href="/BeefDocs/docs/language-guide/expressions/" title="表达式" style="margin-right: 0px;"><label>表达式</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/beefytech/Beef_website/edit/master/beef-lang.org/content/language-guide/statements.md" target="blank"><i class="fa fa-code-fork"></i>
+        </a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/BeefDocs/docs/js/clipboard.min.js"></script>
+
+<link href="/BeefDocs/docs/css/featherlight.min.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/featherlight.min.js"></script>
+
+
+
+<script src="/BeefDocs/docs/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

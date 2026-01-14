@@ -1,6 +1,6 @@
 +++
 
-title = "Contact"
+title = "联系"
 weight = 40
 widget = "blank"
 headless = true  # This file represents a page section.

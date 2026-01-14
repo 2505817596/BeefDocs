@@ -1,13 +1,13 @@
 +++
-title = "Data Types"
+title = "数据类型"
 weight = 40
 alwaysopen = true
 +++
 
-## Primitive data types
-The following primitive types are available in Beef:
+## 基本数据类型
+Beef 提供以下基础类型：
 
-#### Integer types
+#### 整数类型
 
 * int
 * int8
@@ -20,31 +20,31 @@ The following primitive types are available in Beef:
 * uint32
 * uint64
 
-The native platform integer width is used for int and uint, and these are treated as unique types and not just aliases to their explicitly-sized counterparts (ie: int64/uint64).
+int 与 uint 使用平台原生整数宽度，并被视为独立类型，而非显式大小类型（如 int64/uint64）的别名。
 
-#### Floating point types
+#### 浮点类型
 
 * float
 * double
 
-#### Character types
+#### 字符类型
 
-Character types only specify size but not encoding. The char8 data type, for instance, may be used to specify a byte of UTF8 data or an ASCII character, depending on context.
+字符类型只指定大小而不指定编码。例如 char8 可以表示 UTF8 的一个字节或一个 ASCII 字符，具体取决于上下文。
 
 * char8
 * char16
 * char32
 
-#### Valueless type
+#### 无值类型
 
 * void
 
-#### Boolean type
+#### 布尔类型
 
 * bool
 
-## Structs
-Struct types are user-defined collections of values, similar to structs in C. Structs can contain fields, properties, methods, and can define other inner types. For C++ programmers, structs are C++ PODS and cannot contain virtual methods or copy constructors.
+## 结构体
+结构体是用户定义的值集合，类似于 C 中的 struct。结构体可包含字段、属性、方法，并可定义内部类型。对 C++ 程序员而言，这些结构体类似 C++ POD，不支持虚方法或拷贝构造函数。
 
 ```C#
 struct Vector
@@ -52,21 +52,21 @@ struct Vector
 	public float x;
 	public float y;
 
-	/* Default constructor - constructors must set all fields
-	 "this = default;" is equivalent to "x = 0; y = 0;" */
+	/* 默认构造函数 - 构造函数必须设置所有字段
+	 "this = default;" 等价于 "x = 0; y = 0;" */
 	public this()
 	{
 		this = default;
 	}
 
-	/* Constructor that takes values */
+	/* 带参数构造函数 */
 	public this(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 
-	/* Property to calculate the Length */
+	/* 计算长度的属性 */
 	public float Length
 	{
 		get
@@ -75,7 +75,7 @@ struct Vector
 		}
 	}
 
-	/* Methods of structs need to be declared as 'mut' to be able to modify the struct */
+	/* 结构体的方法需声明为 'mut' 才能修改结构体 */
 	public void SetZero() mut
 	{
 		x = 0;
@@ -84,7 +84,7 @@ struct Vector
 }
 ```
 
-Structs can be zero-sized, which allows for efficient use of some types of generic patterns which require other approaches in C++ which doesn't allow zero-sized structs. Also, Beef structs are designed to provide fewer "alignment holes" than their C counterparts: fields are ordered by field alignment size and subordered by declaration order, and struct size and stride are separate concepts in Beef whereas C struct size is always aligned to the largest element alignment, thus is equivalent to stride in C. Field reordering can be disabled with the [Ordered] attribute, and structs can be marked for full C interop with [CRepr]. Field alignment packing can be disabled with [Packed]. Unions can be created with [Union].
+结构体可以为零大小，这使某些泛型模式得以高效实现，而这些在不允许零大小结构体的 C++ 中需要其他方法。另外，Beef 的结构体设计为比 C 的对应结构体产生更少的“对齐空洞”：字段按对齐大小排序，次级再按声明顺序排序；在 Beef 中结构体大小与步长是不同概念，而 C 中结构体大小总是按最大成员对齐，因此等同于步长。字段重排可通过 [Ordered] 特性禁用，结构体可通过 [CRepr] 标记为完全 C 互操作。字段对齐打包可通过 [Packed] 禁用。可用 [Union] 创建联合体。
 
 ```C#
 struct StructA
@@ -103,8 +103,8 @@ struct StructC : StructB
 	int8 l;
 }
 
-/* In Beef, StructC only occupies 14 bytes but in C it is either 24 or 32 bytes
- (implementation dependent).
+/* 在 Beef 中，StructC 仅占 14 字节，而在 C 中则为 24 或 32 字节
+（取决于实现）。
 
  Beef:
  sizeof(StructA) = 12 strideof(StructA) = 16
@@ -114,18 +114,16 @@ struct StructC : StructB
  C/C++:
  sizeof(StructA) = 16
  sizeof(StructB) = 24
- sizeof(StructB) = 32 (or 24)
+ sizeof(StructB) = 32（或 24）
 
- In Beef, the data size is smaller due to field reordering eliminating alignment
- padding. In C, the 'k' field byte added in StructB causes an extra 7 bytes of
- padding. The 'l' field byte added in StructC creates yet another 7 bytes of padding
- on some compilers (VC) while other compilers will fit 'l' into the previous padding
- (Clang/GCC). */
+ 在 Beef 中，由于字段重排消除了对齐填充，数据大小更小。C 中，StructB 新增的 'k' 字节
+会导致额外 7 字节填充。StructC 新增的 'l' 字节在某些编译器（VC）上会再增加 7 字节填充，
+而其他编译器会将 'l' 填入之前的填充中（Clang/GCC）。 */
 ```
 
 ```C#
-/* Auto-constructors provide a shorthand for simple data types.
- The following two type definitions are equivalent */
+/* 自动构造函数为简单数据类型提供简写。
+ 以下两种类型定义等价 */
 struct Vector3 : this(float x, float y, float z);
 
 struct Vector3
@@ -140,27 +138,27 @@ struct Vector3
 }
 ```
 
-Opaque struct definitions can be created by simply not supplying a body, which create types that can be used for interop which disallows direct allocation (since the size is unknown).
+通过省略结构体主体可创建不透明结构体定义，用于互操作且不允许直接分配（因为大小未知）。
 
-## Tuple types {#tuples}
+## 元组类型 {#tuples}
 
-Tuples are a special kind of struct. Their syntax allows for more concise representation of certain types of code patterns, but they cannot define properties or methods.
+元组是一种特殊的结构体。其语法可更简洁地表达某些代码模式，但不能定义属性或方法。
 
 ```C#
-let tup = (1, 2); // Unnamed members
-int sum = tup.0 + tup.1; // Access by position
-let (first, second) = tup; // Decompose into new variables
-let coords = (x: 2, y: 3); // Named members
-let len = Math.Sqrt(coords.x*coords.x + coords.y*coords.y); // Access by name
+let tup = (1, 2); // 无名称成员
+int sum = tup.0 + tup.1; // 按位置访问
+let (first, second) = tup; // 解构到新变量
+let coords = (x: 2, y: 3); // 有名称成员
+let len = Math.Sqrt(coords.x*coords.x + coords.y*coords.y); // 按名称访问
 
-(uint, uint) utup = (1, 2); // Explicitly typed, unnamed members
-(int index, Type type) entry = (first, null); // Explicitly typed, named members
+(uint, uint) utup = (1, 2); // 显式类型、无名称成员
+(int index, Type type) entry = (first, null); // 显式类型、有名称成员
  ```
 
-Tuples allow for implicit conversions where, field by field, the types are the same and one of the fields is named and the other field is unnamed.
+元组允许隐式转换：逐字段类型相同，且一方字段有名称而另一方无名称。
 
-## Class
-Classes are reference types (as in C#, Swift, and Java) and are conceptually similar to structs, but they are always prefixed with a typeclass pointer which is used for virtual method calls, dynamic typing, and dynamic interface dispatching. All user classes derive from the System.Object class at their root.
+## 类
+类是引用类型（类似 C#、Swift、Java），概念上与结构体相似，但总是带有类型类指针，用于虚方法调用、动态类型和动态接口派发。所有用户类最终都继承自 System.Object。
 
 ```C#
 abstract class Shape
@@ -180,7 +178,7 @@ class Circle : Shape
 		DrawCircle(x, y, radius);
 	}
 
-	/* Unlike structs, methods that modify classes do not need to be declared as 'mut' */
+	/* 与结构体不同，修改类的成员方法不需要声明为 'mut' */
 	public void DoubleSize()
 	{
 		radius *= 2;
@@ -188,49 +186,49 @@ class Circle : Shape
 }
 ```
 
-Classes can define destructors, and individual fields can define field destructors, which are a convenience to more closely associate their destruction with their initialization.
+类可以定义析构函数，单个字段也可以定义字段析构函数，用于更紧密地将销毁与初始化关联起来。
 
-Destruction runs in reverse order of construction. For construction, first the base class is constructed, then the class field constructors run in declaration order, and then the class constructor runs. For destruction, the class destructor runs, then the class field destructors in reverse declaration order, then the base is destructed.
+销毁顺序与构造相反。构造时，先构造基类，再按声明顺序执行字段构造，最后执行类构造函数。销毁时，先执行类析构函数，再按声明逆序执行字段析构，最后销毁基类。
 
 ```C#
 public Button : Widget
 {
-	String mLabel = new String() ~ delete _; // "_" is an alias to "mLabel" here
+	String mLabel = new String() ~ delete _; // "_" 在此处是 "mLabel" 的别名
 
 	public ~this()
 	{
 		RemoveWidget(this);
 
-		/* Field destructors run after this, reverse of initialization order */
+		/* 字段析构在此之后执行，顺序与初始化相反 */
 	}
 }
 ```
 
-### Arrays
+### 数组
 
-There are several forms of arrays supported in Beef. Array classes, sized array types, Spans, and raw pointers.
+Beef 支持多种数组形式：数组类、定长数组类型、Span 以及原始指针。
 
 ```C#
-/* Allocates a float array class */
+/* 分配 float 数组类 */
 float[] floatArr = new float[3];
 
-/* Allocates a 2D float array class */
+/* 分配二维 float 数组类 */
 float[,] floatArr2D = new float[3, 2];
 
-/* This is a fixed-size array, which is much like a tuple with four values */
+/* 这是定长数组，类似包含四个值的元组 */
 float[4] sizedFloatArr = .(100, 200, 300, 400);
 int[?] inferredSizeArr = .(500, 600);
 let inferredSizeArr2 = int[?](700, 800, 900);
 
-/* A span is a ptr/size value type pair */
+/* Span 是指针/大小的值类型对 */
 Span<float> floatSpan = floatArr;
 
-/* Raw pointer. The "*" at the end denotes a raw array allocation rather than a float[] object */
+/* 原始指针。末尾的 "*" 表示原始数组分配而非 float[] 对象 */
 float* floatPtr = new float[3]*;
 ```
 
-### Enums
-Enum types in Beef can be used to represent a collection of named integral constants. Unless explicitly specified, the underlying type of enums will be the smallest integer type which can hold all specified values.
+### 枚举
+Beef 的枚举类型可表示一组命名的整数常量。除非显式指定，枚举的底层类型将是能容纳所有指定值的最小整数类型。
 
 ```C#
 enum Direction
@@ -241,10 +239,10 @@ enum Direction
 	West
 }
 
-/* Note that we did not need to fully qualify "Direction.South", because the "Direction" was the expected type of the initializer so it was already inferred */
+/* 注意无需写成 "Direction.South"，因为初始化器的期望类型是 "Direction"，因此已可推断 */
 Direction facing = .South;
 
-/* The special value '_' evalutes to the previous field's value, allowing for easier bitflag definitions */
+/* 特殊值 '_' 会求值为上一个字段的值，便于定义位标志 */
 enum MultiHue
 {
 	Black = 0,
@@ -254,7 +252,7 @@ enum MultiHue
 }
 ```
 
-Enums can also be defined in a more verbose syntax that allows adding methods, properties just like you would to struct value types.
+枚举也可使用更冗长的语法定义，以便像值类型结构体一样添加方法和属性。
 
 ```C#
 enum Direction
@@ -279,26 +277,26 @@ enum Direction
 	}
 }
 ```
-Enums have some operations available to help inspect and enumerate over the values.
+枚举提供一些操作以便检查和枚举其值。
 
 ```C#
 
-/* Enumerate from the minimum enum value to the maximum value */
+/* 从最小枚举值遍历到最大枚举值 */
 for (var direction = typeof(Direction).MinValue; direction <= typeof(Direction).MaxValue; direction++)
 {
 }
 
-/* Convert to the underlying integer representation (in this case it is an int8) */
+/* 转换为底层整数表示（此处为 int8） */
 let val = direction.Underlying;
-/* Like the above, but results in an integer reference which can be assigned to */
+/* 类似上面，但结果是可赋值的整数引用 */
 let valRef = ref direction.UnderlyingRef;
 
 
 ```
 
-Enums can allow for multiple values to behave as a set of flags, as well, and support type-safe bitwise binary operations and define a convenience "HasFlag" method to check if a given set of flags is set or not.
+枚举还可让多个值作为一组标志使用，支持类型安全的按位二元操作，并提供便捷的 "HasFlag" 方法用于检查是否设置了某组标志。
 
-Enums can also define associated data for each case, which makes them behave as a type-safe "discriminated" union.
+枚举也可为每个 case 定义关联数据，使其表现为类型安全的“可辨识联合体”。
 
 ```C#
 enum Shape
@@ -322,15 +320,15 @@ if (drawShape case .Square)
 if (drawShape not case .Square)
 	Console.WriteLine("We did not draw a square");
 
-/* Radius will keep the value -1 if the value isn't a Circle */
+/* 若值不是 Circle，则 radius 仍保持 -1 */
 int radius = -1;
 if (drawShape case .Circle(?, ?, ref radius)) {}
 
 ```
 
-### Nullable types
+### 可空类型
 
-Nullable types are an enum wrapper around value types (System.Nullable<T>), which allows for value types to use null semantics which usually only work for pointer and reference types.
+可空类型是值类型的枚举包装（System.Nullable<T>），使值类型能够使用通常只适用于指针与引用类型的 null 语义。
 
 ```C#
 int? val = null;
@@ -340,9 +338,9 @@ if (val == null)
 int? val2 = val + 123;
 ```
 
-### Type aliases
+### 类型别名
 
-Beef type aliases allow creating type names that directly map to another type.
+Beef 的类型别名允许创建直接映射到另一个类型的类型名。
 
 ```C#
 typealias Size = int;

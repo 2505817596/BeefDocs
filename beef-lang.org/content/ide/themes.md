@@ -1,18 +1,18 @@
 +++
-title = "Themes"
+title = "主题"
 +++
 
-## Themes
+## 主题
 
-The IDE supports theme files, which allows for customizing the look of the IDE. Theme files should be placed in a directory within the `bin/themes` directory. Users can set their theme in the `File\Preferences\Settings`, under `UI\Theme`. The specified value can either be a directory name relative to the `themes` direcetory, or a theme `.toml` file relative to the `theme` directory.
+IDE 支持主题文件，可用于自定义外观。主题文件应放置在 `bin/themes` 目录下的子目录中。用户可在 `File\Preferences\Settings` 的 `UI\Theme` 中设置主题。该值可以是相对于 `themes` 目录的目录名，或相对于 `theme` 目录的主题 `.toml` 文件。
 
-Replacing images requires providing PSD files containing image segments that will override the standard `bin/images/DarkUI.png`, `bin/images/DarkUI_2.png`, and `bin/images/DarkUI_4.png` files. The theme files should be named `UI.psd`, `UI_2.psd`, and `UI_4.psd`, respectively. The file trios represent different levels of scale. 
+替换图像需要提供包含图像分片的 PSD 文件，以覆盖标准的 `bin/images/DarkUI.png`、`bin/images/DarkUI_2.png` 和 `bin/images/DarkUI_4.png`。主题文件应分别命名为 `UI.psd`、`UI_2.psd` 和 `UI_4.psd`，它们对应不同的缩放等级。
 
-Not all image files must be present, and not all image segments must be filled in on each file. The 'holes' will be filled in with resized image segments either from other theme image files, or from the default image segments. It is possibly, for example, to provide only a single `UI_4.psd` file with only the checkbox image segment replaced. It's generally important to provide `UI.png` images for 1x scale, however, for image segments that require clean edges, as image rescaling can produce non-aligned/blurry results.
+并非所有图像文件都必须存在，也不必在每个文件中填充所有图像分片。缺失的部分会用其他主题图像文件的缩放分片或默认分片补齐。例如，仅提供一个 `UI_4.psd` 文件并只替换复选框分片也是可以的。但对于需要清晰边缘的分片，一般建议提供 1x 缩放的 `UI.png` 图像，因为缩放可能导致边缘对不齐或模糊。
 
-When the user selects your theme in the IDE, the `bin/images/ImgCreate.exe` will be executed, which will generate `UI.png`, `UI_2.png`, and `UI_4.png` by scaling and merging the provided PSDs. These files should be considered cache files, and they will be rebuilt when any of their source files change, which allows updating both the theme and for forward compatibility with new image segments added in new IDE releases.
+当用户在 IDE 中选择你的主题时，会执行 `bin/images/ImgCreate.exe`，通过缩放并合并 PSD 生成 `UI.png`、`UI_2.png` 和 `UI_4.png`。这些文件应视为缓存文件，当源文件变化时会自动重建，从而既能更新主题，也能兼容未来 IDE 版本新增的图像分片。
 
-Themes also allow a `theme.toml` file for overriding colors.
+主题还支持通过 `theme.toml` 覆盖颜色设置。
 
 ```
 [Colors]
@@ -40,4 +40,4 @@ BuildWarning = 0xFFFFFF80
 VisibleWhiteSpace = 0xFF9090C0
 ```
 
-Users can provide a `user.toml` file in a specific theme directory, which will be processed after the `theme.toml` file to override one or more theme settings.
+用户可在主题目录中提供 `user.toml` 文件，该文件会在 `theme.toml` 之后处理，用于覆盖一个或多个主题设置。

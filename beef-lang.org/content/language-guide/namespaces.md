@@ -1,10 +1,10 @@
 +++
-title = "Namespaces"
+title = "命名空间"
 weight = 30
 +++
 
-## Namespace overview
-Namespaces are used in Beef to organize types and to prevent name collisions. Note that elements in namespaces are always public.
+## 命名空间概览
+命名空间用于在 Beef 中组织类型并防止命名冲突。注意，命名空间中的元素始终是 public。
 
 ```C#
 namespace Gfx
@@ -36,9 +36,9 @@ namespace Gfx.Resources
 
 ```
 
-### Using namespaces
+### 使用命名空间
 
-Although types can be referenced by their fully-qualified type name, their shorter unqualified name can be used if their containing namespaces are listed in `using` directives in that file.
+虽然类型可以使用完全限定名来引用，但如果在该文件中通过 `using` 指令列出了其所属命名空间，就可使用更短的未限定名。
 
 ```C#
 using Gfx.Resources;

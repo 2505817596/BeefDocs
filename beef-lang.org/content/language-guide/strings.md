@@ -1,12 +1,12 @@
 +++
-title = "Strings"
+title = "字符串"
 weight=80
 +++
 
-### Strings Overview
-The String type in Beef is a mutable object with an adjustable "small string optimization" buffer, which stores character data in UTF8. `StringView` is a `Span<char8>` pointer-and-length struct. By convention, methods take string input through a `StringView` argument, and methods that want to return string data take a `String` argument which is used to append string data to.
+### 字符串概览
+Beef 的 String 类型是可变对象，带有可调整的“小字符串优化”缓冲区，以 UTF8 存储字符数据。`StringView` 是一个 `Span<char8>` 的指针+长度结构体。按惯例，方法通过 `StringView` 参数接收字符串输入，需返回字符串数据的方法则使用 `String` 参数并向其追加数据。
 
-String literals within a workspace that have equal values are guaranteed to be pooled and will have equal object addresses, and the pointer to the null-terminated C string pointer obtained through the `char8*` cast operator or the `CStr()` method are guaranteed to have the equal addresses. Generated strings whose value matches a literal are guaranteed to return that literal's address when passed through `String.Intern()`.
+在同一工作区内值相同的字符串字面量会被合并，并拥有相同的对象地址；通过 `char8*` 转换或 `CStr()` 方法得到的以 null 结尾的 C 字符串指针也保证地址相同。生成的字符串若与某个字面量值相同，经过 `String.Intern()` 会返回该字面量的地址。
 
 ```C#
 String str = "This is a string";
@@ -20,11 +20,11 @@ String str4 =
 	""";
 ```
 
-See [Literals]({{< ref "literals.md#string" >}}) for more information about string literals.
+更多字符串字面量信息参见 [字面量]({{< ref "literals.md#string" >}})。
 
-### String Interpolation
+### 字符串插值
 
-String interpolation is supported for either string allocations or string argument expansion.
+字符串插值可用于字符串分配或字符串参数展开。
 
 ```C#
 /* This is equivalent to scope String()..AppendF("X = {} Y = {}", GetX(), GetY()) */
@@ -34,20 +34,20 @@ String str = scope $"X = {GetX()} Y = {GetY()}";
 Console.WriteLine($"X = {GetX()} Y = {GetY()}");
 ```
 
-### String Comparison
+### 字符串对比
 
-|Name           |Sizable non-dynamic buffer           |Custom dynamic allocator|Encoding          |
+|名称           |可设定的非动态缓冲区                 |自定义动态分配器        |编码              |
 |---------------|-------------------------------------|------------------------|------------------|
-|C char array   | Yes (user-specified array size)     | N/A (no allocation)    | char/wchar*      |
-|C++ std::string| No (fixed small buffer optimization)| Template argument      | char/wchar*      |
-|C# StringBuffer| No                                  | No                     | UTF16            |
-|Beef           | Yes                                 | Virtual override       | UTF8             |
+|C 字符数组     | 是（用户指定数组大小）              | 不适用（无分配）       | char/wchar*      |
+|C++ std::string| 否（固定小缓冲优化）                | 模板参数               | char/wchar*      |
+|C# StringBuffer| 否                                  | 否                     | UTF16            |
+|Beef           | 是                                  | 虚方法重写             | UTF8             |
 
-Beef is the only string besides a C char array that allows you to create non-small strings (> 32 bytes) entirely on the stack: `var str = scope String(1024)` constructs a String on the stack with a 1024-character internal buffer, for example. For sizing beyond the internal string buffer, you can integrate with a custom allocator by subclassing the String class and overriding the Alloc/Free methods. In C++, custom allocators for strings are provided by a template argument to `std::basic_string`, which means that a string with a custom allocator simply cannot be passed to methods expecting a `std::string` since the types no longer match. For character encoding, C/C++ does not define any encoding for characters in their strings, so it's left up to the user to handle all encoding issues. In C#, string characters are UTF16 for historic reasons, which in many ways is the "worst of both worlds" of encoding and size because the user still must deal with UTF16 surrogate pairs (a single unicode character split into two UTF16 characters), but UTF16 strings are almost always larger than their UTF8 counterparts (even when dealing solely with Asian languages).
+除 C 字符数组外，Beef 是唯一允许完全在栈上创建非小字符串（> 32 字节）的字符串实现：例如 `var str = scope String(1024)` 在栈上构建了一个内部缓冲为 1024 字符的 String。若需要超过内部缓冲的大小，可通过继承 String 并重写 Alloc/Free 与自定义分配器集成。在 C++ 中，字符串自定义分配器通过 `std::basic_string` 的模板参数提供，这意味着自定义分配器的字符串无法传给期望 `std::string` 的方法，因为类型不再匹配。就字符编码而言，C/C++ 不定义字符串字符的编码，因此编码问题完全交给用户处理。C# 的字符串出于历史原因使用 UTF16，这在很多方面是编码与大小的“双输”：用户仍需处理 UTF16 代理对（一个 Unicode 字符拆成两个 UTF16 字符），而 UTF16 字符串几乎总是比 UTF8 更大（即便仅处理亚洲语言）。
 
-### Ease of use {#ease}
+### 易用性 {#ease}
 
-The [Argument cascade operator]({{< ref "operators.md#unary" >}}) can be especially useful when working with strings. To give the user control over allocations, strings are usually passed into methods where they are modified. For the most part, these methods return void, which means that you don't miss out on any return values, though methods that return Result<T> can not be properly handled this way.
+在处理字符串时，[参数级联运算符]({{< ref "operators.md#unary" >}}) 尤其有用。为了让用户掌控分配，字符串通常以参数形式传入方法并在其中被修改。这类方法多返回 void，因此不会损失返回值，但返回 Result<T> 的方法无法很好地使用这种方式。
 
 ```C#
 void ToString(String strBuffer)
@@ -61,11 +61,11 @@ void ToString(String strBuffer)
 	ToString(printString);
 	Console.WriteLine(printString);
 
-	/* Equivalent to code above. ToString is made to return the String we pass in */
+	/* 与上面等价。ToString 被设计为返回传入的 String */
 	let printString2 = ToString(.. scope String());
 	Console.WriteLine(printString2);
 
-	/* Equivalent one-liner. '.' can be used to infer 'String', since the type passed into ToString is unambiguous */
+	/* 等价的一行写法。'.' 可用于推断 'String'，因为传入 ToString 的类型明确 */
 	Console.WriteLine(ToString(.. scope .()));
 }
 
@@ -74,33 +74,33 @@ void ToString(String strBuffer)
 }
 ```
 
-### Common String Mistakes
+### 常见字符串错误
 
 ```C#
-/* WRONG - string literals exist in read-only memory and cannot be modified */
+/* 错误 - 字符串字面量位于只读内存，不能修改 */
 String newString = "Hello, ";
 newString.Append(name);
 
-/* RIGHT */
+/* 正确 */
 String newString = scope String()..AppendF("Hello, {}", name);
-/* RIGHT - this is equivalent to the code above */
+/* 正确 - 与上面的代码等价 */
 String newString = scope $"Hello, {name}";
 ```
 
 ```C#
-/* WRONG - removes allocation control from the user, and the burden of releasing this memory is placed on the caller */
+/* 错误 - 剥夺了用户对分配的控制，并将释放内存的负担交给调用方 */
 String GetName()
 {
 	return new String("Brian");
 }
 
-/* EVEN MORE WRONG - this memory goes out of scope on return, you cannot pass stack-allocated memory back to the caller */
+/* 更错误 - 返回时该内存已离开作用域，不能将栈分配内存返回给调用方 */
 String GetName()
 {
 	return scope String("Brian");
 }
 
-/* RIGHT - note the use of Append, this helps the user avoid creating temporary strings that need to be concatenated later */
+/* 正确 - 注意使用 Append，可避免创建需要后续拼接的临时字符串 */
 void GetName(String outName)
 {
 	outName.Append("Brian");
@@ -108,12 +108,12 @@ void GetName(String outName)
 ```
 
 ```C#
-/* WRONG - string values cannot be added */
+/* 错误 - 字符串值不能直接相加 */
 String strC = strA + strB;
-/* RIGHT - allocation provided */
+/* 正确 - 已提供分配 */
 String strC = scope $"{strA}{strB}";
-/* RIGHT - string constants can be added because the result is another string constant - no allocation is needed at runtime */
+/* 正确 - 字符串常量可相加，因为结果仍是字符串常量，运行时无需分配 */
 String strC = "A" + "B";
-/* RIGHT - equivalent to strC.Append(strA) */
+/* 正确 - 等价于 strC.Append(strA) */
 strC += strA;
 ```

@@ -1,6 +1,6 @@
 +++
 
-title = "Community"
+title = "社区"
 weight = 35
 widget = "blank"
 headless = true  # This file represents a page section.
@@ -11,11 +11,11 @@ columns = "1"
 
 +++
 
-Reddit<br>
+Reddit 社区<br>
 https://www.reddit.com/r/beeflang/
 
-Discord<br>
+Discord 社区<br>
 https://discord.gg/rnsc9YP
 
-Community-managed list of Beef frameworks, libraries, and resources<br>
+社区维护的 Beef 框架、库与资源列表<br>
 https://github.com/Jonathan-Racaud/awesome-beef

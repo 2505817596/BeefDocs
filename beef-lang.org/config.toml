@@ -1,10 +1,10 @@
-baseURL = "https://www.beeflang.org/docs/"
-languageCode = "en-us"
-title = "Beef Programming Language"
+baseURL = "https://2505817596.github.io/BeefDocs/docs/"
+languageCode = "zh-Hans"
+title = "Beef 编程语言"
 theme = "docdock"
 publishDir = "../public/docs"
 
-defaultContentLanguage = "en"
+defaultContentLanguage = "zh"
 defaultContentLanguageInSubdir= false
 enableMissingTranslationPlaceholders = false
 

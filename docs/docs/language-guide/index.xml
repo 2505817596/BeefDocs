@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>语言指南 on Beef 编程语言</title>
+    <link>https://2505817596.github.io/BeefDocs/docs/language-guide/</link>
+    <description>Recent content in 语言指南 on Beef 编程语言</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    
+	<atom:link href="https://2505817596.github.io/BeefDocs/docs/language-guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>基础知识</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/basics/</guid>
+      <description>编译模型 Beef 的编译上下文是工作区，由多个项目组成。项目可以是库，也可以生成可执行文件或 DLL 等二进制。源文件会被解析、经过有限预处理、编译，并为被引用的类型与方法构建一组目标文件，最终链接为目标二进制。工作区级的编译模型允许以工作区为单位的设置影响特定方法或类型的编译，即便代码位于引用的第三方库中，也可修改预处理与编译设置（如优化级别）。
+支持增量编译，通过依赖图仅重建可能受影响的对象，并使用后端缓存避免对无功能变化的对象重建。可关闭增量编译以生成可复现的构建。
+Beef 支持多种编译器后端，包括 LLVM 以及自定义的 “增强调试”（Og+）后端，该后端在不影响可调试性的前提下进行部分优化，并在调试信息输出方面优于 LLVM。
+支持多种链接器，包括系统链接器，以及可用于链接时优化构建（LLVM LTO/ThinLTO）的 LLVM 链接器。</description>
+    </item>
+    
+    <item>
+      <title>安全特性</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/safety/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/safety/</guid>
+      <description>Beef 支持多种可选安全特性，其中许多可针对特定代码组关闭，用于“混合安全”构建（例如性能关键代码可关闭部分检查，而性能要求较低或测试不足的代码则启用更多安全检查）。
+默认情况下，以下检查在 Debug 构建中对所有代码启用，在 Release 构建中禁用。
+越界检查 越界检查在标准库中针对数组、集合、Span 和字符串实现。许多类型提供一个执行越界检查的 [Checked] 访问器，以及一个不做越界检查的 [Unchecked] 访问器，从而可在调用点选择是否检查，而非由集合整体决定。
+// Disable bounds checking for this specific index 	int val = arr[[Unchecked]i]; // Don&amp;#39;t do any checks in this method [DisableChecks] void Calculate() { int val = arr[i]; }  动态转换检查 将对象显式转换为无效的派生类型会在运行时被捕获。
+内存泄漏 使用调试内存管理器可实时检测泄漏。运行时会持续追踪可达内存，不再可达但尚未正确释放的内存会立刻报告为泄漏，并附带分配发生位置。该分配追踪的栈深度可调整。
+重复释放 / 释放后使用 启用调试内存管理器时，请求释放的对象会被标记为“已释放”，但其内存不会立即回收，直到不再有引用指向该内存。任何在标记为已释放后继续使用该内存的行为都会立即失败，并且释放对象的值与分配栈追踪在调试器中仍然可用且可见。</description>
+    </item>
+    
+    <item>
+      <title>内存管理</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/memory/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/memory/</guid>
+      <description>内存分配 分配可以发生在栈、全局分配器或自定义分配器上。栈分配使用 &amp;ldquo;scope&amp;rdquo; 关键字，可指定从当前作用域（如代码块）到整个方法的作用域（即使在循环中）。
+static void Test(StreamReader fs) { let strList = scope List&amp;lt;String&amp;gt;(); for (let line in fs.Lines) { /* 该字符串的作用域为整个方法 */ let lineStr = scope:: String(line); strList.Add(lineStr); } strList.Sort(); } static void Test(StreamReader fs) { Sort: { let strList = scope List&amp;lt;String&amp;gt;(); for (let line in fs.Lines) { /* 该字符串的作用域为 &amp;#34;Sort&amp;#34; 作用域 */ let lineStr = scope:Sort String(line); strList.Add(lineStr); } strList.Sort(); } }  作用域分配可能动态增加栈大小，需要确保为给定计算提供足够的栈空间，就像递归方法必须保证递归深度不会耗尽栈一样。
+通过全局分配器分配使用 &amp;ldquo;new&amp;rdquo; 关键字。</description>
+    </item>
+    
+    <item>
+      <title>命名空间</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/namespaces/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/namespaces/</guid>
+      <description> 命名空间概览 命名空间用于在 Beef 中组织类型并防止命名冲突。注意，命名空间中的元素始终是 public。
+namespace Gfx { // Defines &amp;#34;Gfx.Window&amp;#34; class 	class Window { } namespace Resources { // Defines &amp;#34;Gfx.Resources.Image&amp;#34; class 	class Image { } } } namespace Gfx.Resources { // Defines &amp;#34;Gfx.Resources.Shader&amp;#34; class 	class Shader { } }  使用命名空间 虽然类型可以使用完全限定名来引用，但如果在该文件中通过 using 指令列出了其所属命名空间，就可使用更短的未限定名。
+using Gfx.Resources; class Program { void Use() { // Shader refers to Gfx.Resources.Shader; 	let s = new Shader(); } } </description>
+    </item>
+    
+    <item>
+      <title>接口</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/interfaces/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/interfaces/</guid>
+      <description>接口概览 接口定义了类或结构体需要实现的属性与方法要求。接口可用于动态派发，也可作为泛型约束使用（参见“泛型”部分）。
+interface IDrawable { void Draw(); } struct Circle : IDrawable { float x; float y; float radius; /* Implements IDrawable.Draw If we wanted to keep the Draw method as a private implementation, we could have declared it as &amp;#34;private void IDrawable.Draw()&amp;#34; */ public void Draw() { DrawCircle(x, y, radius); } } /* Calling the following method with an instance of Circle will first cause boxing to occur at the callsite, then Draw will be called via dynamic dispatch (method table) */ public static void DrawDynamic(IDrawable val) { val.</description>
+    </item>
+    
+    <item>
+      <title>语句</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/statements/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/statements/</guid>
+      <description>break/continue 我们可以使用 &amp;ldquo;break&amp;rdquo; 终止执行 &amp;ldquo;for&amp;rdquo;、&amp;rdquo;while&amp;rdquo; 或 &amp;ldquo;do&amp;rdquo; 语句。使用 &amp;ldquo;continue&amp;rdquo; 可跳到 &amp;ldquo;for&amp;rdquo; 循环的下一次迭代；默认情况下，这些语句作用于当前作用域中最深层的适用语句，但可以使用标签引用更外层的语句。这在跳出嵌套循环等场景中很有用。
+Y: for (int y &amp;lt; height) for (int x &amp;lt; width) if (Check(x, y)) break Y;  defer defer 语句用于将方法调用或代码块的执行推迟到退出某个作用域时。当延迟的是方法调用时，其参数（包括 this）会立刻求值。
+/* 以下将输出 &amp;#34;End:2 B:1 A:0&amp;#34;。注意执行顺序与 defer 的声明顺序相反。 */ { int i = 0; defer Console.WriteLine(&amp;#34;A:{}&amp;#34;, i); i++; defer Console.WriteLine(&amp;#34;B:{}&amp;#34;, i); i++; Console.WriteLine(&amp;#34;End:{}&amp;#34;, i); } /* 以下将输出 &amp;#34;End:2 B:2 A:2&amp;#34;。defer 位置没有参数需要求值，所以 WriteLine 使用的是作用域结束时的当前 i 值。 */ { int i = 0; defer { Console.</description>
+    </item>
+    
+    <item>
+      <title>表达式</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/expressions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/expressions/</guid>
+      <description>分配 new 和 scope 关键字用于分配（参见 内存管理）
+append append 表达式会在对象已分配内存的紧后位置继续分配，只能在构造函数中使用。（参见 内存管理）
+append 分配可用于 new 分配能使用的任何场景。（参见 new）
+赋值操作 参见 赋值运算符
+二元操作 参见 二元运算符
+绑定表达式 =&amp;gt; =&amp;gt; 表达式用于方法绑定（参见 方法引用）
+box box 表达式分配一个对象来包装值类型。（参见 内存管理（装箱））
+ scope box x - 在当前作用域中装箱 x scope:s box x - 在作用域 s 中装箱 x new box x - 在全局分配器中装箱 x new:a box x - 在自定义分配器 a 中装箱 x
+  case case 表达式可在 switch 之外用于模式匹配。（参见 模式匹配）
+类型转换表达式  (T)x 将值 x 转换为类型 T  条件运算符  x ?</description>
+    </item>
+    
+    <item>
+      <title>互操作</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/interop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/interop/</guid>
+      <description>互操作（FFI） Beef 允许零开销地链接静态与动态库。声明为 extern 的方法会创建外部符号引用，必须在链接时被满足。当缺少 C 链接库时，Beef 也可通过 [Import(...)] 特性导入 DLL 方法。默认的符号重整规则类似于 C++，在许多情况下可匹配，但可通过 [CLink] 或 [LinkName] 覆盖方法的链接名。
+/* 链接外部库中的方法，使用以下特性： Import：使用该方法时链接 &amp;#39;wsock32.lib&amp;#39; 库 CLink：不使用 C++ 重整，改用 C 链接名 StdCall：使用 stdcall 调用约定（WINAPI） */[Import(&amp;#34;wsock32.lib&amp;#34;), CLink, StdCall] static extern int32 WSAGetLastError(); /* 该方法链接到 C++ 中定义为 &amp;#39;const float&amp;amp; GetVal(const int32&amp;amp; a)&amp;#39;&amp;#39; 的外部函数 */[return: MangleConst, LinkName(.CPP)] public static extern ref float GetVal([MangleConst]ref int32 a);  由于字段重排（减少对齐空隙）以及 Beef 将结构体大小与步长分离（Beef 结构体末尾不包含对齐填充），默认情况下结构体布局并不与 C 的结构体布局一致。可使用 [CRepr] 特性创建与 C 匹配的结构体以便互操作。</description>
+    </item>
+    
+    <item>
+      <title>泛型</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/generics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/generics/</guid>
+      <description>泛型概览 泛型允许在编译期编写可应用于不同类型的抽象代码。例如 List 是一个基础列表抽象，可安全地存储不同类型的值。使用 &amp;ldquo;List&amp;rdquo; 类型引用会创建特化的 int32 列表类型。
+方法也可以拥有泛型参数，从而根据调用点的参数类型进行显式或隐式特化。
+public static T GetFirst&amp;lt;T&amp;gt;(List&amp;lt;T&amp;gt; list) { return list[0]; } ... let intList = new List&amp;lt;int32&amp;gt;(); intList.Add(123); let firstVal = GetFirst(intList);  可指定泛型约束，用于描述泛型代码所期望的类型“形状”。
+ 接口类型 - 可为泛型参数指定任意数量的接口，传入类型必须实现这些接口。 类/结构体类型 - 可指定一个具体类型，传入类型必须从其派生。 委托类型 - 传入类型可为该委托类型实例，或为签名符合该委托的方法引用（参见方法引用）。 operator T &amp;lt;op&amp;gt; T2 - 类型必须由指定类型间的二元运算得到 operator &amp;lt;op&amp;gt; T - 类型必须由指定类型的一元运算得到 operator implicit T - 类型必须可从指定类型隐式转换得到 operator explicit T - 类型必须可从指定类型显式转换得到 class - 类型必须为类 struct - 类型必须为值类型 enum - 类型必须为枚举 interface - 类型必须为接口 struct* - 类型必须为值类型指针 new - 类型必须定义可访问的默认构造函数 delete - 类型必须定义可访问的析构函数 const - 类型必须为常量值 - 参见“常量泛型” var - 类型不受约束。对某些“鸭子类型”场景有用，可生成类似 C++ 模板的模式，但通常会产生不够友好的错误与较差的开发体验  public static T Abs&amp;lt;T&amp;gt;(T value) where T : IOpComparable, IOpNegatable { if (value &amp;lt; default) return -value; else return value; } /* This method can eliminate runtime branching by specializing at compile time by incoming array size */ public static float GetSum&amp;lt;TCount&amp;gt;(float[TCount] vals) where TCount : const int { if (vals.</description>
+    </item>
+    
+    <item>
+      <title>反射</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/reflection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/reflection/</guid>
+      <description>反射 Beef 支持运行时反射，可枚举并访问类型、字段、方法和属性。默认情况下，为了减小可执行文件，仅包含最少的反射信息。可以通过代码特性标注需要额外输出的类成员信息。
+public struct Options {[Reflect] public bool mFlag; } void Use(ref Options options) { /* 注意此处使用 &amp;amp;options，以装箱指向 &amp;#39;options&amp;#39; 的指针，而不是装箱 &amp;#39;options&amp;#39; 的副本 */ options.GetType().GetField(&amp;#34;mFlag&amp;#34;).Value.SetValue(&amp;amp;options, true); }  反射构造 可以通过反射信息创建值。需要确保相关类型确实被包含在构建产物中。
+/* 由于我们仅通过反射实例化该类型，需要强制包含所需数据 */ /* 如果在已包含的代码中创建 TestClass 实例，则此处不一定需要 AlwaysInclude 特性 */[Reflect(.DefaultConstructor), AlwaysInclude(AssumeInstantiated=true)] class TestClass { } void DynamicCreate() { /* CreateObject() 返回 Result&amp;lt;Object&amp;gt;，可这样处理 */ if (Object obj = typeof(TestClass).CreateObject()) { Console.WriteLine(&amp;#34;Successfully created TestClass instance&amp;#34;); UseObject(obj); /* 通过反射创建的对象和值在堆上分配，需要 delete */ delete obj; } }  反射自定义特性 /* 该特性会出现在用户的反射信息中，使用该特性的类型会导出其使用的方法的反射信息 */[AttributeUsage(.</description>
+    </item>
+    
+    <item>
+      <title>字面量</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/literals/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/literals/</guid>
+      <description>整数字面量 整数可以用十进制、十六进制、八进制或二进制表示。此外，分隔符字符 &#39;（单引号）可按需要分隔数字。
+// Decimal numbers int dec = 1234; int dec2 = 12&amp;#39;345&amp;#39;678; // Hexadecimal int hex = 0x12345678; int hex2 = 0x1235&amp;#39;5678; // Octal int oct = 0o666; // Binary uint32 bin = 0b&amp;#39;1111&amp;#39;0000&amp;#39;1111&amp;#39;0000;  可通过后缀显式指定大小与有符号性。除非使用大小后缀或至少包含一个分隔符字符，否则整数字面量默认限制为 32 位。
+let val = 123U; // Results in an &amp;#39;uint&amp;#39; let val2 = 234L; // Results in an &amp;#39;int64&amp;#39; let val3 = 0x12&amp;#39;34567890; // Results in an `int64` let val4 = 0x1234567890; // ERROR- either an &amp;#39;L&amp;#39; or &amp;#39;`&amp;#39; is required  当未使用大小后缀时，整数字面量本身没有固定大小，其大小取决于使用上下文：</description>
+    </item>
+    
+    <item>
+      <title>模式匹配</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/pattern/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/pattern/</guid>
+      <description>模式匹配概览 模式匹配既可用于简单的相等性检查，也可在 switch 与 case 表达式中对元组和枚举值组合使用成员相等检查、成员捕获与成员“忽略”。
+元组模式匹配 void TupleCaseExpr() { let tup = (1.2, &amp;#34;Abc&amp;#34;); // This performs one equality check and one member capture 	if (tup case (1.2, let str)) { UseStr(str); } } void TupleSwitch() { let tup = (x: 10, y: 20, str:&amp;#34;Abc&amp;#34;); switch (tup) { case (0, 0, let drawStr): DrawAtOrigin(drawStr); case (var drawX, var drawY, let drawStr): /* Since drawX and drawY are &amp;#39;var&amp;#39; the are mutable, whereas drawStr is immutable */ drawX += 10; drawY += 20; Draw(x, y, drawStr); } }  枚举模式匹配 enum Shape { case Rectangle(int x, int y, int width, int height); case Circle(int x, int y, int radius); } void EnumCase() { Shape shape = .</description>
+    </item>
+    
+    <item>
+      <title>运算符</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/operators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/operators/</guid>
+      <description>运算符概览 以下运算符分组按优先级从高到低排列。
+主运算符  x.y - 成员访问 x..y(&amp;lt;method args&amp;gt;) - 成员访问级联。将方法 y 的结果替换为 x，用于将多个方法调用串联到同一目标上。例如：string..Append(&amp;quot;name: &amp;quot;).Append(name); 尽管 Append 返回 void，但两个 Append 都作用于 string。 x?.y - 空条件成员访问。若 x 为 null，则结果为 null。 f(x) - 方法调用 a[x] - 数组索引  一元运算符  x++ - 后缀自增，先返回自增前结果再递增 x x-- - 后缀自减，先返回自减前结果再递减 x ++x - 前缀自增，先递增 x 再返回新值 --x - 前缀自减，先递减 x 再返回新值 ~x - 按位取反 !x - 逻辑取反 (T)x - 将 x 转换为类型 T &amp;amp;x - 取 x 的地址 *x - 解引用指针 x x(.</description>
+    </item>
+    
+    <item>
+      <title>错误处理</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/errors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/errors/</guid>
+      <description>错误处理 一些语言如 C# 使用异常处理，但 Beef 不支持异常。按照约定，错误处理使用 System.Result 和 System.Result枚举类型，它们包含 .Ok(T) 与 .Err(TError) 两个值。带 TError 参数的版本支持返回显式错误值，否则错误类型未指定。泛型可用 &amp;ldquo;void&amp;rdquo; 作为参数，因此 Result 用于可能返回错误但没有返回值的方法。
+若未处理返回的错误，将导致运行时致命错误。
+static Result&amp;lt;uint&amp;gt; GetMinusOne(uint i) { if (i == 0) return .Err; return .Ok(i - 1); } void Use() { /* Handle result via a switch */ switch (GetMinusOne(i)) { case .Ok(let newVal): Console.WriteLine(&amp;#34;Val: {}&amp;#34;, newVal); case .Err: Console.WriteLine(&amp;#34;Failed&amp;#34;); } /* This invokes an implicit conversion operator, which will be fatal at runtime if an error is returned */ let newVal = GetMinusOne(i); /* Result&amp;lt;T&amp;gt; contains a special &amp;#34;ReturnValueDiscarded&amp;#34; method which is invoked to facilitate failing fatally on ignored returned errors here */ GetMinusOne(i); /* &amp;#34;ReturnValueDiscarded&amp;#34; will not be called */ GetMinusOne(i).</description>
+    </item>
+    
+    <item>
+      <title>预处理器</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/preprocessor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/preprocessor/</guid>
+      <description> 预处理器 Beef 预处理器用于在解析器运行前按条件包含文本块并修改警告选项。它比 C 预处理器灵活性低，不能用于实现宏或其他“代码生成”用途。
+ #define  - 将符号 &amp;ldquo;X&amp;rdquo; 设为 true #endif - 结束 #if、#else 或 #elif 块 #else - 若前一 #if/#elif 为 false，则处理直到下一个 #endif #elif  - 若前一 #if/#elif 为 false 且 &amp;ldquo;X&amp;rdquo; 为 true，则处理直到下一个 #endif #error  - 在解析时创建错误 #if  - 若 &amp;ldquo;X&amp;rdquo; 为 true，则处理直到下一个 #endif #pragma format disable - 禁用格式化 #pragma format restore - 恢复格式化 #pragma warning disable  - 禁用编号为 X 的警告 #pragma warning restore  - 恢复编号为 X 的警告 #undef  - 将符号 &amp;ldquo;X&amp;rdquo; 设为 false #unwarn - 禁用下一行源代码的警告 #warn  - 在解析时创建警告  内置预处理器符号  BF_32_BIT - 目标为 32 位 BF_64_BIT - 目标为 64 位 BF_ALLOW_HOT_SWAPPING - 启用热代码替换 BF_DEBUG_ALLOC - 使用调试分配器 BF_DYNAMIC_CAST_CHECK - 启用动态转换检查 BF_ENABLE_OBJECT_DEBUG_FLAGS - 对象头包含调试标志 BF_ENABLE_REALTIME_LEAK_CHECK - 启用实时泄漏检查 BF_HAS_VDATA_EXTENDER - 类带有 vdata 扩展器（用于热替换期间扩展 vtable） BF_LARGE_COLLECTIONS - 启用大集合（&amp;gt;1GB） BF_LARGE_STRINGS - 启用大字符串（&amp;gt;1GB） BF_LITTLE_ENDIAN - 目标为小端 BF_PLATFORM_IOS - iOS 目标 BF_PLATFORM_LINUX - Linux 目标 BF_PLATFORM_MACOS - macOS 目标 BF_PLATFORM_WINDOWS - Windows 目标 BF_RUNTIME_CHECKS - 启用运行时检查（如越界检查） BF_TEST_BUILD - 当前构建为 &amp;lsquo;test&amp;rsquo; 构建 DEBUG - 当前构建为 &amp;lsquo;debug&amp;rsquo; 构建  </description>
+    </item>
+    
+    <item>
+      <title>字符串</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/strings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/strings/</guid>
+      <description>字符串概览 Beef 的 String 类型是可变对象，带有可调整的“小字符串优化”缓冲区，以 UTF8 存储字符数据。StringView 是一个 Span&amp;lt;char8&amp;gt; 的指针+长度结构体。按惯例，方法通过 StringView 参数接收字符串输入，需返回字符串数据的方法则使用 String 参数并向其追加数据。
+在同一工作区内值相同的字符串字面量会被合并，并拥有相同的对象地址；通过 char8* 转换或 CStr() 方法得到的以 null 结尾的 C 字符串指针也保证地址相同。生成的字符串若与某个字面量值相同，经过 String.Intern() 会返回该字面量的地址。
+String str = &amp;#34;This is a string&amp;#34;; char8* cStr = &amp;#34;This is a C string&amp;#34;; String str2 = &amp;#34;This string contains\n Two lines&amp;#34;; String str3 = @&amp;#34;C:\Path\Literal\NoSlashing&amp;#34;; String str4 = &amp;#34;&amp;#34;&amp;#34; 	Multiline string literal with a tabbed second line; &amp;#34;&amp;#34;&amp;#34;;  更多字符串字面量信息参见 字面量。</description>
+    </item>
+    
+    <item>
+      <title>类型引用</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/typerefs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/typerefs/</guid>
+      <description> 特殊类型引用  Self - 定义该成员的类型；在接口中使用时，表示实现该接口的类型 SelfBase - 定义该成员类型的基类 SelfOuter - 定义该成员类型的外部类型 var/let - 创建变量时用于类型推断，var 创建可变变量，let 创建常量或只读变量 . - . 类型用于类型推断，表示“期望类型”。最常见的用途是在不指定类型名的情况下，将隐式转换改为显式转换。（例如：intVal = (.)floatVal）  </description>
+    </item>
+    
+    <item>
+      <title>编译期（Comptime）</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/comptime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/comptime/</guid>
+      <description>编译期（Comptime） Beef 提供编译期特性，可用于执行能求值为常量的代码或生成代码。
+编译期方法求值 /* 使用 Vector3 构造函数的编译期求值来初始化常量 */ const Vector3 vec = .(1, 2, 3); /* 普通方法也可在编译期使用 */ static int32 Factorial(int32 n) { return n &amp;lt;= 1 ? 1 : (n * Factorial(n - 1)); } const int fac = Factorial(8); var fac2 =[ConstEval]Factorial(9); /* 调用特性强制编译期求值 */ /* 该方法只能在编译期调用。&amp;#39;var&amp;#39; 返回类型允许它根据输入在编译期返回不同类型 */[Comptime(ConstEval=true)] static var StrToValue(String str) { if (str.Contains(&amp;#39;.&amp;#39;)) return float.Parse(str).Value; return int.Parse(str).Value; } public const let cVal0 = StrToValue(&amp;#34;123&amp;#34;); /* 求值为 &amp;#39;int&amp;#39; */ public const let cVal1 = StrToValue(&amp;#34;1.</description>
+    </item>
+    
+  </channel>
+</rss>

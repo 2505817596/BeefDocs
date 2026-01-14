@@ -1,10 +1,10 @@
 +++
-title = "Globals"
+title = "全局"
 +++
 
-### Globals
+### 全局
 	
-Global variables can be considered static fields of an unnamed type. Global methods and mixins can also be defined.
+全局变量可视为匿名类型的静态字段。也可以定义全局方法与 mixin。
 
 ```C#
 static
@@ -13,7 +13,7 @@ static
 }
 ```
 
-The conciseness of global variables can be matched on a file level with `using static`, which allows direct usage of static fields outside the current type.
+通过 `using static` 可以在文件级别实现类似全局变量的简洁性，使得可以在当前类型外直接使用静态字段。
 
 ```C#
 class Image
@@ -27,7 +27,7 @@ class Program
 {
 	public void Use()
 	{
-		// This static usage would normally require a fully-qualified "Image.sImageCount";
+		// 这种静态使用通常需要完全限定名 "Image.sImageCount";
 		int imgCount = sImageCount;
 	}
 }

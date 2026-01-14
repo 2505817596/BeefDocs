@@ -1,17 +1,17 @@
 +++
-title = "Package Manager"
+title = "包管理器"
 weight = 60
 +++
 
-## Package manager overview
+## 包管理器概览
 
-The Beef build tools includes a package manager which can retrieve remote library dependencies. In the IDE, right-clicking on 'Workspace' and selecting 'Add Remote Project...' will show a dialog where a remote URL and Cargo-style SemVer version constraints can be entered. Project properties now include 'Remote URL' and 'Ver Constraint' sections in the 'Dependencies' panel, which allows libraries to specify their version constraints. In the case that your workspace contains multiple conflicting version constraints for the same library, the package manager will choose the highest version available that satisfies the most number of constraints.
+Beef 构建工具包含一个包管理器，可获取远程库依赖。在 IDE 中右键 “Workspace” 并选择 “Add Remote Project...” 会弹出对话框，可输入远程 URL 与 Cargo 风格的 SemVer 版本约束。项目属性在 “Dependencies” 面板中包含 “Remote URL” 与 “Ver Constraint” 区域，允许库指定其版本约束。当工作区中同一库出现多个冲突的版本约束时，包管理器会选择满足最多约束条件的最高可用版本。
 
-When remote libraries are used in a project, a `BeefSpace_Lock.toml` file will be generated which will "lock" your workspace to the best version match currently on the remote. In the IDE, right-clicking on 'Workspace' and selecting 'Update Version Locks' can be used to update all the version locks in the workspace.
+当项目使用远程库时，会生成 `BeefSpace_Lock.toml` 文件，用于将工作区锁定到当前远程的最佳版本匹配。在 IDE 中右键 “Workspace” 并选择 “Update Version Locks” 可更新工作区内的所有版本锁定。
 
-If the remote project contains a directory named 'Setup', the package manager will build and run the workspace in that directory. This program can perform any action needed to set up the library, including downloading or building additional binary library dependencies.
+如果远程项目包含名为 “Setup” 的目录，包管理器会构建并运行该目录中的工作区。该程序可执行库的任何初始化操作，包括下载或构建额外的二进制库依赖。
 
-### Version constraints
+### 版本约束
 ```s
 1.2.3  :=  >=1.2.3, <2.0.0
 1.2    :=  >=1.2.0, <2.0.0

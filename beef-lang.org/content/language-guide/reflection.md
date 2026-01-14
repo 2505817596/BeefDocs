@@ -1,10 +1,10 @@
 +++
-title = "Reflection"
+title = "反射"
 weight=75
 +++
 
-## Reflection
-Beef supports runtime reflection, which allows enumerating and accessing types, fields, methods, and properties. By default, in the interest of smaller executables, only minimal reflection information is included. Code attributes can be used to denote additional class member information that should be emitted.
+## 反射
+Beef 支持运行时反射，可枚举并访问类型、字段、方法和属性。默认情况下，为了减小可执行文件，仅包含最少的反射信息。可以通过代码特性标注需要额外输出的类成员信息。
 
 ```C#
 public struct Options
@@ -15,18 +15,18 @@ public struct Options
 
 void Use(ref Options options)
 {
-	/* Note that we use &options here - we do this so that we are boxing a pointer to 'options' rather than boxing a copy of 'options' */
+	/* 注意此处使用 &options，以装箱指向 'options' 的指针，而不是装箱 'options' 的副本 */
 	options.GetType().GetField("mFlag").Value.SetValue(&options, true);
 }
 ```
 
-## Reflected Construction
+## 反射构造
 
-Values can be created from reflection information. Some care has to be taken to ensure that the type of the value in question is actually included in builds.
+可以通过反射信息创建值。需要确保相关类型确实被包含在构建产物中。
 
 ```C#
-/* Since we only instatiate the type through reflection, we need to force the needed data to be included */
-/* If we were creating instances of TestClass somewhere in included code, the AlwaysInclude attribute wouldn't be strictly necessary here */
+/* 由于我们仅通过反射实例化该类型，需要强制包含所需数据 */
+/* 如果在已包含的代码中创建 TestClass 实例，则此处不一定需要 AlwaysInclude 特性 */
 [Reflect(.DefaultConstructor), AlwaysInclude(AssumeInstantiated=true)]
 class TestClass
 {
@@ -34,21 +34,21 @@ class TestClass
 
 void DynamicCreate()
 {
-	/* CreateObject() returns Result<Object>, which we can handle like this */
+	/* CreateObject() 返回 Result<Object>，可这样处理 */
 	if (Object obj = typeof(TestClass).CreateObject())
 	{
 		Console.WriteLine("Successfully created TestClass instance");
 		UseObject(obj);
 
-		/* Objects and values created through reflection are heap-allocated and need to be deleted */
+		/* 通过反射创建的对象和值在堆上分配，需要 delete */
 		delete obj;
 	}
 }
 ```
 
-### Reflecting on Custom Attributes
+### 反射自定义特性
 ```C#
-/* This attribute will show up in the user's reflection information, and users of this attribute will have all their used method's reflection information exported' */
+/* 该特性会出现在用户的反射信息中，使用该特性的类型会导出其使用的方法的反射信息 */
 [AttributeUsage(.Class | .Struct, .ReflectAttribute, ReflectUser=.Methods)]
 struct ScriptableAttribute : Attribute
 {
@@ -59,7 +59,7 @@ struct ScriptableAttribute : Attribute
 	}
 }
 
-/* This class will have a default constructor available for reflection, and all methods defined will be included in the build even though they are not directly called */
+/* 该类将提供可反射的默认构造函数，且所有方法都会被包含在构建中，即使它们未被直接调用 */
 [Scriptable("Main Test Class"), AlwaysInclude(AssumeInstantiated=true, IncludeAllMethods=true)]
 class TestClass
 {
@@ -88,7 +88,7 @@ class Program
 }
 ```
 
-Alternatively, the effects of the `AlwaysInclude` attribute can also be put directly onto the `Scriptable` attribute itself. With the following struct, the `TestClass` only needs to have the `Scriptable` attribute.
+或者也可以把 `AlwaysInclude` 的效果直接写到 `Scriptable` 特性上。使用下列结构体时，`TestClass` 只需要标注 `Scriptable` 特性即可。
 
 ```C#
 [AttributeUsage(.Class | .Struct, .ReflectAttribute, ReflectUser=.Methods, AlwaysIncludeUser=.AssumeInstantiated | .IncludeAllMethods)]
@@ -102,7 +102,7 @@ struct ScriptableAttribute : Attribute
 }
 ```
 
-### Invoking reflected methods
+### 调用反射方法
 ```C#
 [AlwaysInclude(IncludeAllMethods=true), Reflect(.Methods)]
 class MethodHolder
@@ -130,35 +130,35 @@ class Program
 {
 	static void InvokeFuncs()
 	{
-		/* Invoke member methods */
+		/* 调用成员方法 */
 		{
 			let mh = scope MethodHolder();
 
-			/* Pass 'mh' as 'target', as well as method our parameters. Note that we don't handle any errors */
+			/* 将 'mh' 作为 target，并传入方法参数。注意此处未处理错误 */
 			typeof(MethodHolder).GetMethod("ChangeIdentifier").Get().Invoke(mh, 14);
 
 			Runtime.Assert(mh.mIdentifier == 14);
 		}
 
-		/* Invoke all static methods */
+		/* 调用所有静态方法 */
 		int passInt = 8;
 		for (let m in typeof(MethodHolder).GetMethods(.Static))
 		PARAMS:
 		{
-			/* Pass params based on what the function takes */
+			/* 根据函数参数传入参数 */
 			let methodParams = scope Object[m.ParamCount];
 			for (let i < m.ParamCount)
 			{
 				Object param;
-				switch (m.GetParamType(i)) /* This covers all the cases in this example */
+				switch (m.GetParamType(i)) /* 覆盖此示例中的所有情况 */
 				{
 				case typeof(String):
 					param = "A nice string message";
 				case typeof(int):
 
-					/* We need to box this value into an object ourselves to make sure it's not out of scope and deleted when we invoke the method */
-					/* param = passInt; would implicitly box passInt, but be deleted once we leave this 'for (let i < m.ParamCount)' loop cycle */
-					/* where as we need it to persist the outer "method" loop's cycle to be valid at the Invoke() call */
+					/* 需要手动装箱，确保调用方法时不会因离开作用域而被释放 */
+					/* param = passInt; 会隐式装箱 passInt，但会在离开 'for (let i < m.ParamCount)' 循环后被删除 */
+					/* 而我们需要其在外层 "method" 循环的周期内保持有效，以便 Invoke() 调用 */
 					param = scope:PARAMS box passInt;
 				default:
 					param = null;
@@ -167,13 +167,13 @@ class Program
 				methodParams[i] = param;
 			}
 
-			/* Invoke the method and handle the result / return value. Static methods don't have a target */
-			/* Note that 'Invoke(null, methodParams)' would attempt to pass the Object[] as the only argument */
+			/* 调用方法并处理结果/返回值。静态方法没有 target */
+			/* 注意 'Invoke(null, methodParams)' 会将 Object[] 作为唯一参数传入 */
 			switch (m.Invoke(null, params methodParams))
 			{
 			case .Ok(let val):
 
-				/* Handle returned int variants */
+				/* 处理返回的 int variant */
 				if (val.VariantType == typeof(int))
 				{
 					let num = val.Get<int>();
@@ -181,22 +181,22 @@ class Program
 				}
 
 			case .Err:
-				Console.WriteLine(scope $"Couldn't invoke method {m.Name}");
+				Console.WriteLine(scope $"无法调用方法 {m.Name}");
 			}
 		}
 	}
 }
 
-/* Prints:
+/* 输出：
 	I am now number 14
 	Method GiveMeFive returned 5
 	8: A nice string message
 */
 ```
 
-### Reflection from Interface
+### 从接口反射
 ```C#
-/* All implementers of this interface will have dynamic boxing available */
+/* 实现该接口的所有类型都会启用动态装箱 */
 [Reflect(.None, ReflectImplementer=.DynamicBoxing)]
 interface ISerializable
 {
@@ -224,7 +224,7 @@ class Serializer
 			iSerializable = v.Get<Object>() as ISerializable;
 		else
 		{
-			/* 'v.GetBoxed' works for types implementing ISerializable because of the 'ReflectImplementer=.DynamicBoxing' attribute */
+			/* 由于 'ReflectImplementer=.DynamicBoxing' 特性，'v.GetBoxed' 可用于实现 ISerializable 的类型 */
 			iSerializable = v.GetBoxed().GetValueOrDefault() as ISerializable;
 			defer:: delete iSerializable;
 		}
@@ -233,9 +233,9 @@ class Serializer
 }
 ```
 
-### Comptime Type Enumeration
+### 编译期类型枚举
 
-Enumerating types at comptime through `Type.Types` is disallowed, as the set of all types is not know until after compilation has fully completed. You are, however, able to enumerate through a workspace's type *declarations* at comptime. Type declarations do not include generic type instances, arrays, tuples, nullables, or other on-demand types, and they do not include information that is only known after the type is closed, such as size or a member list. Type declarations are not available at runtime, only comptime.
+在编译期通过 `Type.Types` 枚举类型是不允许的，因为在编译完全结束之前无法得知所有类型的集合。不过可以在编译期枚举工作区的类型*声明*。类型声明不包含泛型实例、数组、元组、可空类型或其他按需类型，也不包含只有在类型闭合后才知道的信息（如大小或成员列表）。类型声明仅在编译期可用，运行时不可用。
 
 ```C#
 [Comptime]
@@ -253,22 +253,22 @@ int GetSerializableCount()
 
 ### Distinct Build Options
 
-Reflection information can be configured in workspaces and projects under Distinct Build Options. For example, if you need `Add` and `Remove` methods reflected for all `System.Collection.List<T>` instances, you can add a `System.Collections.List<*>` under Distinct Build Options:
-	* Set "Reflect\Method Filter" to "Add;Remove" to ensure the settings only apply to those methods
-	* Set "Reflect\Always Include" to "Include All" to ensure the specified methods get compiled into the build even if they werent't explicitly used
-	* Set "Reflect\Non-Static Methods" to "Yes" to ensure the specified non-static methods have reflection information added
+反射信息可在工作区与项目的 Distinct Build Options 中配置。例如，如果你需要为所有 `System.Collection.List<T>` 实例反射 `Add` 与 `Remove` 方法，可以在 Distinct Build Options 下添加 `System.Collections.List<*>`：
+	* 将 "Reflect\Method Filter" 设为 "Add;Remove"，确保设置仅应用于这些方法
+	* 将 "Reflect\Always Include" 设为 "Include All"，确保指定方法即使未被显式使用也会编译进构建
+	* 将 "Reflect\Non-Static Methods" 设为 "Yes"，确保指定的非静态方法添加反射信息
 
-The Distinct Build Options filter can support:
-	* Type name matching (ie: `System.Collections.List<*>`)
-	* Type attribute matching (ie: `[System.Optimize]`)
-	* Interface implementation matching (ie: `:System.IDisposable`)
+Distinct Build Options 过滤器支持：
+	* 类型名匹配（如 `System.Collections.List<*>`）
+	* 类型特性匹配（如 `[System.Optimize]`）
+	* 接口实现匹配（如 `:System.IDisposable`）
 
-### Dynamic Boxing
+### 动态装箱
 
-`Variant.GetBoxed` can be used to create a heap-allocated dynamically. The call will fail if the compiler has not generated the box type for the stored valuetype either through on-demand compilation or through reflection options by annotated the valuetype with `[Reflect(.DynamicBoxing)]` or setting the "Dynamic Boxing" reflection setting in Distinct Build Options.
+`Variant.GetBoxed` 可用于动态创建堆分配的装箱对象。如果编译器未通过按需编译或反射选项生成存储值类型的盒类型（如为值类型标注 `[Reflect(.DynamicBoxing)]` 或在 Distinct Build Options 中设置 "Dynamic Boxing"），则调用会失败。
 
-### Common Reflection Issues
+### 常见反射问题
 
-Beef strives to produce the smallest executables possible -- a "Hello World" program should ideally only contain the absolute minimum machine code and data in the resulting executable to print "Hello World" and nothing else. If you were to add functionality to that application to allow the user to pass in a type name and a method name and you expect to be able to construct that type and call that method based on reflection information, that would clearly be impossible unless the executable contained machine code and reflection information for every single method defined in the corlib, which would violate the "minimum binary" ideal.
+Beef 致力于生成尽可能小的可执行文件——一个 “Hello World” 程序理想情况下只应包含打印 “Hello World” 所需的最小机器码和数据。如果你为该程序增加功能，让用户传入类型名与方法名，并期望基于反射信息构造该类型并调用该方法，那么除非可执行文件包含 corlib 中每个方法的机器码和反射信息，否则显然无法实现，这将违背“最小二进制”的目标。
 
-Firstly, Beef includes types on demand, so reflection information for any type that is not directly used by your program will not be included in the build. Add the `[AlwaysInclude]` attribute to force this type to be included in all builds. If you want to dynamically construct it, use `[AlwaysInclude(AssumeInstantiated=true)]`. Individual methods are also compiled on demand, but you can force every method to be included in the build with `[AlwaysInclude(IncludeAllMethods=true)]`.
+首先，Beef 按需包含类型，因此未被程序直接使用的类型不会包含在构建中。可添加 `[AlwaysInclude]` 特性强制在所有构建中包含该类型。如果需要动态构造该类型，使用 `[AlwaysInclude(AssumeInstantiated=true)]`。单个方法也会按需编译，但可通过 `[AlwaysInclude(IncludeAllMethods=true)]` 强制将所有方法编译进构建。

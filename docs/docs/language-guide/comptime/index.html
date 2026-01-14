@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beef 编程语言</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2026-01-14T11:04:40 CST">
+<title>编译期（Comptime） :: Beef 编程语言</title>
+<link rel="shortcut icon" href="/BeefDocs/docs/images/favicon.png" type="image/x-icon" />
+<link href="/BeefDocs/docs/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BeefDocs/docs/css/nucleus.css" rel="stylesheet">
+<link href="/BeefDocs/docs/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/BeefDocs/docs/css/bootstrap.min.css">
+<link href="/BeefDocs/docs/css/syntax.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/BeefDocs/docs/language-guide/comptime/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="/">Beef 编程语言</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/BeefDocs/docs/" class="dd-item">
+          <a href="/BeefDocs/docs/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/BeefDocs/docs/releases/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/releases/">发布说明</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_0/">
+            版本 0.42.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_1/">
+            版本 0.42.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_2/">
+            版本 0.42.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_3/">
+            版本 0.42.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_4/">
+            版本 0.42.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_5/">
+            版本 0.42.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_6/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_6/">
+            版本 0.42.6
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_7/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_7/">
+            版本 0.42.7
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_8/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_8/">
+            版本 0.42.8
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_0/">
+            版本 0.43.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_1/">
+            版本 0.43.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_2/">
+            版本 0.43.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_3/">
+            版本 0.43.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_4/">
+            版本 0.43.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_5/">
+            版本 0.43.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/foreward/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/foreward/">简介</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/license/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/license/">许可证</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/getting-start/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/getting-start/">入门指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/getting-start/installation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/installation/">
+            安装
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/getting-start/building/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/building/">
+            从源码构建
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/">语言指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/basics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/basics/">
+            基础知识
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/safety/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/safety/">
+            安全特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/memory/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/memory/">
+            内存管理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/namespaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/namespaces/">
+            命名空间
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/datatypes/">数据类型</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interfaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interfaces/">
+            接口
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/statements/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/statements/">
+            语句
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/expressions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/expressions/">
+            表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interop/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interop/">
+            互操作
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/generics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/generics/">
+            泛型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/reflection/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/reflection/">
+            反射
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/literals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/literals/">
+            字面量
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/pattern/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/pattern/">
+            模式匹配
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/operators/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/operators/">
+            运算符
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/errors/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/errors/">
+            错误处理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/preprocessor/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/preprocessor/">
+            预处理器
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/strings/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/strings/">
+            字符串
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/typerefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/typerefs/">
+            类型引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/comptime/" class="dd-item active">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/comptime/">
+            编译期（Comptime）
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/corlib/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/corlib/">核心库</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/projects/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/projects/">项目与工作区</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/platforms/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/platforms/">平台</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/ide/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/ide/">IDE</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/ide/themes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/themes/">
+            主题
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/codegeneration/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/codegeneration/">
+            代码生成
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/commandline/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/commandline/">
+            命令行参数
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/profiling/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/profiling/">
+            性能分析
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/documentation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/documentation/">
+            文档
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/hotcompile/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/hotcompile/">
+            热编译
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/watch/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/watch/">
+            调试器表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/beefbuild/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/beefbuild/">BeefBuild</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/packman/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/packman/">包管理器</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/testing/">测试</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/faq/">常见问题</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/BeefDocs/docs/releases/" >
+   发布说明</option>
+    <option value="/BeefDocs/docs/foreward/" >
+   简介</option>
+    <option value="/BeefDocs/docs/license/" >
+   许可证</option>
+    <option value="/BeefDocs/docs/getting-start/" >
+   入门指南</option> 
+      <option value="/BeefDocs/docs/getting-start/installation/" >- 安装</option>
+      <option value="/BeefDocs/docs/getting-start/building/" >- 从源码构建</option>
+  
+    <option value="/BeefDocs/docs/language-guide/" >
+   语言指南</option> 
+      <option value="/BeefDocs/docs/language-guide/basics/" >- 基础知识</option>
+      <option value="/BeefDocs/docs/language-guide/safety/" >- 安全特性</option>
+      <option value="/BeefDocs/docs/language-guide/memory/" >- 内存管理</option>
+      <option value="/BeefDocs/docs/language-guide/namespaces/" >- 命名空间</option>
+    <option value="/BeefDocs/docs/language-guide/datatypes/" >
+  - 
+   数据类型</option> 
+      <option value="/BeefDocs/docs/language-guide/datatypes/members/" >-- 类型成员</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/attributes/" >-- 特性</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/initialization/" >-- 初始化</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/extensions/" >-- 扩展</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/anon/" >-- 匿名类型</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/globals/" >-- 全局</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/methodrefs/" >-- 方法引用</option>
+  
+      <option value="/BeefDocs/docs/language-guide/interfaces/" >- 接口</option>
+      <option value="/BeefDocs/docs/language-guide/statements/" >- 语句</option>
+      <option value="/BeefDocs/docs/language-guide/expressions/" >- 表达式</option>
+      <option value="/BeefDocs/docs/language-guide/interop/" >- 互操作</option>
+      <option value="/BeefDocs/docs/language-guide/generics/" >- 泛型</option>
+      <option value="/BeefDocs/docs/language-guide/reflection/" >- 反射</option>
+      <option value="/BeefDocs/docs/language-guide/literals/" >- 字面量</option>
+      <option value="/BeefDocs/docs/language-guide/pattern/" >- 模式匹配</option>
+      <option value="/BeefDocs/docs/language-guide/operators/" >- 运算符</option>
+      <option value="/BeefDocs/docs/language-guide/errors/" >- 错误处理</option>
+      <option value="/BeefDocs/docs/language-guide/preprocessor/" >- 预处理器</option>
+      <option value="/BeefDocs/docs/language-guide/strings/" >- 字符串</option>
+      <option value="/BeefDocs/docs/language-guide/typerefs/" >- 类型引用</option>
+      <option value="/BeefDocs/docs/language-guide/comptime/"  selected>- 编译期（Comptime）</option>
+  
+    <option value="/BeefDocs/docs/corlib/" >
+   核心库</option>
+    <option value="/BeefDocs/docs/projects/" >
+   项目与工作区</option> 
+  
+    <option value="/BeefDocs/docs/platforms/" >
+   平台</option> 
+  
+    <option value="/BeefDocs/docs/ide/" >
+   IDE</option> 
+      <option value="/BeefDocs/docs/ide/themes/" >- 主题</option>
+      <option value="/BeefDocs/docs/ide/codegeneration/" >- 代码生成</option>
+      <option value="/BeefDocs/docs/ide/commandline/" >- 命令行参数</option>
+      <option value="/BeefDocs/docs/ide/profiling/" >- 性能分析</option>
+      <option value="/BeefDocs/docs/ide/documentation/" >- 文档</option>
+      <option value="/BeefDocs/docs/ide/hotcompile/" >- 热编译</option>
+      <option value="/BeefDocs/docs/ide/watch/" >- 调试器表达式</option>
+  
+    <option value="/BeefDocs/docs/beefbuild/" >
+   BeefBuild</option>
+    <option value="/BeefDocs/docs/packman/" >
+   包管理器</option>
+    <option value="/BeefDocs/docs/testing/" >
+   测试</option>
+    <option value="/BeefDocs/docs/faq/" >
+   常见问题</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="">
+        </div>
+        <script type="text/javascript" src="/BeefDocs/docs/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/auto-complete.js"></script>
+        <link href="/BeefDocs/docs/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+          
+        </script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/search.js"></script>
+      </div>
+    
+
+    <h1>编译期（Comptime）</h1>
+    
+    
+    
+    
+
+<h2 id="编译期-comptime">编译期（Comptime）</h2>
+
+<p>Beef 提供编译期特性，可用于执行能求值为常量的代码或生成代码。</p>
+
+<h3 id="编译期方法求值">编译期方法求值</h3>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 使用 Vector3 构造函数的编译期求值来初始化常量 */</span>
+<span class="k">const</span> <span class="n">Vector3</span> <span class="n">vec</span> <span class="p">=</span> <span class="p">.(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+
+<span class="cm">/* 普通方法也可在编译期使用 */</span>
+<span class="k">static</span> <span class="n">int32</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">int32</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="p">&lt;=</span> <span class="m">1</span> <span class="p">?</span> <span class="m">1</span> <span class="p">:</span> <span class="p">(</span><span class="n">n</span> <span class="p">*</span> <span class="n">Factorial</span><span class="p">(</span><span class="n">n</span> <span class="p">-</span> <span class="m">1</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">fac</span> <span class="p">=</span> <span class="n">Factorial</span><span class="p">(</span><span class="m">8</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">fac2</span> <span class="p">=</span><span class="na"> [ConstEval]</span><span class="n">Factorial</span><span class="p">(</span><span class="m">9</span><span class="p">);</span> <span class="cm">/* 调用特性强制编译期求值 */</span>
+
+<span class="cm">/* 该方法只能在编译期调用。&#39;var&#39; 返回类型允许它根据输入在编译期返回不同类型 */</span><span class="na">
+</span><span class="na">[Comptime(ConstEval=true)]</span>
+<span class="k">static</span> <span class="kt">var</span> <span class="n">StrToValue</span><span class="p">(</span><span class="n">String</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">))</span>
+		<span class="k">return</span> <span class="kt">float</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="n">Value</span><span class="p">;</span>
+	<span class="k">return</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="n">Value</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">const</span> <span class="k">let</span> <span class="n">cVal0</span> <span class="p">=</span> <span class="n">StrToValue</span><span class="p">(</span><span class="s">&#34;123&#34;</span><span class="p">);</span> <span class="cm">/* 求值为 &#39;int&#39; */</span>
+<span class="k">public</span> <span class="k">const</span> <span class="k">let</span> <span class="n">cVal1</span> <span class="p">=</span> <span class="n">StrToValue</span><span class="p">(</span><span class="s">&#34;1.23&#34;</span><span class="p">);</span> <span class="cm">/* 求值为 &#39;float&#39; */</span>
+
+<span class="cm">/* 注意：返回作用域内存在编译期是合法的，但在运行期是不合法的 */</span>
+<span class="k">static</span> <span class="n">String</span> <span class="n">GenerateString</span><span class="p">(</span><span class="n">String</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">scope</span> <span class="s">$&#34;{str}:{a}:{b}&#34;</span><span class="p">;</span>
+<span class="k">const</span> <span class="n">String</span> <span class="n">cStr</span> <span class="p">=</span> <span class="n">GenerateString</span><span class="p">(</span><span class="s">&#34;Prefix&#34;</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">34</span><span class="p">);</span> <span class="cm">/* 求值为字符串字面量 &#34;Prefix:12:34&#34; */</span>
+
+<span class="cm">/* Span 结果可用于初始化定长数组 */</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">Span</span><span class="p">&lt;</span><span class="n">int32</span><span class="p">&gt;</span> <span class="n">GetSorted</span><span class="p">(</span><span class="n">String</span> <span class="n">numList</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">List</span><span class="p">&lt;</span><span class="n">int32</span><span class="p">&gt;</span> <span class="n">list</span> <span class="p">=</span> <span class="n">scope</span> <span class="p">.();</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">sv</span> <span class="k">in</span> <span class="n">numList</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">))</span>
+	<span class="p">{</span>
+		<span class="n">sv</span><span class="p">.</span><span class="n">Trim</span><span class="p">();</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">int32</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span> <span class="k">case</span> <span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="k">let</span> <span class="n">val</span><span class="p">))</span>
+			<span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">list</span><span class="p">.</span><span class="n">Sort</span><span class="p">();</span>
+	<span class="k">return</span> <span class="n">list</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">const</span> <span class="n">int32</span><span class="na">[?]</span> <span class="n">iArr</span> <span class="p">=</span> <span class="n">GetSorted</span><span class="p">(</span><span class="s">&#34;8, 1, 3, 7&#34;</span><span class="p">);</span> <span class="cm">/* 求值为 int32[4](1, 3, 7, 8) */</span>
+</code></pre></div>
+<p>每次编译期求值都是隔离执行的——在一次方法求值过程中修改的静态值不会对后续方法求值可见。编译期求值限制某些副作用，例如文件 IO 与访问外部库。</p>
+
+<h3 id="编译期代码生成">编译期代码生成</h3>
+
+<p>代码生成在编译期方法求值特性的基础上扩展，允许在编译过程中某些触发点修改类型。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="cm">/* 常量字符串可在编译期注入到调用点。该字符串可由编译期方法生成。 */</span>
+<span class="p">{</span>
+  <span class="cm">/* 在此例中等同于直接把字符串粘贴到代码中。 */</span>
+  <span class="n">Compiler</span><span class="p">.</span><span class="n">Mixin</span><span class="p">(</span><span class="s">&#34;int val = 99;&#34;</span><span class="p">);</span>
+
+  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* OnCompile 特性允许代码生成 */</span>
+<span class="k">class</span> <span class="nc">ClassA</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="kt">int</span> <span class="n">mA</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span><span class="na">
+</span><span class="na">
+</span><span class="na">	[OnCompile(.TypeInit), Comptime]</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Generate</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Self</span><span class="p">),</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s"></span>			<span class="k">public</span> <span class="n">int32</span> <span class="n">mB</span> <span class="p">=</span> <span class="m">234</span><span class="p">;</span>
+			<span class="k">public</span> <span class="n">int32</span> <span class="n">GetValB</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">mB</span><span class="p">;</span>
+			<span class="s">&#34;&#34;&#34;);
+</span><span class="s"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* 该方法会在调用点注入运行时作用域计时器。 */</span><span class="na">
+</span><span class="na">[Comptime]</span>
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">TimeScope</span><span class="p">(</span><span class="n">String</span> <span class="n">scopeName</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">let</span> <span class="n">nameHash</span> <span class="p">=</span> <span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="n">scopeName</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span>
+
+  <span class="cm">/* MixinRoot 会注入到最外层的非编译期调用者，而不是注入到该编译期方法中 */</span>
+	<span class="n">Compiler</span><span class="p">.</span><span class="n">MixinRoot</span><span class="p">(</span><span class="n">scope</span> <span class="s">$&#34;&#34;&#34;
+</span><span class="s">		let __timer_{nameHash} = scope System.Diagnostics.Stopwatch(true);
+</span><span class="s">		defer
+</span><span class="s">		{{
+</span><span class="s">			System.Console.WriteLine($&#34;</span><span class="n">Scope</span> <span class="p">{</span><span class="n">scopeName</span><span class="p">}</span> <span class="n">took</span> <span class="p">{{</span><span class="n">__timer_</span><span class="p">{</span><span class="n">nameHash</span><span class="p">}.</span><span class="n">ElapsedMilliseconds</span><span class="p">}}</span><span class="n">ms</span><span class="p">.</span><span class="s">&#34;);
+</span><span class="s"></span>		<span class="p">}}</span>
+		<span class="s">&#34;&#34;&#34;);
+</span><span class="s"></span><span class="p">}</span>
+
+<span class="cm">/* 给类型添加该特性会通过编译期反射生成 &#39;ToString&#39; 方法 */</span><span class="na">
+</span><span class="na">[AttributeUsage(.Types)]</span>
+<span class="k">struct</span> <span class="nc">IFancyToStringAttribute</span> <span class="p">:</span> <span class="n">Attribute</span><span class="p">,</span> <span class="n">IOnTypeInit</span>
+<span class="p">{</span><span class="na">
+</span><span class="na">    [Comptime]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="n">OnTypeInit</span><span class="p">(</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="n">Self</span><span class="p">*</span> <span class="n">prev</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="s">&#34;public override void ToString(String str)\n{\n&#34;</span><span class="p">);</span>
+		<span class="kt">int</span> <span class="n">strElementIdx</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">fieldInfo</span> <span class="k">in</span> <span class="n">type</span><span class="p">.</span><span class="n">GetFields</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">((!</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">IsInstanceField</span><span class="p">)</span> <span class="p">||</span>
+				<span class="p">((</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">IsPrivate</span><span class="p">)</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">DeclaringType</span> <span class="p">!=</span> <span class="n">type</span><span class="p">)))</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">strElementIdx</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+                <span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="s">&#34;\tstr.Append(\&#34;, \&#34;);\n&#34;</span><span class="p">);</span>
+            <span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">scope</span> <span class="s">$&#34;\tstr.AppendF($\&#34;</span><span class="p">{</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">}={{</span> <span class="p">{</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span> <span class="p">}}</span><span class="err">\</span><span class="s">&#34;);\n&#34;</span><span class="p">);</span>
+			<span class="n">strElementIdx</span><span class="p">++;</span>
+        <span class="p">}</span>
+        <span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="s">&#34;}&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* 给方法添加该特性会记录方法入口，并记录返回的 Result&lt;T&gt; 错误 */</span><span class="na">
+</span><span class="na">[AttributeUsage(.Method)]</span>
+<span class="k">struct</span> <span class="nc">LogAttribute</span> <span class="p">:</span> <span class="n">Attribute</span><span class="p">,</span> <span class="n">IOnMethodInit</span>
+<span class="p">{</span><span class="na">
+</span><span class="na">	[Comptime]</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="n">OnMethodInit</span><span class="p">(</span><span class="n">MethodInfo</span> <span class="n">method</span><span class="p">,</span> <span class="n">Self</span><span class="p">*</span> <span class="n">prev</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">String</span> <span class="n">emit</span> <span class="p">=</span> <span class="n">scope</span> <span class="s">$&#34;Logger.Log($\&#34;</span><span class="n">Called</span> <span class="p">{</span><span class="n">method</span><span class="p">}</span><span class="s">&#34;;
+</span><span class="s"></span>		<span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">fieldIdx</span> <span class="p">&lt;</span> <span class="n">method</span><span class="p">.</span><span class="n">ParamCount</span><span class="p">)</span>
+			<span class="n">emit</span><span class="p">.</span><span class="n">AppendF</span><span class="p">(</span><span class="s">$&#34; {{ {method.GetParamName(fieldIdx)} }}&#34;</span><span class="p">);</span>
+		<span class="n">emit</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s">&#34;\\n\&#34;);&#34;</span><span class="p">);</span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitMethodEntry</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">emit</span><span class="p">);</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="kt">var</span> <span class="n">genericType</span> <span class="p">=</span> <span class="n">method</span><span class="p">.</span><span class="n">ReturnType</span> <span class="k">as</span> <span class="n">SpecializedGenericType</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">((</span><span class="n">genericType</span><span class="p">.</span><span class="n">UnspecializedType</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;&gt;))</span> <span class="p">||</span> <span class="p">(</span><span class="n">genericType</span><span class="p">.</span><span class="n">UnspecializedType</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="n">Result</span><span class="p">&lt;,&gt;)))</span>
+			<span class="p">{</span>
+				<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitMethodExit</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s"></span>					<span class="k">if</span> <span class="p">(</span><span class="n">@return</span> <span class="k">case</span> <span class="p">.</span><span class="n">Err</span><span class="p">)</span>
+					<span class="n">Logger</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">$&#34;Error: {@return}&#34;</span><span class="p">);</span>
+					<span class="s">&#34;&#34;&#34;);
+</span><span class="s"></span>			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="n">ISerializable</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="n">Serialize</span><span class="p">(</span><span class="n">Serializer</span> <span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* 给类型添加该特性会添加并实现 ISerializable 接口 */</span>
+<span class="k">struct</span> <span class="nc">SerializableAttribute</span> <span class="p">:</span> <span class="n">Attribute</span><span class="p">,</span> <span class="n">IOnTypeInit</span>
+<span class="p">{</span><span class="na">
+</span><span class="na">	[Comptime]</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="n">OnTypeInit</span><span class="p">(</span><span class="n">Type</span> <span class="n">type</span><span class="p">,</span> <span class="n">Self</span><span class="p">*</span> <span class="n">prev</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitAddInterface</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">ISerializable</span><span class="p">));</span>
+
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="s">&#34;&#34;&#34;
+</span><span class="s"></span>			<span class="k">public</span> <span class="k">void</span> <span class="n">ISerializable</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">Serializer</span> <span class="n">serializer</span><span class="p">)</span>
+			<span class="p">{</span>
+			
+			<span class="s">&#34;&#34;&#34;);
+</span><span class="s"></span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">scope</span> <span class="s">$&#34;\tserializer.StartType(typeof({type.GetName(.. scope .())}));\n&#34;</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="k">let</span> <span class="n">field</span> <span class="k">in</span> <span class="n">type</span><span class="p">.</span><span class="n">GetFields</span><span class="p">())</span>
+		<span class="p">{</span>
+			<span class="k">if</span> <span class="p">(!</span><span class="n">field</span><span class="p">.</span><span class="n">IsInstanceField</span> <span class="p">||</span> <span class="n">field</span><span class="p">.</span><span class="n">DeclaringType</span> <span class="p">!=</span> <span class="n">type</span><span class="p">)</span>
+				<span class="k">continue</span><span class="p">;</span>
+
+			<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">scope</span> <span class="s">$&#34;\tserializer.Store(\&#34;</span><span class="p">{</span><span class="n">field</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="err">\</span><span class="s">&#34;, {field.Name});\n&#34;</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="s">&#34;\tserializer.EndType();\n}&#34;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span><span class="na">
+</span><span class="na">
+</span><span class="na">[AttributeUsage(.Field | .StaticField)]</span>
+<span class="k">struct</span> <span class="nc">RangedAccessorAttribute</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="kt">int</span> <span class="n">minVal</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxVal</span><span class="p">),</span> <span class="n">Attribute</span><span class="p">,</span> <span class="n">IOnFieldInit</span>
+<span class="p">{</span><span class="na">
+</span><span class="na">	[Comptime]</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="n">OnFieldInit</span><span class="p">(</span><span class="n">FieldInfo</span> <span class="n">fieldInfo</span><span class="p">,</span> <span class="n">Self</span><span class="p">*</span> <span class="n">prev</span><span class="p">)</span> <span class="n">mut</span>
+	<span class="p">{</span>
+		<span class="n">Compiler</span><span class="p">.</span><span class="n">EmitTypeBody</span><span class="p">(</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">DeclaringType</span><span class="p">,</span> <span class="n">scope</span> <span class="s">$&#34;&#34;&#34;
+</span><span class="s">			public {(fieldInfo.IsStatic ? &#34;</span><span class="k">static</span><span class="s">&#34; : &#34;&#34;)} {fieldInfo.FieldType} Ranged{fieldInfo.Name}
+</span><span class="s"></span>			<span class="p">{{</span>
+				<span class="k">get</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">};</span>
+				<span class="k">set</span>
+				<span class="p">{{</span>
+					<span class="n">System</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">Assert</span><span class="p">((</span><span class="k">value</span> <span class="p">&gt;=</span> <span class="p">{</span><span class="n">minVal</span><span class="p">})</span> <span class="p">&amp;&amp;</span> <span class="p">(</span><span class="k">value</span> <span class="p">&lt;=</span> <span class="p">{</span><span class="n">maxVal</span><span class="p">}));</span>
+					<span class="p">{</span><span class="n">fieldInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+				<span class="p">}}</span>
+			<span class="p">}}</span>
+			<span class="s">&#34;&#34;&#34;);
+</span><span class="s"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* 创建一个包装 &#39;Val&#39; 的 &#39;RangedVal&#39; 属性，仅允许 10 到 20 的值 */</span><span class="na">
+</span><span class="na">[RangedAccessor(10, 20)]</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">Val</span><span class="p">;</span>
+</code></pre></div>
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/BeefDocs/docs/language-guide/typerefs/" title="类型引用"> <i class="fa fa-chevron-left"></i><label>类型引用</label></a>
+    <a class="nav nav-next" href="/BeefDocs/docs/corlib/" title="核心库" style="margin-right: 0px;"><label>核心库</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/beefytech/Beef_website/edit/master/beef-lang.org/content/language-guide/comptime.md" target="blank"><i class="fa fa-code-fork"></i>
+        </a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/BeefDocs/docs/js/clipboard.min.js"></script>
+
+<link href="/BeefDocs/docs/css/featherlight.min.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/featherlight.min.js"></script>
+
+
+
+<script src="/BeefDocs/docs/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

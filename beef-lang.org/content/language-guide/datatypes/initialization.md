@@ -1,10 +1,10 @@
 +++
-title = "Initialization"
+title = "初始化"
 weight = 20
 +++
 
-## Initialization
-For class initialization semantics, first the object is zeroed-out, then the root class field initializers are executed in declaration order, then initializer blocks are executed in declaration order, then the root class constructor is run, then executing proceeds to the derived class's field initializers, initializer blocks, and constructor and so on. Virtual method calls will dispatch to the fully derived type even when invoked in a base class's constructor, which can result in a method being called in a type whose constructor has not yet executed.
+## 初始化
+类的初始化语义如下：先将对象清零，然后按声明顺序执行根类字段初始化器，接着按声明顺序执行初始化块，然后运行根类构造函数，之后依次执行派生类的字段初始化器、初始化块和构造函数。即使在基类构造函数中调用虚方法，也会派发到最派生类型，这可能导致在某个类型构造函数尚未执行时就调用了该类型的方法。
 
 ```C#
 
@@ -24,7 +24,7 @@ class Student : Person
 	public School mSchool = GetSchool();
 	public int? mAge;
 
-	/* Initializer blocks allow for initialization that occurs irregardless of which constructor is invoked */
+	/* 初始化块无论调用哪个构造函数都会执行 */
 	this
 	{
 		RegisterStudent();
@@ -41,7 +41,7 @@ class Student : Person
 	}
 }
 
-/* When constructing a Student, the initializations will occur in this order:
+/* 构造 Student 时，初始化顺序如下：
 	mFirstName = GetFirstName()
 	mLastName = GetLastName()
 	AddPerson();
@@ -49,14 +49,14 @@ class Student : Person
 	RegisterStudent();
  */
 
-/* Classes or structs and their inheritors or extensions can also choose to ignore all initializers and retain the nulled class or struct */
+/* 类或结构体及其继承者或扩展也可以选择忽略所有初始化器，保留清零后的类/结构体 */
 extension Person
 {
-	/* Adds a constructor to Person that does not call GetFirstName() or GetLastName() due to 'this(?)' */
-	/* Inherited classes could similarly do this with base(?) */
+	/* 为 Person 添加一个构造函数，因使用 'this(?)' 而不调用 GetFirstName()/GetLastName() */
+	/* 派生类也可通过 base(?) 达到同样效果 */
 	public this(String firstName, String lastName) : this(?)
 	{
-		/* At this point, mFirstName and mLastName are still null */
+		/* 此时 mFirstName 与 mLastName 仍为 null */
 		mFirstName = firstName;
 		mLastName = lastName;
 		AddPerson();
@@ -64,35 +64,35 @@ extension Person
 }
 ```
 
-For struct initialization semantics, the struct is not automatically zeroed out -- the fields initializers and constructor together must fully initialize all the struct fields. Users of a struct can also choose to not execute a constructor and just manually initialize all the fields directly. Uses of structs that are not fully initialized will be disallowed via simple static analysis, which can be overriden via the explicit "?" uninitialized expression.
+对于结构体初始化语义，结构体不会自动清零——字段初始化器与构造函数必须共同完成所有字段的初始化。结构体的使用者也可以选择不执行构造函数，而是直接手动初始化所有字段。未完全初始化的结构体使用会在简单的静态分析中被禁止，但可通过显式的 "?" 未初始化表达式覆盖。
 
 ```C#
-/* In this case, we know "UseVec" will initialize the Vector2 value so we use '?' to avoid a "Not initialized" error */
+/* 在此示例中，我们知道 "UseVec" 会初始化 Vector2，因此使用 '?' 以避免“未初始化”错误 */
 Vector2 vec = ?;
 UseVec(&vec);
 ```
 
-Arrays initialization at allocation time is also supported.
+分配时也支持数组初始化。
 
 ```C#
-/* Zero-initialize ending 7 elements */
+/* 将末尾 7 个元素清零初始化 */
 int[] iArr = new int[10] (1, 2, 3, );
 
-/* Leave ending 7 elements uninitializezd */
+/* 末尾 7 个元素保持未初始化 */
 int[] iArr = new int[10] (1, 2, 3, ?);
 
-/* Throws an initializer size mismatch error - ending comma is required to zero-initialize is desired */
+/* 抛出初始化大小不匹配错误 - 若希望清零初始化，需要结尾逗号 */
 int[] iArr = new int[10] (1, 2, 3);
 ```
 
-Value initializers let you assign values to fields and properties of values at creation time.
+值初始化器允许在创建时为字段与属性赋值。
 
 ```C#
-/* Construct a Cat, calling the default constructor, and then assign the Age and Name properties */
+/* 构造 Cat，调用默认构造函数，然后赋值 Age 与 Name 属性 */
 var cat = new Cat() { Age = 10, Name = "Fluffy" };
 ```
 
-For structs, value initalizers can also be used without calling any constructors or initializer blocks.
+对于结构体，值初始化器也可以在不调用任何构造函数或初始化块的情况下使用。
 
 ```C#
 struct WindowInit
@@ -106,33 +106,33 @@ struct WindowInit
 	}
 }
 
-/* Default contructor & value initializer: height will be 720, width will be 1280, then set to 1920 */
+/* 默认构造函数 + 值初始化器：height 为 720，width 为 1280，然后被设为 1920 */
 var init = WindowInit() { width = 1920 }
 
-/* Is equivalent to */
+/* 等价于 */
 var init = WindowInit();
 init.width = 1920;
 
-/* Just value initializer: height will be 0, width will be 0, then set to 1920 */
+/* 仅值初始化器：height 为 0，width 为 0，然后被设为 1920 */
 var init = WindowInit { width = 1920 }
 
-/* Is equivalent to */
+/* 等价于 */
 WindowInit init = default; // Struct is zeroed
 init.width = 1920;
 ```
 
-Value initializers also allow you to add items to collections at creation time. You can provide a list of expressions, which will be passed individually to an applicable `Add` method.
+值初始化器还允许在创建时向集合添加项。可以提供表达式列表，它们会分别传给适用的 `Add` 方法。
 
 ```C#
 var list = scope List<int>() {1, 2, 3, 4};
 var weightDict = scope Dictionary<String, float>() { ("Roger", 212.3f), ("Sam", 110.2f) };
 ```
 
-Types can also define static fields and static constructors. Static initialization order is defined by alphanumeric order of the fully-qualified type name. This order can be overriden with type attributes such as [StaticInitPriority(...)] and [StaticInitAfter(...)]. Static initialization that refer to static fields in other types will cause that type's static initializers to execute on-demand before the access. This on-demand initialization can cause circular dependencies, however, which are resolved by simply skipping any reentrant initializer calls.
+类型也可以定义静态字段与静态构造函数。静态初始化顺序由完全限定类型名的字母数字顺序决定。可使用 [StaticInitPriority(...)] 与 [StaticInitAfter(...)] 等类型特性覆盖该顺序。若静态初始化引用了其他类型的静态字段，会在访问前按需执行该类型的静态初始化器。不过，这种按需初始化可能导致循环依赖，处理方式是直接跳过重入的初始化调用。
 
-## Destruction
+## 析构
 
-Classes can define destructors. In general, destruction occurs in reverse order from initialization.
+类可以定义析构函数。通常析构顺序与初始化顺序相反。
 
 ```C#
 
@@ -167,7 +167,7 @@ class Student : Person
 	}
 }
 
-/* When deleting a Student, the deinitialization will occur in this order:
+/* 删除 Student 时，反初始化顺序如下：
 	UnregisterStudent()
 	ReleaseSchool(mSchool)
 	RemovePerson()
@@ -177,4 +177,4 @@ class Student : Person
 
 ```
 
-Structs cannot define destructors, but they can define a 'Dispose' method which can contain deinitialization code. Dispose can be used in 'RAII-style' (called on scope exit) with `using` statements or `defer` statements.
+结构体不能定义析构函数，但可定义包含反初始化代码的 `Dispose` 方法。Dispose 可与 `using` 或 `defer` 语句配合，以 “RAII 风格”（作用域退出时调用）使用。

@@ -1,11 +1,11 @@
 +++
-title = "Anonymous Types"
+title = "匿名类型"
 weight=30
 +++
 
-## Anonymous Type Declarations
+## 匿名类型声明
 
-Anonymous type declarations are like normal type declarations but they are unnamed and they are placed where a type reference would normally go.
+匿名类型声明与普通类型声明类似，但它们没有名称，并放在通常写类型引用的位置。
 
 ```C#
 
@@ -14,8 +14,8 @@ struct Vector3
 {
 	public float[3] vals;
 
-    /* Anonymous struct declaration with an anonymous field.
-    The below is equivalent to:
+    /* 带匿名字段的匿名结构体声明。
+    下面等价于：
     public using struct
 	{
 		public float mX;
@@ -30,7 +30,7 @@ struct Vector3
 		public float z;
 	};
 
-    /* Anonymous enum declaration */
+    /* 匿名枚举声明 */
     public enum { Left, Center, Right } GetXDirection() => (mX < 0) ? .Left : (mX > 0) ? .Right : .Center;
 }
 
@@ -39,7 +39,7 @@ vec.mX = 1;
 vec.mY = 2;
 vec.mZ = 3;
 
-/* Types can anonymously be extended and overriden
+/* 类型可以匿名扩展与重写
 
 */
 var buttonWidget = new ButtonWidget("OK")

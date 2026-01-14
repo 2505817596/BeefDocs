@@ -1,67 +1,67 @@
 +++
-title = "Expressions"
+title = "表达式"
 weight = 43
 +++
 
-### Allocations
+### 分配
 
-`new` and `scope` keywords are used for allocation (see [Memory Management]({{< ref "memory.md" >}}))
+`new` 和 `scope` 关键字用于分配（参见 [内存管理]({{< ref "memory.md" >}})）
 
 ### append
 
-The `append` expression allocates memory immediately after an object's allocated memory, and can only be used in a constructor. (See [Memory Management]({{< ref "memory.md#append" >}}))
+`append` 表达式会在对象已分配内存的紧后位置继续分配，只能在构造函数中使用。（参见 [内存管理]({{< ref "memory.md#append" >}})）
 
-An `append` allocation can be used in any way a `new` allocation can be used.  (See [new]({{< ref "#new" >}}))
+`append` 分配可用于 `new` 分配能使用的任何场景。（参见 [new]({{< ref "#new" >}})）
 
-### Assignment operations
+### 赋值操作
 
-See [Assignment operators]({{< ref "operators.md#assignment" >}})
+参见 [赋值运算符]({{< ref "operators.md#assignment" >}})
 
-### Binary operations
+### 二元操作
 
-See [Binary operators]({{< ref "operators.md#binary" >}})
+参见 [二元运算符]({{< ref "operators.md#binary" >}})
 
-### Bind expression =>
+### 绑定表达式 =>
 
-The `=>` expression is used for method binding (see [Method References]({{< ref "datatypes/methodrefs.md" >}}))
+`=>` 表达式用于方法绑定（参见 [方法引用]({{< ref "datatypes/methodrefs.md" >}})）
 
 ### box
 
-The `box` expression allocates an object which wraps a value type. (See [Memory Management (boxing)]({{< ref "memory.md#boxing" >}}))
+`box` 表达式分配一个对象来包装值类型。（参见 [内存管理（装箱）]({{< ref "memory.md#boxing" >}})）
 
-* `scope box x` - boxes `x` in current scope
-* `scope:s box x` - boxes `x` in scope `s`
-* `new box x` - boxes `x` in global allocator
-* `new:a box x` - boxes `x` in custom allocator `a`  
+* `scope box x` - 在当前作用域中装箱 `x`
+* `scope:s box x` - 在作用域 `s` 中装箱 `x`
+* `new box x` - 在全局分配器中装箱 `x`
+* `new:a box x` - 在自定义分配器 `a` 中装箱 `x`  
 
 ### case
 
-`case` expressions can be used for pattern matching outside switches. (See [Pattern Matching]({{< ref "pattern.md" >}}))
+`case` 表达式可在 switch 之外用于模式匹配。（参见 [模式匹配]({{< ref "pattern.md" >}})）
 
-### Cast expression
+### 类型转换表达式
 
-* `(T)x` casts value `x` to type `T`
+* `(T)x` 将值 `x` 转换为类型 `T`
 
-### Conditional operator
-* `x ? y : z` - results in `y` is `x` is true, otherwise results in `z`
+### 条件运算符
+* `x ? y : z` - 当 `x` 为 true 时结果为 `y`，否则为 `z`
 
-### Conditional variable declarations
-Variable declarations can be use as boolean expressions in 'if' statements for nullable types. These can be used with certain types of binary operations in the cases where a 'true' overall 'if' result ensures that the conditional variable declaration was also evaluated and resulted in 'true'.
+### 条件变量声明
+可空类型的变量声明可在 `if` 语句中用作布尔表达式。在某些二元操作中，当整体 `if` 条件为 true 能确保条件变量声明也被求值且结果为 true 时，这种写法是允许的。
 
 ```C#
-/* Simple conditional variable declaration */
+/* 简单的条件变量声明 */
 if (let name = GetName())
 {
 
 }
 
-/* 'Complex' conditional variable declaration */
+/* “复杂”条件变量声明 */
 if ((let name = GetName()) && (isEnabled))
 {
 
 }
 
-/* This is ILLEGAL since "force" can cause the block to be entered even if the conditional variable declaration fails */
+/* 这是非法的，因为 "force" 可能导致即使条件变量声明失败也进入该块 */
 if ((let name == GetName()) || (force))
 {
 
@@ -70,17 +70,17 @@ if ((let name == GetName()) || (force))
 
 ### default
 
-Every type has a "default" value, which is always zero-initialization.
+每种类型都有一个 “default” 值，始终为零初始化。
 
 ```C#
-// Default can specify a type and results in a default-initialized value
+// Default 可指定类型并返回该类型的默认初始化值
 var str = default(String);
-// Default will use the "expected" type if there is no explicit default type specified
+// 若未显式指定 default 类型，Default 会使用“期望类型”
 String str2 = default;
 ```
 
-### Expression blocks
-Expression blocks end with an expression that is not terminated by a semicolon.
+### 表达式块
+表达式块以不带分号的表达式结尾。
 ```C#
 Console.WriteLine("Result={}",
 	{
@@ -89,18 +89,18 @@ Console.WriteLine("Result={}",
 	});
 ```
 
-### Index expressions
+### 索引表达式
 
-* 'y = x[i]' - Indexes value `x` by index `i`. If `x` is a pointer, is equivalent to `y = *(x + i)`. Otherwise, calls the `get` method on the `this[int]` indexer property.
-* `x[i] = y` - Indexes value `x` by index `i`. If `x` is a pointer, is equivalent to `*(x + i) = y`. Otherwise, calls the `set` method on the `this[int]` indexer property if there is a `set` method, otherwise calls `get` method if it returns a `ref` value.
+* `y = x[i]` - 用索引 `i` 访问 `x`。若 `x` 为指针，则等价于 `y = *(x + i)`；否则调用 `this[int]` 索引器属性的 `get` 方法。
+* `x[i] = y` - 用索引 `i` 访问 `x` 并赋值。若 `x` 为指针，则等价于 `*(x + i) = y`；否则若 `this[int]` 索引器存在 `set` 方法则调用它，否则若 `get` 返回 `ref` 则调用 `get` 方法。
 
-### Literals
+### 字面量
 
-* `123` - number
-* `0x1234` - hex number
-* `0x1234'5678` - number with a seperator, which can be placed anywhere
-* `0x1234L` - int64 hex number
-* `0x1234UL` - uint64 hex number
+* `123` - 数字
+* `0x1234` - 十六进制数字
+* `0x1234'5678` - 带分隔符的数字，可放在任意位置
+* `0x1234L` - int64 十六进制数字
+* `0x1234UL` - uint64 十六进制数字
 * `'c'` - char8
 * `'😃'` - char32
 * 1.2f - float
@@ -109,83 +109,83 @@ Console.WriteLine("Result={}",
 
 ### new {#new}
 
-The `new` expression allocates memory in the global allocator or in a custom allocator. (See [Memory Management]({{< ref "memory.md#allocating" >}}))
+`new` 表达式会在全局分配器或自定义分配器中分配内存。（参见 [内存管理]({{< ref "memory.md#allocating" >}})）
 
-* `new T(...)` - allocates instance of `T` in the global allocator. Result is `T` if `T` is a reference type, otherwise result is `T*`
-* `new T[i]` - allocates type `T[]` with array size `i`
-* `new T[i] (...)` - allocates type `T[]` with array size `i` and with an initializer
-* `new T[] (...)` - allocates type `T[]` whose size is based on the number of initializers
-* `new T[i]*` - allocates `i` contiguous instances of `T` in the global allocator, a returns a `T*` pointer to the first element. Note that the allocation size is typeof(T).InstanceStride*i for convenience, though technically this allocates extra padding to the end of the last element.
-* `new box x` - boxes value `x` in the global allocator. (See [Memory Management (boxing)]({{< ref "memory.md#boxing" >}}))
+* `new T(...)` - 在全局分配器中分配 `T` 实例。若 `T` 为引用类型则结果为 `T`，否则结果为 `T*`
+* `new T[i]` - 分配数组大小为 `i` 的 `T[]`
+* `new T[i] (...)` - 分配数组大小为 `i` 的 `T[]` 并进行初始化
+* `new T[] (...)` - 分配 `T[]`，大小由初始化项数量决定
+* `new T[i]*` - 在全局分配器中分配 `i` 个连续的 `T` 实例，并返回指向首元素的 `T*` 指针。注意分配大小为 typeof(T).InstanceStride*i 以便使用，但严格来说这会在最后一个元素末尾分配额外填充。
+* `new box x` - 在全局分配器中装箱 `x`。（参见 [内存管理（装箱）]({{< ref "memory.md#boxing" >}})）
 
-All `new` operations can also accept a custom allocator argument.
+所有 `new` 操作也可接受自定义分配器参数。
 
-* `new:a T(....)` allocates an instance of `T` in custom allocator `a` where `a` is an identifier.
-* `new:(a) T(...)` allocates an instance of `T` in custom allocator `a` where `a` is any expression.
+* `new:a T(....)` 在自定义分配器 `a` 中分配 `T` 实例，其中 `a` 为标识符。
+* `new:(a) T(...)` 在自定义分配器 `a` 中分配 `T` 实例，其中 `a` 可为任意表达式。
 
-### Null-conditional operators
+### 空条件运算符
 
-Null-conditional operators `val?.field` and `val?[index]` will result in `null` if `val` is null. The null-conditional operators can be applied in a chain, which will short-circuit to `null` at the first instance of a `null`.
+空条件运算符 `val?.field` 和 `val?[index]` 在 `val` 为 null 时结果为 `null`。空条件运算符可链式使用，会在遇到第一个 `null` 时短路返回 `null`。
 
 ```C#
 int? a = val?.intField;
 int? nameLength = val?.name?.Length;
 ```
 
-### Parentheses expression
+### 括号表达式
 
-Adding parentheses around expressions can be used for changing order of operations for complex expressions.
+在表达式外加括号可改变复杂表达式的运算顺序。
 
 ```C#
 int a = 1 + 2 * 3; // The multiply happens before the add here, resulting in 7
 int b = (1 + 2) * 3; // The add happens before the multiply here, resulting in 9
 ```
 
-### Range expression {#range}
+### 范围表达式 {#range}
 
-Ranges consist of a start and end integer value and are primarily used for loop iteration and range indexing. They can be created as inclusive or exclusive ranges. Index ranges may have one open side. (See [Range operators]({{< ref "operators.md#range" >}}))
+范围由起始与结束整数值组成，主要用于循环迭代和范围索引。可创建为包含式或排除式范围。索引范围可有一侧开放。（参见 [范围运算符]({{< ref "operators.md#range" >}})）
 
 ```C#
 let list = scope List<int>() { 5, 1, 0 };
 
-/* Since we are iterating through a range, the list.Count getter will only be called once when the range is created */
-/* Thus, the lists count is simply doubled instead of creating an infinite loop */
+/* 由于在范围上迭代，创建范围时只会调用一次 list.Count */
+/* 因此列表计数只是翻倍，而不会产生无限循环 */
 for (let i in 0 ..< list.Count)
 	list.Add(list[i]);
 
-// list is now: { 5, 1, 0, 5, 1, 0 }
+// list 现在为：{ 5, 1, 0, 5, 1, 0 }
 
 for (let i in (0 ..< list.Count).Reversed)
 	list.Add(list[i]);
 
-// list is now: { 5, 1, 0, 5, 1, 0, 0, 1, 5, 0, 1, 5 }
+// list 现在为：{ 5, 1, 0, 5, 1, 0, 0, 1, 5, 0, 1, 5 }
 
-var subset = list[...2]; // equivalent to 0...2, ..<3 and ...^10 (^ counts from the end, staring at Count)
-subset = list[4...]; // equivalent to 4...11, 4...^1 and 4..<^0
+var subset = list[...2]; // 等价于 0...2、..<3 和 ...^10（^ 从末尾计数，起点为 Count）
+subset = list[4...]; // 等价于 4...11、4...^1 和 4..<^0
 ```
 
 ### scope
 
-The `scope` expression allocates memory on the stack, in a scope contained in an executing method. (See [Memory Management]({{< ref "memory.md#allocating" >}}))
+`scope` 表达式在栈上分配内存，作用域位于正在执行的方法之内。（参见 [内存管理]({{< ref "memory.md#allocating" >}})）
 
-A `scope` allocation can be used in any way a `new` allocation can be used.  (See [new]({{< ref "#new" >}}))
+`scope` 分配可用于 `new` 分配能使用的任何场景。（参见 [new]({{< ref "#new" >}})）
 
 ### this
 
-`this` is a special variable name, which represents the current instance in instance methods. If the defining type is a struct then `this` is a value type (not a pointer), which is mutable for "mut" methods and immutable otherwise.
+`this` 是一个特殊变量名，表示实例方法中的当前实例。若定义类型为结构体，则 `this` 为值类型（非指针），在 "mut" 方法中可变，其他情况下不可变。
 
-### Tuple expression
+### 元组表达式
 
-The tuple expression is a paranthesized expression containing multiple comma-seperated values, and optionally field names. (See [Data Types (Tuples)]({{< ref "datatypes/_index.md#tuples" >}})))
+元组表达式是一个括号包裹的表达式，包含多个逗号分隔的值，并可选字段名。（参见 [数据类型（元组）]({{< ref "datatypes/_index.md#tuples" >}})）
 
-### Unary operations
+### 一元操作
 
-See [unary operators]({{< ref "operators.md#unary" >}})
+参见 [一元运算符]({{< ref "operators.md#unary" >}})
 
-### Uninitialized '?'
+### 未初始化 '?'
 
-When assigned to a variable or field, `?` will cause the value to be treated as if it had an assignment but without (necessarily) any actual operation. This can be useful in cases such as with "buffer" type arrays that don't need to be zero-initialized before use.
+当赋值给变量或字段时，`?` 会让该值被视为已赋值，但不一定执行任何实际操作。这在“缓冲区”类型数组等不需要在使用前清零的场景中很有用。
 
-When used with `out` parameters, `?` will act as a discard.
+在与 `out` 参数一起使用时，`?` 作为丢弃值。
 
-When used in constructors, uninitialized constructor calls `this(...) : this(?)` and `this(...) : base(?)` will discard the according initializers and constructors. See [Initialization]({{< ref "datatypes/initialization.md" >}})
+在构造函数中使用时，未初始化构造调用 `this(...) : this(?)` 与 `this(...) : base(?)` 会丢弃相应的初始化器与构造函数。参见 [初始化]({{< ref "datatypes/initialization.md" >}})。

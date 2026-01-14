@@ -1,5 +1,5 @@
 ---
-title: Publications
+title: 出版物
 
 # View.
 #   1 = List

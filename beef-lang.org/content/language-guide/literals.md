@@ -1,11 +1,11 @@
 +++
-title = "Literals"
+title = "字面量"
 weight = 75
 +++
 
-## Integer literals
+## 整数字面量
 
-Integers can be represented as decimal, hexadecimal, octal, or binary. In addition, the seperator character `'` (single quote) can be used to seperate numbers any way the user desires.
+整数可以用十进制、十六进制、八进制或二进制表示。此外，分隔符字符 `'`（单引号）可按需要分隔数字。
 
 ```C#
 
@@ -24,7 +24,7 @@ int oct = 0o666;
 uint32 bin = 0b'1111'0000'1111'0000;
 ```
 
-Suffixes can be added to explicitly specified size and signedness. Integer literals are limited to 32-bits unless a size specifier is used or if there is at least one separator character specified.
+可通过后缀显式指定大小与有符号性。除非使用大小后缀或至少包含一个分隔符字符，否则整数字面量默认限制为 32 位。
 
 ```C#
 let val = 123U; // Results in an 'uint'
@@ -33,29 +33,29 @@ let val3 = 0x12'34567890; // Results in an `int64`
 let val4 = 0x1234567890; // ERROR- either an 'L' or '`' is required
 ```
 
-When no size specifiers are used, integer literals do not inherently have a specific size; their size will depend on the context in which they are used:
+当未使用大小后缀时，整数字面量本身没有固定大小，其大小取决于使用上下文：
 
-* Integer literals can be implicitly cast to any integer size that fits the value.
-* When used as an argument to a method with overloads, the method with the smallest applicable integer size will be selected.
-* If no specific integer type can be determined, the first of the following types that fits the value will be used: int, uint, int64, uint64.
+* 整数字面量可隐式转换为任何可容纳该值的整数类型。
+* 作为重载方法的参数时，会选择可适用的最小整数类型的方法。
+* 若无法确定具体整数类型，则依次使用能容纳该值的第一个类型：int、uint、int64、uint64。
 
 
-## Floating point literals
+## 浮点数字面量
 
-Floating point literals are considered to be `double` unless they end with an `f`.
+浮点数字面量默认为 `double`，除非以 `f` 结尾。
 
 ```C#
 let f = 1.2f; // Float
 let d = 2.3; // Double
 ```
 
-## Boolean literals
+## 布尔字面量
 
-Boolean literals are `true` or `false`.
+布尔字面量为 `true` 或 `false`。
 
-## String literals {#string}
+## 字符串字面量 {#string}
 
-Strings can be single-line or multi-line, and raw or escaped. Raw strings allow embedding the backslash character without it being interpreted the start of a "special character" sequence.
+字符串可为单行或多行，也可为原始或转义字符串。原始字符串允许直接包含反斜杠字符，而不会被解释为“特殊字符”序列的起始。
 
 ```C#
 String str = "Normal string";
@@ -80,23 +80,23 @@ String str = scope $$"""
 	""";
 ```
 
-## Character literals
+## 字符字面量
 
-Character literals can either be char8 or char32, depending on their integral value.
+字符字面量可为 char8 或 char32，取决于其数值。
 
 ```C#
 let c = 'A'; //char8
 let c = '🐱'; //char32 
 ```
 
-## Special characters in string and character literals
+## 字符串与字符字面量中的特殊字符
 
-* \0 - Null character
-* \\\\ - Backslash
-* \u{n} -Unicode character
-* \xNN - hexadecimal character 0xNN
-* \t - Horizontal tab
-* \n - line feed
-* \r - carriage return
-* \" - double quote mark
-* \' - single quote mark
+* \0 - 空字符
+* \\\\ - 反斜杠
+* \u{n} - Unicode 字符
+* \xNN - 十六进制字符 0xNN
+* \t - 水平制表符
+* \n - 换行符
+* \r - 回车符
+* \" - 双引号
+* \' - 单引号

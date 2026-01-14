@@ -4,27 +4,26 @@
 #   The weight parameter defines the order that the links will appear in.
 
 [[main]]
-  name = "Documentation"
+  name = "文档"
   url = "/docs"
   weight = 20
 
 [[main]]
-  name = "Doxygen"
+  name = "Doxygen 文档"
   url = "/docs/doxygen/corlib/html/"
   weight = 20
 
 [[main]]
-  name = "Releases"
+  name = "版本发布"
   url = "#releases"
   weight = 30
 
 [[main]]
-  name = "Community"
+  name = "社区"
   url = "#community"
   weight = 40
 
 [[main]]
-  name = "Contact"
+  name = "联系"
   url = "#contact"
   weight = 60
-

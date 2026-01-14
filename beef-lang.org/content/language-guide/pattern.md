@@ -1,13 +1,13 @@
 +++
-title = "Pattern Matching"
+title = "模式匹配"
 weight=75
 +++
 
-### Pattern matching overview
+### 模式匹配概览
 
-Pattern matching allows for either simple quality checks, or for creating a combination of member equality checks, member captures, and member 'ignores' for tuples and enum values in switches and case expressions.
+模式匹配既可用于简单的相等性检查，也可在 switch 与 case 表达式中对元组和枚举值组合使用成员相等检查、成员捕获与成员“忽略”。
 
-### Tuple pattern matching
+### 元组模式匹配
 
 ```C#
 
@@ -39,7 +39,7 @@ void TupleSwitch()
 }
 ```
 
-### Enum pattern matching {#enum}
+### 枚举模式匹配 {#enum}
 
 ```C#
 enum Shape
@@ -94,7 +94,7 @@ void EnumSwitch()
 
 ```
 
-Enums can also pattern match to a 'ref', allowing modification of the underlying values.
+枚举也可以匹配到 `ref`，从而修改其内部值。
 
 ``` C#
 

@@ -1,11 +1,11 @@
 +++
-title = "Hot Compiling"
+title = "热编译"
 +++
 
-## Hot compile overview
+## 热编译概览
 
-While a Beef application is being executed through the IDE, "hot" changes to the source code is allowed. When a compile is requested and completes successfully, the resulting new object files (if any) will be hot-patched into the running executable. The modified methods are patched in by (safely) inserting jumps to the new method at the start of the old methods. This means that old code can be running alongside new code for long-running methods since the new code will only be "switched to" for methods called after the hot patch, which is expected and supported by the IDE by keeping a mapping of old source code for stepping through replaced methods, for remapping new breakpoints to old replaced methods, etc.
+当通过 IDE 执行 Beef 应用时，允许对源码进行“热”修改。编译请求成功完成后，新生成的目标文件（如有）会被热补丁到正在运行的可执行文件中。修改后的方法通过在旧方法开头（安全地）插入跳转到新方法来完成替换。这意味着对于长时间运行的方法，旧代码可与新代码并行存在，因为热补丁后调用的方法才会“切换”到新代码。IDE 会维护旧源码映射，用于在被替换方法中单步调试、将新的断点映射到旧方法等。
 
-Many other compiler features have special debugger support for hot code changes, including adding and removing virtual methods, adding new string literals to the string intern table, adding new dll-imported methods, changing reflection information, maintaining function pointer address equality, and so on.
+许多其他编译器特性也对热代码修改提供特殊调试支持，包括添加/移除虚方法、向字符串驻留表添加新字面量、添加新的 DLL 导入方法、修改反射信息、保持函数指针地址一致性等。
 
-Changes to data layouts of structs and classes are also allowed if the program can be hot patched to exclusively use the new data layout, thus any active allocations of the old layout, or any usage of the old layout in the active callstack will result in a compilation error (but NOT a runtime data corruption or crash).
+如果程序能够热补丁到仅使用新数据布局，结构体和类的数据布局变更也是允许的。因此，只要仍存在旧布局的活动分配，或在活动调用栈中使用旧布局，就会产生编译错误（但不会导致运行时数据损坏或崩溃）。

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>发布说明 on Beef 编程语言</title>
+    <link>https://2505817596.github.io/BeefDocs/docs/releases/</link>
+    <description>Recent content in 发布说明 on Beef 编程语言</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    
+	<atom:link href="https://2505817596.github.io/BeefDocs/docs/releases/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>版本 0.42.0</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_0/</guid>
+      <description>2019 年 9 月 29 日
+初始发布</description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.1</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_1/</guid>
+      <description>2019 年 12 月 31 日
+首次公开发布
+ 改进交叉编译能力 新增 macOS、iOS 与 Android 构建目标 调试分配器 GC 优化 新增运算符约束支持 新增分配对齐覆盖特性 扩展 lambda 捕获列表以支持指定变量名 改进可空类型能力（包含运算符）  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.2</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_2/</guid>
+      <description>2020 年 4 月 7 日
+ 错误面板，左下角错误图标 修复带载荷枚举的数据循环崩溃 修复项目名与目录不匹配时的创建问题 修复空项目使用 &amp;ldquo;-run&amp;rdquo; 时崩溃 BeefBuild 新增 &amp;ldquo;-generate&amp;rdquo; 选项 新增复合赋值运算符重载（如 +=） 支持 C 风格可变参数 修复函数内联 新增未初始化构造函数支持（this(?), base(?)） 移除 &amp;lsquo;internal&amp;rsquo; 访问级别 新增 Quick Info 快捷键 新增源码 MD5 哈希 Ctrl+单击跳转到定义  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.3</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_3/</guid>
+      <description>2020 年 4 月 30 日
+ 修复安装程序崩溃 修复从工作区移除项目时崩溃 修复在非英文系统上打开示例的问题 其他多项修复 新增空条件运算符重载 - 在 Result 中实现 将 System.Collections.Generic 重命名为 System.Collections 新增 ICollection  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.4</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_4/</guid>
+      <description>2020 年 5 月 20 日
+ 重构 ref 枚举器，支持 Dictionary Key/Value 的 ref 枚举 调试模式下，离开作用域的原始 scope 分配会标记为已删除 扩展表达式主体支持 移除 Func/Action 反射增强 新增编辑器设置：Free Cursor Movement 改进多显示器支持 扩展反射支持 三击选择整行 更多代码悬停提示  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.5</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_5/</guid>
+      <description>2020 年 6 月 25 日
+ 反射扩展了自定义特性支持 支持接口扩展 反射包含类型与方法的自定义特性 支持重命名标签与命名空间 &amp;lsquo;using static&amp;rsquo; 扩展方法 新增选项：关闭 Ctrl+Arrow 自动补全 提升超大方法的后端速度 定长数组大小推断支持 &amp;lsquo;?&amp;rsquo; 改进全局静态定长数组初始化 编辑器支持更多按键组合 鼠标悬停属性求值 新增严格相等运算符 === 与 !== 新增初始化表达式  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.6</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_6/</guid>
+      <description>2020 年 9 月 9 日
+ SIMD 库起步 alloctype(T) 将方法可变性纳入签名与方法选择 支持非静态 ++ 和 -- 运算符重载 out 参数丢弃 ? ??= 运算符 IDE 新增诊断面板 Distinct Build Options 新增反射设置 IDE 主题支持 Ctrl+Tab 最近文件列表 IDE 支持移动行/语句  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.7</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_7/</guid>
+      <description>2020 年 10 月 5 日
+ 来自 System.Variant 的动态装箱 decltype(val).MemberName 表达式 out 变量声明的作用域向外移动 改进未赋值变量检测 新增显式 &amp;ldquo;Test&amp;rdquo; 项目类型 反射接口方法派发 Distinct Build Options 的接口过滤 IDE 在崩溃/断电后可恢复文件 更好地处理源码中的合并冲突标记  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.42.8</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_42_8/</guid>
+      <description>2020 年 12 月 9 日
+ LLVM 更新至 11.0 字符串插值 对不可变值取地址现在为警告而非错误 Internal 访问级别，可通过 &amp;lsquo;using internal name;&amp;lsquo;（name 为命名空间或类型名）访问 初始化块 &amp;lsquo;this { &amp;hellip; }&amp;rsquo; 运算符优先级调整为与 C#/C++ 一致 改进扩展支持 支持 &amp;lsquo;enum&amp;rsquo; 与 &amp;lsquo;interface&amp;rsquo; 约束 IDE 保存时格式化  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.0</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_0/</guid>
+      <description>2021 年 2 月 22 日
+ 编译期函数求值 编译期代码生成 AttributeUsage 中的 AlwaysIncludeUser 属性 初始化表达式 &amp;lsquo;.{ x = 1, y = 2}&amp;rsquo; 参数级联 &amp;lsquo;UseString(val.ToString(.. scope .()));&amp;rsquo; 自动构造函数 &amp;lsquo;struct Vec : this(float x, float y);&amp;rsquo; Lambda 返回类型推断 运算符重载的 params 支持 ref &amp;lsquo;in&amp;rsquo; 参数 改进 C VarArg 兼容性  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.1</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_1/</guid>
+      <description>2021 年 11 月 22 日
+ 自动属性支持字段析构 溢出运算符（&amp;amp;-, &amp;amp;+, &amp;amp;*） 范围（如：for (int a in 0..&amp;lt;count)、for (int i in 1..^0)） offsetof(T, Member) IDE 支持 TrueType 字体集合  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.2</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_2/</guid>
+      <description>2022 年 3 月 29 日
+ 升级到 LLVM 13.0.1 代码文件生成器替代 &amp;ldquo;New Class&amp;hellip;&amp;rdquo; 编译期文件 IO 与进程创建 分析器线程列表新增 CPU 使用率 算术溢出检查 定长数组 params 泛型转换运算符重载 支持 const string 泛型参数 方法泛型参数部分显式指定，支持 &amp;hellip; 与 ? 编译期 IOnFieldInit 位域 静态局部方法与变量 const 字符串插值 lambda 体内支持 @this 委托引用 委托相等性改进，支持哈希与 == 运算符 编译期自定义特性 IDE 可折叠区域  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.3</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_3/</guid>
+      <description>2022 年 6 月 20 日
+ 文件级命名空间 多 $ 字符串插值 IDE 内嵌 emit 视图 IDE 更好的高刷新率支持 IDE 格式化选项 isconst(expr) 代码块支持 [ConstSkip] 新增预编译的 JEMalloc 与 TCMalloc 库  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.4</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_4/</guid>
+      <description>2022 年 9 月 7 日
+ 新增 System.RefCounted&amp;lt;T&amp;gt; 新增 System.Collections.SplitList&amp;lt;T&amp;gt; SoA 容器 新增 nameof 表达式 命名参数 append 字段 using 字段 定长数组新增 .InitAll 元素初始化器 新增 System.ITypedAllocator 和 System.SingleAllocator IDE 源文件折叠状态序列化 IDE 书签面板  </description>
+    </item>
+    
+    <item>
+      <title>版本 0.43.5</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/releases/ver_0_43_5/</guid>
+      <description>2025 年 3 月 19 日
+ IDE 标签固定 新增 IDE 启动面板 新增终端与控制台 IDE 面板 监视窗口中支持搜索 改进 DLL 热编译 新增 &amp;lsquo;?&amp;rsquo; lambda 捕获说明符，自动选择复制或引用 新增 System.IParsable 新增 System.HashCode 新增可处理带载荷枚举的 EnumParser&amp;lt;T&amp;gt; 允许在编译期 &amp;ldquo;prev&amp;rdquo; 特性实例数据的 const 编码上软失败 fallthrough 新增标签支持 新增 &amp;lsquo;const var&amp;rsquo; 泛型参数约束 允许 const struct 泛型参数约束 生成更小的可执行文件 泛型现在可被基础类型约束 新增项目依赖的预处理检查 BF_DEPENDS_&amp;lt;NAME&amp;gt; 包管理（仅 Git） Wasm 改进 构建命令：CopyToTarget 泛型构造函数 新增 IDE 着色选项：Member、Local、Parameter 内联匿名类型声明 在初始化块中支持匿名子类声明 初始化语句中支持初始化块 编译期支持 TypeDeclaration ZeroGap AllowAppend  </description>
+    </item>
+    
+  </channel>
+</rss>

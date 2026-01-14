@@ -1,24 +1,24 @@
 +++
-title = "Getting Started"
+title = "入门指南"
 description = ""
 weight = 2
 alwaysopen = true
 +++
 
-## Welcome to Beef
+## 欢迎使用 Beef
 
-Beef is primarily an IDE-based experience, but command-line building is also supported. Your first step is to [install Beef]({{< ref "getting-start/installation.md" >}}) or [build from source]({{< ref "getting-start/building.md" >}}). Currenly binaries are only available for Windows, and the Beef IDE is only available for Windows.
+Beef 主要以 IDE 方式使用，但也支持命令行构建。第一步可以 [安装 Beef]({{< ref "getting-start/installation.md" >}}) 或 [从源码构建]({{< ref "getting-start/building.md" >}})。目前仅提供 Windows 的二进制包，且 Beef IDE 也只支持 Windows。
 
-### Platforms Supported
+### 支持的平台
 
-Binaries are available for Windows, and building from source is supported on Windows, Linux, and macOS. [Cross-compilation]({{< ref "platforms/_index.md" >}}) is in development for targets including Android and iOS.
+Windows 提供二进制包，Windows、Linux 和 macOS 支持从源码构建。包含 Android 和 iOS 在内的目标平台 [交叉编译]({{< ref "platforms/_index.md" >}}) 正在开发中。
 
-### Creating an IDE-based "Hello World"
+### 使用 IDE 创建“Hello World”
 
-* Run the Beef IDE
-* Create a new project by selecting File/New/Project and create a new Console project named "Hello"
-* Right click on the new project, select "New Class...", and enter "Program" as the name.
-* Enter the following text in the newly-created file
+* 启动 Beef IDE
+* 选择 File/New/Project 新建项目，创建名为“Hello”的 Console 项目
+* 右键新项目，选择“New Class...”，名称输入“Program”
+* 在新建文件中输入以下内容
 
 ```C#
 using System;
@@ -34,12 +34,12 @@ namespace Hello
 	}
 }
 ```
-* Press F5 to compile and run
+* 按 F5 编译并运行
 
-### Creating an command-line based "Hello World"
+### 使用命令行创建“Hello World”
 
-* Create a new directory named "Hello" somewhere
-* "cd" into that directory
-* Run "BeefBuild -new" to initialize a new workspace and project in that directory
-* Create a "src/Program.bf" text file and paste in the contents from the box above
-* Run "BeefBuild -run" to compile and execute
+* 在任意位置创建名为“Hello”的目录
+* 在终端中进入该目录
+* 运行 `BeefBuild -new` 在该目录初始化新的工作区和项目
+* 创建 `src/Program.bf` 文本文件，并粘贴上方代码
+* 运行 `BeefBuild -run` 编译并执行

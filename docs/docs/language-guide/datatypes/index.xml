@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据类型 on Beef 编程语言</title>
+    <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/</link>
+    <description>Recent content in 数据类型 on Beef 编程语言</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    
+	<atom:link href="https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>类型成员</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/members/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/members/</guid>
+      <description>字段 字段可以是 const、static 或实例字段。const 字段表示值，但不占用内存；在简单的常量算术求值下，const 必须在编译期求值为常量。使用 const 等同于使用其对应的字面量值。static 值是在定义类型命名空间内的单个“全局变量”。既非 static 也非 const 的字段为实例字段，表示定义类型实例内部的数据。
+class Widget { /* 静态“共享”值 */ static int totalCount; const int MaxWidgets = 64 * 1024; /* 普通“实例”数据字段 */ int x; int y; }  通过 using 字段支持匿名字段访问。标记为 using 的字段，其成员字段可在不使用字段名限定的情况下直接访问。这种用法对命名字段本身与匿名使用有不同的访问级别。例如 public using private Vector2 mPosition 中，mPosition 为 private，但通过匿名访问时其 X 与 Y 成员是 public 可见。
+匿名字段访问可以通过组合提供一些类似继承的优势。
+struct Vector2 { public float X; public float Y; } struct Entity { /* 可直接访问 &amp;#39;mX&amp;#39; 或通过 &amp;#39;mPosition.</description>
+    </item>
+    
+    <item>
+      <title>特性</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/attributes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/attributes/</guid>
+      <description> 类型特性  [CRepr] - 将结构体标记为 C 兼容 [Ordered] - 禁用字段重排（字段重排用于减少对齐填充） [Packed] - 省略字段对齐填充 [Union] - 对结构体创建联合体  成员特性  [Reflect] - 强制为该成员生成反射数据 [NoShow] - 在自动补全中隐藏该字段  静态字段或方法特性  [CLink] - 使用 C 链接名而非 C++ 风格重整 [LinkName] - 显式覆盖链接名  构造函数特性  [AllowAppend] - 允许追加分配  方法特性  [AlwaysInclude] - 表示即使按需编译会跳过该方法，也应将其包含在构建中。适用于需要通过反射调用的方法。 [Checked] - 表示该方法执行运行时检查（如参数校验/越界检查） [Commutable] - 为该方法生成一个参数前两位交换的额外版本，可用于可交换运算符 [Comptime] - 标记方法仅可在编译期求值，不可在运行期调用 [DisableChecks] - 表示该方法内部调用尽可能使用 Unchecked 版本的方法（优化） [DisableObjectAccessChecks] - 表示在该方法内禁用对象访问检查（优化） [Error] - 调用该方法时抛出编译错误（[Obsolete] 的更通用形式） [Export] - 导出该方法 [Import] - 从指定 DLL 导入方法，可用于没有 DLL 的 lib 文件时 [Inline] - 即使在非优化构建中也内联函数 [Intrinsic] - 将方法绑定为 intrinsic（通常仅用于系统库） [NoDiscard] - 若返回值未使用，则在调用点发出警告 [NoReturn] - 表示该方法不会返回 [Obsolete] - 标记方法过时，抛出警告或错误 [Optimized] - 在启用优化的情况下编译方法 [SkipCall] - 禁止生成对该方法调用以及参数求值的代码 [StdCall] - 使用 stdcall 调用约定而非默认 cdecl [Test] - 标记方法为测试方法 [Unchecked] - 表示该方法省略运行时检查（通常用于性能） [Warn] - 调用该方法时抛出编译警告（[Obsolete] 的更通用形式）  静态字段特性  [ThreadStatic] - 将该字段标记为线程本地静态字段  成员访问特性  [Friend] - 允许访问私有成员 [SkipAccessCheck] - 对该成员访问目标省略对象访问检查（优化）  代码块特性  [IgnoreErrors] - 静默忽略该代码块中的错误  </description>
+    </item>
+    
+    <item>
+      <title>初始化</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/initialization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/initialization/</guid>
+      <description>初始化 类的初始化语义如下：先将对象清零，然后按声明顺序执行根类字段初始化器，接着按声明顺序执行初始化块，然后运行根类构造函数，之后依次执行派生类的字段初始化器、初始化块和构造函数。即使在基类构造函数中调用虚方法，也会派发到最派生类型，这可能导致在某个类型构造函数尚未执行时就调用了该类型的方法。
+class Person { public String mFirstName = GetFirstName(); public String mLastName = GetLastName(); public this() { AddPerson(); } } class Student : Person { public School mSchool = GetSchool(); public int? mAge; /* 初始化块无论调用哪个构造函数都会执行 */ this { RegisterStudent(); } public this() { } public this(int age) { mAge = age; } } /* 构造 Student 时，初始化顺序如下： mFirstName = GetFirstName() mLastName = GetLastName() AddPerson(); mSchool = GetSchool() RegisterStudent(); */ /* 类或结构体及其继承者或扩展也可以选择忽略所有初始化器，保留清零后的类/结构体 */ extension Person { /* 为 Person 添加一个构造函数，因使用 &amp;#39;this(?</description>
+    </item>
+    
+    <item>
+      <title>扩展</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/extensions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/extensions/</guid>
+      <description>类型扩展 类型定义可以被扩展，用户项目甚至可以扩展核心库中定义的类型，并添加额外数据字段。
+/* 为线程创建添加时间戳。可在用户代码任意位置包含。 */ namespace System.Threading { extension Thread { DateTime mCreateTime = DateTime.Now; } }  泛型类型可以基于匹配的接口约束进行条件扩展。
+namespace System.Collections { extension List&amp;lt;T&amp;gt; where T : IOpComparable { public T GetMax() { if (mSize == 0) return default; T max = this[0]; for (let val in this) { // 没有 IOpComparable 约束，这个 &amp;#39;&amp;gt;&amp;#39; 检查会失败 	if (val &amp;gt; max) max = val; } return max; } } }  扩展可用于为不受你控制的类型（如系统类型或其他库中的类型）添加接口一致性。</description>
+    </item>
+    
+    <item>
+      <title>匿名类型</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/anon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/anon/</guid>
+      <description>匿名类型声明 匿名类型声明与普通类型声明类似，但它们没有名称，并放在通常写类型引用的位置。
+[Union] struct Vector3 { public float[3] vals; /* 带匿名字段的匿名结构体声明。 下面等价于： public using struct { public float mX; public float mY; public float mZ; } _UNUSED_NAME_; */ public struct { public float x; public float y; public float z; }; /* 匿名枚举声明 */ public enum { Left, Center, Right } GetXDirection() =&amp;gt; (mX &amp;lt; 0) ? .Left : (mX &amp;gt; 0) ? .Right : .Center; } Vector3 vec = .</description>
+    </item>
+    
+    <item>
+      <title>全局</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/globals/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/globals/</guid>
+      <description> 全局 全局变量可视为匿名类型的静态字段。也可以定义全局方法与 mixin。
+static { public static int gGlobalVal = 0; }  通过 using static 可以在文件级别实现类似全局变量的简洁性，使得可以在当前类型外直接使用静态字段。
+class Image { public static int sImageCount; } using static Image; class Program { public void Use() { // 这种静态使用通常需要完全限定名 &amp;#34;Image.sImageCount&amp;#34;; 	int imgCount = sImageCount; } } </description>
+    </item>
+    
+    <item>
+      <title>方法引用</title>
+      <link>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/methodrefs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/methodrefs/</guid>
+      <description>函数指针 函数指针类型可指向静态方法、带显式 this 参数的非静态方法、外部函数，或由库动态生成的函数。函数指针通过 =&amp;gt; 运算符生成。
+/* 局部变量 `funcPtr` */ function void() funcPtr = =&amp;gt; StaticMethod; funcPtr(); /* 作为参数传递给另一个方法 */ void UseFuncPtr(function void() funcPtrB) =&amp;gt; funcPtrB(); UseFuncPtr(=&amp;gt; StaticMethodB); /* 注意此处未捕获 &amp;#39;ca&amp;#39;。也可以写成 &amp;#39;ClassA.MemberMethod&amp;#39; */ ClassA ca = new ClassA(); function void(ClassA this, float f) funcPtr2 = =&amp;gt; ca.MemberMethod; funcPtr2(ca, 1.2f); /* 注意结构体需要区分 mut/非 mut */ StructA sa = StructA(); function void(mut StructA this, float f) funcPtr3 = =&amp;gt; sa.MemberMethod; funcPtr3(mut sa, 2.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,90 +1,90 @@
 +++
-title = "Operators"
+title = "运算符"
 weight=75
 +++
 
-## Operators overview
-These following operator groups are listed from the highest priority group to the lowest priority group.
+## 运算符概览
+以下运算符分组按优先级从高到低排列。
 
-### Primary operators
-* `x.y` - member access
-* `x..y(<method args>)` - member access cascade. Overrides result of method `y` with `x`, which is useful for chaining method calls to a common target. For example: ``string..Append("name: ").Append(name);`` Both ``Append`` calls are targeted on ``string`` even though ``Append`` returns ``void``.
-* `x?.y` - null conditional member access. Results in null if `x` is null.
-* `f(x)` - method call
-* `a[x]` - array indexing
+### 主运算符
+* `x.y` - 成员访问
+* `x..y(<method args>)` - 成员访问级联。将方法 `y` 的结果替换为 `x`，用于将多个方法调用串联到同一目标上。例如：``string..Append("name: ").Append(name);`` 尽管 ``Append`` 返回 ``void``，但两个 ``Append`` 都作用于 ``string``。
+* `x?.y` - 空条件成员访问。若 `x` 为 null，则结果为 null。
+* `f(x)` - 方法调用
+* `a[x]` - 数组索引
 
-### Unary operators {#unary}
-* `x++` - postfix increment, increments x and results in result before the increment
-* `x--` - postfix decrement, decrements x and results in result before the decrement
-* `++x` - prefix increment, increments x and results in the new value
-* `--x` - prefix decrement, decrements x and results in the new value
-* `~x` - bitwise complement
-* `!x` - logical negation
-* `(T)x` - type casts `x` to type `T`
-* `&x` - address of `x`
-* `*x` - dereference pointer `x`
-* `x(..y, <other method args>)` - argument cascade. Overrides result of method `x` with `y`, which is useful for reusing an argument. For example, see [string ease of use]({{< ref "strings.md#ease" >}}).
+### 一元运算符 {#unary}
+* `x++` - 后缀自增，先返回自增前结果再递增 x
+* `x--` - 后缀自减，先返回自减前结果再递减 x
+* `++x` - 前缀自增，先递增 x 再返回新值
+* `--x` - 前缀自减，先递减 x 再返回新值
+* `~x` - 按位取反
+* `!x` - 逻辑取反
+* `(T)x` - 将 `x` 转换为类型 `T`
+* `&x` - 取 `x` 的地址
+* `*x` - 解引用指针 `x`
+* `x(..y, <other method args>)` - 参数级联。将方法 `x` 的结果替换为 `y`，用于复用参数。例如参见 [字符串易用性]({{< ref "strings.md#ease" >}})。
 
-#### Multiplicative operators {#binary}
-* `x * y` - multiplication
-* `x &* y` - multiplication with overflow checking disabled. 
-* `x / y` - division. If `x` and `y` are integers, results in an integer truncated toward zero.
-* `x % y` - remainder. If `x` and `y` are integers, results in the remainder of the division `x / y`.
+#### 乘除运算符 {#binary}
+* `x * y` - 乘法
+* `x &* y` - 禁用溢出检查的乘法
+* `x / y` - 除法。若 `x` 与 `y` 为整数，则结果为向零截断的整数。
+* `x % y` - 取余。若 `x` 与 `y` 为整数，则结果为 `x / y` 的余数。
 
-#### Additive operators
-* `x + y` - addition
-* `x &+ y` - addition with overflow checking disabled
-* `x - y` - subtraction
-* `x &- y` - subtraction with overflow checking disabled. Allows for subtracing two unsigned integers without resulting in a signed integer.
+#### 加减运算符
+* `x + y` - 加法
+* `x &+ y` - 禁用溢出检查的加法
+* `x - y` - 减法
+* `x &- y` - 禁用溢出检查的减法。允许两个无符号整数相减而不产生有符号整数。
 
-### Shift operators
-* `x << y` - shift bits left
-* `x >> y` - shift bits right. if `x` is signed, the left bits are filled with the sign bit.
+### 移位运算符
+* `x << y` - 左移
+* `x >> y` - 右移。若 `x` 为有符号数，则左侧用符号位填充。
 
-### Spaceship operator
-* `x <=> y` - results is negative if `x < y`, zero if `x == y`, positive if `x > y`
+### 太空船运算符
+* `x <=> y` - 若 `x < y` 返回负数，`x == y` 返回 0，`x > y` 返回正数
 
-### Comparison operators
+### 比较运算符
 * `x < y`
 * `x > y`
 * `x <= y`
 * `x >= y`
-* `x is T` - results in true if `x` can be cast to type `T`
-* `x as T` - casts `x` to `T` if the cast is possible, otherwise results in null
+* `x is T` - 若 `x` 可转换为类型 `T` 则结果为 true
+* `x as T` - 若可转换则将 `x` 转为 `T`，否则结果为 null
 
-### Logical AND operator
-* `x & y` - bitwise AND
+### 逻辑 AND 运算符
+* `x & y` - 按位 AND
 
-### Logical XOR operator
-* `x ^ y` - bitwise XOR
+### 逻辑 XOR 运算符
+* `x ^ y` - 按位 XOR
 
-### Logical OR operator
-* `x | y` - bitwise OR   
+### 逻辑 OR 运算符
+* `x | y` - 按位 OR
 
-### Equality operator
+### 相等运算符
 
 * `x == y`
-* `x === y` - strict equality
+* `x === y` - 严格相等
 * `x != y`
-* `x !== y` - strict inequality
+* `x !== y` - 严格不等
 
-The strict equality operators can be used to check reference equality, skipping any equality operator overloads. For value types such as structs or tuples, the strict equality operator will perform a memberwise strict equality check.
+严格相等运算符可用于检查引用相等，跳过所有相等运算符重载。对于结构体或元组等值类型，严格相等会执行逐成员的严格相等检查。
 
-### Conditional AND operator
+### 条件 AND 运算符
 * `x && y`
 
-### Conditional OR operator
+### 条件 OR 运算符
 * `x || y`
 
-### Null-coalescing operator
-* `x ?? y` - results in `x` if it is non-null, otherwise results in `y`
+### 空合并运算符
+* `x ?? y` - 若 `x` 非空则结果为 `x`，否则为 `y`
 
-### Conditional operator {#conditional}
-* `x ? y : z` - results in `y` is `x` is true, otherwise results in `z`
+### 条件运算符 {#conditional}
+* `x ? y : z` - 当 `x` 为 true 时结果为 `y`，否则为 `z`
 
-### Assignment operators {#assignment}
+### 赋值运算符 {#assignment}
 
-Assignments result in the new value of `x`.
+赋值结果为 `x` 的新值。
 
 * `x = y`
 * `x += y`
@@ -97,46 +97,46 @@ Assignments result in the new value of `x`.
 * `x <<= y`
 * `x >>= y`
 * `x ??= y`
-* `=> x` - Method binding operator
+* `=> x` - 方法绑定运算符
 
-#### Type attribute operators {#typeattr}
-* `sizeof(T)` - size of `T`. Note that reference types will always result in the native pointer size  
-* `alignof(T)` - alignment of `T`
-* `strideof(T)` - size of `T`, aligned to the alignment of `T`
-* `alloctype(T)` - result of `new T()`, which will be `T` for reference types and `T*` for valuetypes
-* `comptype(x)` - type of reflected type `x`
-* `decltype(x)` - type of result of expression `x`. Any expression is allowed, including method calls, but will only be evaluated to determine the type of `x` and won't generate any executable code.
-* `nullable(T)` - `T` if `T` is already nullable, otherwise `T?`
-* `rettype(T)` - return type of a delegate or function
-* `typeof(T)` - reflected type of type `T`
-* `offsetof(T, field)` - byte offset of `field` in `T`
-* `nameof(T, field)` - name of `field` in `T`
+#### 类型属性运算符 {#typeattr}
+* `sizeof(T)` - `T` 的大小。注意引用类型总是返回原生指针大小
+* `alignof(T)` - `T` 的对齐
+* `strideof(T)` - `T` 的步长（按 `T` 的对齐方式对齐）
+* `alloctype(T)` - `new T()` 的结果，若 `T` 为引用类型则为 `T`，若为值类型则为 `T*`
+* `comptype(x)` - 反射类型 `x` 的类型
+* `decltype(x)` - 表达式 `x` 的结果类型。允许任意表达式（包括方法调用），但仅用于确定类型，不生成可执行代码。
+* `nullable(T)` - 若 `T` 已是可空类型则为 `T`，否则为 `T?`
+* `rettype(T)` - 委托或函数的返回类型
+* `typeof(T)` - `T` 的反射类型
+* `offsetof(T, field)` - `field` 在 `T` 中的字节偏移
+* `nameof(T, field)` - `field` 在 `T` 中的名称
 
-### Ref operators
-* `ref x` - required for passing values into ref parameters or other values expecting `ref`
-* `out x` - required for passing values into out parameters
-* `var x` - create a new variable `x` from an out parameter
-* `let x` - create a new const/readonly variable `x` from an out parameter
+### 引用运算符
+* `ref x` - 传入 `ref` 参数或需要 `ref` 的值时必需
+* `out x` - 传入 `out` 参数时必需
+* `var x` - 从 `out` 参数创建新变量 `x`
+* `let x` - 从 `out` 参数创建新常量/只读变量 `x`
 
-### Params operator
-* params x - where x is a variadic parameter, will pass through those params to another variadic parameter. Where x is a delegate or function params, will expand those in place.
+### Params 运算符
+* params x - 当 x 为可变参数时，将这些参数传递给另一个可变参数。当 x 为委托或函数的 params 时，会在原地展开。
 
-See [Variable argument counts]({{< ref "datatypes/members.md#params" >}}) for examples.
+示例参见 [可变参数数量]({{< ref "datatypes/members.md#params" >}})。
 
-### Range operators {#range}
-* `x...y` - creates an inclusive range from x up to including y
-* `x..<y` - creates an exclusive range from x up to but excluding y
+### 范围运算符 {#range}
+* `x...y` - 创建包含式范围，从 x 到 y（含 y）
+* `x..<y` - 创建排除式范围，从 x 到 y（不含 y）
 
-* `x...` - creates an index range from x up to including the end of the collection
-* `...y` - creates an index range from the start of the collection up to including y
-* `x...^y` - creates an index range from x up to including y, but counted from the back (See Index operator below). For example from the `x`th element of the list to the `y`th, but counted from the back, element.
+* `x...` - 创建索引范围，从 x 到集合末尾（含末尾）
+* `...y` - 创建索引范围，从集合起始到 y（含 y）
+* `x...^y` - 创建索引范围，从 x 到 y（含 y），但 y 从末尾计数（见下方 Index 运算符）。例如从列表第 `x` 个元素到从后往前数的第 `y` 个元素。
 
-See [Range expression]({{< ref "expressions.md#range" >}}) for examples.
+示例参见 [范围表达式]({{< ref "expressions.md#range" >}})。
 
-### Index from end operator
-* `^x` - creates an Index for the `x`th element counting from the back (`.FromEnd`), where the last element is ^1 (^0 is equal to the count/length of the collection)
+### 末尾索引运算符
+* `^x` - 创建一个从末尾计数的 Index（`.FromEnd`），其中最后一个元素为 ^1（^0 等于集合的数量/长度）
 
-`Index` is mostly used for indexing collections and constructing ranges.
+`Index` 主要用于集合索引与范围构造。
 
 ```C#
 let list = scope List<int>() { 5, 1, 0 };
@@ -144,21 +144,21 @@ let list = scope List<int>() { 5, 1, 0 };
 let first = list[0];
 // first == 5
 
-// Indexing from the back starts at Count (3 in this case), which is out of range. Thus we get the last element by counting down one -> ^1
+// 从末尾索引起点是 Count（此处为 3），超出范围，因此向前一位得到最后元素 -> ^1
 let last = list[^1];
 // last == 0
 ```
 
-## Casting
+## 类型转换
 
-The `(T)x` cast operator can directly perform many kinds of type conversions, but there are some special cases:
-* Unboxing. `(T)obj` where `obj` is an `Object` and `T` is a valuetype will perform an boxing. This unboxing can fail at runtime in Debug mode (when Dynamic Cast Checks are enabled). You can use an `obj is T` check or a `obj as T?` expression to safely unbox.
-* Retrieving an object's address: the expression `(void*)obj` where `obj` is an Object type is actually an unboxing request, not a type conversion. `System.Internal.UnsafeCastToPtr` can return the address of an Object as a `void*`.
-* Casting to an unrelated type. Sometimes double-casts can be used to achieve what would otherwise be an illegal cast. For example, with `(void*)handle` where `handle` is a the typed primitive `struct Handle : int`, the cast directly to `void*` is not allowed, but `(void*)(int)handle` is allowed.
+`(T)x` 类型转换运算符可直接执行多种类型转换，但有一些特殊情况：
+* 反装箱。`(T)obj` 其中 `obj` 为 `Object`、`T` 为值类型，会执行反装箱。该反装箱在 Debug 模式下（启用动态转换检查时）可能在运行时失败。可使用 `obj is T` 检查或 `obj as T?` 表达式安全反装箱。
+* 获取对象地址：`(void*)obj`（`obj` 为 Object 类型）实际上是反装箱请求，而非类型转换。`System.Internal.UnsafeCastToPtr` 可返回 Object 的地址作为 `void*`。
+* 转换为不相关类型。有时可使用双重转换实现原本非法的转换。例如 `(void*)handle` 中 `handle` 是带类型的基础类型 `struct Handle : int`，直接转为 `void*` 不允许，但 `(void*)(int)handle` 允许。
 
-## Operator overloading
+## 运算符重载
 
-Structs and classes can provide operator overloads. Comparison operator selection is flexible, in that not all combination of <, <=, ==, !=, >, and >= need to be defined. The "inverse" of operators will be called if available, or if just the <=> operator is defined then that can be used for all comparison types as well.
+结构体与类可提供运算符重载。比较运算符的选择较灵活，不需要定义 <、<=、==、!=、>、>= 的全部组合。若存在“逆运算符”，会优先调用；或仅定义 <=> 运算符时，也可用于所有比较类型。
 
 ```C#
 struct Vector2
@@ -172,49 +172,49 @@ struct Vector2
 		this.y = y;
 	}
 
-	/* Binary + operator */
+	/* 二元 + 运算符 */
 	public static Vector2 operator+(Vector2 lhs, Vector2 rhs)
 	{
 		return .(lhs.x + rhs.x, lhs.y + rhs.y);
 	}
 
-	/* Unary '-' operator */
+	/* 一元 '-' 运算符 */
 	public static Vector2 operator-(Vector2 val)
 	{
 		return .(-val.x, -val.y);
 	}
 
-	/* Unary '++' operator */
+	/* 一元 '++' 运算符 */
 	public static Vector2 operator++(Vector2 val)
 	{
 		return .(val.x + 1, val.y + 1);
 	}
 
-	/* Non-static unary '--' operator */
+	/* 非静态一元 '--' 运算符 */
 	public void operator--() mut
 	{
 		x--;
 		y--;
 	}
 
-	/* Assignment '+=' operator */
+	/* 赋值 '+=' 运算符 */
 	public void operator+=(Vector2 rhs) mut
 	{
 		x += rhs.x;
 		y += rhs.y;
 	}
 
-	/* Comparison operator */
+	/* 比较运算符 */
 	public static int operator<=>(Vector2 lhs, Vector2 rhs)
 	{
-		/* Compare on X, or on Y if X's are equal */
+		/* 先比较 X，若 X 相等则比较 Y */
 		int cmp = lhs.x <=> rhs.x;
 		if (cmp != 0)
 			return cmp;
 		return lhs.y <=> rhs.y;
 	}
 
-	/* Conversion operator from float[2] */
+	/* 来自 float[2] 的转换运算符 */
 	public static operator Vector2(float[2] val)
 	{
 		return .(val[0], val[1]);
@@ -222,4 +222,4 @@ struct Vector2
 }
 ```
 
-Binary operators can be marked with the `[Commutable]` attribute, which allows for certain operator transformations. A commutable "A < B" operator, for example, can be used for "B > A", "!(A >= B)", and !(B <= A). A commutable "A == B" operator can be used for "B == A", "!(A != B)", and "!(B != A)".
+二元运算符可标记为 `[Commutable]` 特性，从而允许某些运算符变换。例如，可交换的 "A < B" 运算符可用于 "B > A"、"!(A >= B)" 和 "!(B <= A)"。可交换的 "A == B" 运算符可用于 "B == A"、"!(A != B)" 与 "!(B != A)"。

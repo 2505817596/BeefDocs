@@ -1,10 +1,10 @@
 +++
-title = "Documentation"
+title = "文档"
 +++
 
-## Documentation comments
+## 文档注释
 
-The IDE allows for documenting types and methods with `///` or `/** */` (wich one of these you use doesn't matter). Autocomplete suggestions, as well as prompts while calling/using the documented types or functions, will display their documentation.
+IDE 支持使用 `///` 或 `/** */` 为类型和方法编写文档（使用哪种都可以）。自动补全建议以及调用/使用这些类型或函数时的提示，会显示对应文档。
 
 ```C#
 static

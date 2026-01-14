@@ -1,14 +1,14 @@
 +++
-title = "The Basics"
+title = "基础知识"
 weight = 10
 +++
 
-## Compilation Model
+## 编译模型
 
-The Beef compilation context is a workspace, which consists of multiple projects. A project can either be a library or it can produce a binary such as an executable or dll. Sources are parsed, passed through a limited preprocessor, compiled, and a collection of object files are built for types and methods which are referenced, which are then linked into the target binaries. The workspace-wide compilation model allows per-workspace settings to affect compilations of specific groups of methods or types, modifiying preprocessor and compilation settings (ie: optimization level) of code even when it's contained in referenced third-party libraries. 
+Beef 的编译上下文是工作区，由多个项目组成。项目可以是库，也可以生成可执行文件或 DLL 等二进制。源文件会被解析、经过有限预处理、编译，并为被引用的类型与方法构建一组目标文件，最终链接为目标二进制。工作区级的编译模型允许以工作区为单位的设置影响特定方法或类型的编译，即便代码位于引用的第三方库中，也可修改预处理与编译设置（如优化级别）。
 
-Incremental compilation is supported, with a dependency graph rebuilding only potentially-affected objects, and with a backend cache to avoid rebuilding objects with no functional changes. Incremental compilation can be disabled for creating reproducible builds.
+支持增量编译，通过依赖图仅重建可能受影响的对象，并使用后端缓存避免对无功能变化的对象重建。可关闭增量编译以生成可复现的构建。
 
-Beef supports multiple compiler backends, including LLVM and a custom "enhanced debug" (Og+) backend which performs some code optimizations which do not adversely impact debuggability and has some improvements in emitted debug information over LLVM. 
+Beef 支持多种编译器后端，包括 LLVM 以及自定义的 “增强调试”（Og+）后端，该后端在不影响可调试性的前提下进行部分优化，并在调试信息输出方面优于 LLVM。
 
-Multiple linkers are supported, including system linkers and the LLVM linker which can be used for link-time optimised builds (LLVM LTO/ThinLTO).
+支持多种链接器，包括系统链接器，以及可用于链接时优化构建（LLVM LTO/ThinLTO）的 LLVM 链接器。

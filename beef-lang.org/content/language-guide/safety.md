@@ -1,14 +1,14 @@
 +++
-title = "Safety Features"
+title = "安全特性"
 weight = 20
 +++
 
-Beef supports a variety of optional safety features, many of which can be disabled for specified groups of code for "mixed safety" builds (ie: so performance-critical code can disable some checks while less performance-critical or less tested code can run with more safety checks).
+Beef 支持多种可选安全特性，其中许多可针对特定代码组关闭，用于“混合安全”构建（例如性能关键代码可关闭部分检查，而性能要求较低或测试不足的代码则启用更多安全检查）。
 
-By default, the following checks are enabled for all code in Debug builds and they are disabled in Release builds.
+默认情况下，以下检查在 Debug 构建中对所有代码启用，在 Release 构建中禁用。
 
-### Bounds checking
-Bounds checking is implemented in the standard library for arrays, collections, spans, and strings. In many cases these are implemented by having one [Checked] accessor that performs bounds checks and another [Unchecked] accessor that does not bounds check. This allows bounds checking to be selected at the callsite rather than being determined collection-wide.
+### 越界检查
+越界检查在标准库中针对数组、集合、Span 和字符串实现。许多类型提供一个执行越界检查的 [Checked] 访问器，以及一个不做越界检查的 [Unchecked] 访问器，从而可在调用点选择是否检查，而非由集合整体决定。
 
 ```C#
 	// Disable bounds checking for this specific index
@@ -24,11 +24,11 @@ Bounds checking is implemented in the standard library for arrays, collections, 
 	}
 ```
 
-### Dynamic cast checking
-Explicit object casts to an invalid derived type will be caught at runtime.
+### 动态转换检查
+将对象显式转换为无效的派生类型会在运行时被捕获。
 
-### Memory leaks
-Leaks can be detected in realtime with the debug memory manager. Reachable memory will be continuously traced at runtime and memory which is no longer reachable but has not been properly freed will be immediately reported as a leak, along with the code location where the allocation occured. The stack trace depth for this allocation tracing is adjustable.
+### 内存泄漏
+使用调试内存管理器可实时检测泄漏。运行时会持续追踪可达内存，不再可达但尚未正确释放的内存会立刻报告为泄漏，并附带分配发生位置。该分配追踪的栈深度可调整。
 
-### Double free / use after free
-When the debug memory manager is enabled, objects which have been requested to be freed will be marked as 'freed' but the memory will not be physically reclaimed until there are no more references to the memory that it occupies. Any attempt to use the memory after it has been marked as freed is guaranteed to immediately fail, and the value of that freed object and its allocation stack trace will be valid and visible in the debugger.
+### 重复释放 / 释放后使用
+启用调试内存管理器时，请求释放的对象会被标记为“已释放”，但其内存不会立即回收，直到不再有引用指向该内存。任何在标记为已释放后继续使用该内存的行为都会立即失败，并且释放对象的值与分配栈追踪在调试器中仍然可用且可见。

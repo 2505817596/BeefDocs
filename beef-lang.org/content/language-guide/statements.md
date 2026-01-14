@@ -1,10 +1,10 @@
 +++
-title = "Statements"
+title = "语句"
 weight = 42
 +++
 
 ### break/continue
-We can stop executing a "for", "while", or "do" statement by using "break". We can skip to the next iteration of a "for" loop with "continue"; By default, these statements refer apply to the most-deeply nested applicable statement in the current scope, but we can use labels to refer to statements further out. This can be useful in situations such as breaking out of nested loops.
+我们可以使用 "break" 终止执行 "for"、"while" 或 "do" 语句。使用 "continue" 可跳到 "for" 循环的下一次迭代；默认情况下，这些语句作用于当前作用域中最深层的适用语句，但可以使用标签引用更外层的语句。这在跳出嵌套循环等场景中很有用。
 
 ```C#
 Y: for (int y < height)
@@ -14,10 +14,10 @@ Y: for (int y < height)
 ```
 
 ### defer
-Defer statements can be used to defer execution of method calls or of code blocks until a given scope is exited. When the deferred statement is a method call, the arguments (including `this`) are evaluated immediately.
+defer 语句用于将方法调用或代码块的执行推迟到退出某个作用域时。当延迟的是方法调用时，其参数（包括 `this`）会立刻求值。
 
 ```#C
-/* The following will print "End:2 B:1 A:0". Note that the execution order is the opposite of the deferred order. */
+/* 以下将输出 "End:2 B:1 A:0"。注意执行顺序与 defer 的声明顺序相反。 */
 {
 	int i = 0;
 	defer Console.WriteLine("A:{}", i);
@@ -27,7 +27,7 @@ Defer statements can be used to defer execution of method calls or of code block
 	Console.WriteLine("End:{}", i);
 }
 
-/* The following will print "End:2 B:2 A:2". There were no arguments to evaluate at the defer location, so the 'i' value used in WriteLine is just the current value at the end of the scope. */
+/* 以下将输出 "End:2 B:2 A:2"。defer 位置没有参数需要求值，所以 WriteLine 使用的是作用域结束时的当前 i 值。 */
 {
 	int i = 0;
 	defer
@@ -43,7 +43,7 @@ Defer statements can be used to defer execution of method calls or of code block
 	Console.WriteLine("End:{}", i);
 }
 
-/* The defer statement allows a scope target to be specified. The following will print numbers 9 through 0 when exiting from the containing method. */
+/* defer 语句可指定作用域目标。以下将在退出包含方法时打印 9 到 0。 */
 {
 	for (int i < 10)
 	{
@@ -54,15 +54,15 @@ Defer statements can be used to defer execution of method calls or of code block
 
 ### delete
 
-The `delete` statement releases allocated memory. (see [Memory Management]({{< ref "memory.md" >}}))
+`delete` 语句释放已分配的内存。（参见 [内存管理]({{< ref "memory.md" >}})）
 
-* `delete x` - releases memory allocated in the global allocator, referenced by `x`.
-* `delete:a x` - releases memory allocated in custom allocator `a`.
+* `delete x` - 释放由全局分配器分配、由 `x` 引用的内存。
+* `delete:a x` - 释放由自定义分配器 `a` 分配的内存。
 
-When `x` is an object, calls the destructor.
+当 `x` 为对象时，会调用析构函数。
 
 ### do
-Allows for a non-looping block which can be broken out of, which can reduce 'if nesting' in some code patterns.
+允许创建一个可被 break 跳出的非循环代码块，可在某些代码模式中减少 `if` 嵌套。
 
 ```C#
 do
@@ -78,27 +78,27 @@ do
 ```
 
 ### for
-For loops are generally used to iterate through a collection or a number series. There are several forms available.
+for 循环通常用于遍历集合或数列。可用形式如下。
 
 ```C#
-/* The classic C-style loop, with an initializer, a condition, and iterator */
+/* 经典 C 风格循环，包含初始化、条件和迭代器 */
 for (int i = 0; i < count; i++)
 {
 }
 
-/* A shorthand for the above */
+/* 上述形式的简写 */
 for (int i < count)
 {
 }
 
-/* Iterate through elements in a List<int> */
+/* 遍历 List<int> 中的元素 */
 for (let val in intList)
 {
 	if (val == 0)
 		@val.Remove();
 }
 
-/* The above is equivalent to */
+/* 上述等价于 */
 var enumerator = intList.GetEnumerator();
 while (enumerator.GetNext() case .Ok(let val))
 {
@@ -107,12 +107,12 @@ while (enumerator.GetNext() case .Ok(let val))
 }
 enumerator.Dispose();
 
-/* We can also iterate by refrence instead of by value */
+/* 我们还可以按引用遍历而非按值遍历 */
 for (var valRef in ref intList)
 	valRef += 100;
 
 
-/* Common Mistake: This will NOT change the values in intList, just the value returned by enumerator.GetNext() */
+/* 常见错误：这不会改变 intList 的值，只会改变 enumerator.GetNext() 返回的值 */
 for (var val in intList)
 	val += 100;
 ```
@@ -144,7 +144,7 @@ if ((int i = intNullable) && (i != 0))
 ```
 
 ### return
-Returns a value from a method.
+从方法返回一个值。
 
 ```C#
 int GetSize()
@@ -154,7 +154,7 @@ int GetSize()
 ```
 
 ### repeat while
-Executes a statement once and repeats execution as long as the condition is true.
+先执行一次语句，只要条件为真就继续重复执行。
 
 ```C#
 bool wantsMore;
@@ -230,7 +230,7 @@ default:
 ```
 
 ### using
-The `using` statement expresses scoped usage of values.
+`using` 语句表示对值的作用域使用。
 
 ```C#
 using (g.Open("Header"))
@@ -252,23 +252,23 @@ using (g.Open("Header"))
 }
 ```
 
-### Variable declarations
+### 变量声明
 
 ```C#
-// Define mutable variable with an explicit type and without an assignment
+// 定义可变变量，显式类型且不赋值
 int val;
-// Define multiple variables with an explicit type
+// 定义多个变量，显式类型
 int a, b;
-// Define mutable variable with an explicit type and an initializer
+// 定义可变变量，显式类型并初始化
 int val2 = 123;
-// Define mutable variable with an implicit type and an initializer
+// 定义可变变量，隐式类型并初始化
 var val3 = 1.2f;
-// Define immutable variable with an implicit type and an initializer
+// 定义不可变变量，隐式类型并初始化
 let val4 = 2.3;
 ```
 
 ### while
-Repeatedly executes a statement as long as the condition is true.
+当条件为真时重复执行语句。
 
 ```C#
 while (i >= 0)

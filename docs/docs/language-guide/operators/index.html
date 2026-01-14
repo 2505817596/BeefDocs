@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Beef 编程语言</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2026-01-14T11:04:40 CST">
+<title>运算符 :: Beef 编程语言</title>
+<link rel="shortcut icon" href="/BeefDocs/docs/images/favicon.png" type="image/x-icon" />
+<link href="/BeefDocs/docs/css/font-awesome.min.css" rel="stylesheet">
+<link href="/BeefDocs/docs/css/nucleus.css" rel="stylesheet">
+<link href="/BeefDocs/docs/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/BeefDocs/docs/css/bootstrap.min.css">
+<link href="/BeefDocs/docs/css/syntax.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/BeefDocs/docs/language-guide/operators/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="/">Beef 编程语言</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/BeefDocs/docs/" class="dd-item">
+          <a href="/BeefDocs/docs/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/BeefDocs/docs/releases/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/releases/">发布说明</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_0/">
+            版本 0.42.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_1/">
+            版本 0.42.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_2/">
+            版本 0.42.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_3/">
+            版本 0.42.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_4/">
+            版本 0.42.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_5/">
+            版本 0.42.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_6/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_6/">
+            版本 0.42.6
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_7/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_7/">
+            版本 0.42.7
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_42_8/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_42_8/">
+            版本 0.42.8
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_0/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_0/">
+            版本 0.43.0
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_1/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_1/">
+            版本 0.43.1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_2/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_2/">
+            版本 0.43.2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_3/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_3/">
+            版本 0.43.3
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_4/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_4/">
+            版本 0.43.4
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/releases/ver_0_43_5/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/releases/ver_0_43_5/">
+            版本 0.43.5
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/foreward/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/foreward/">简介</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/license/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/license/">许可证</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/getting-start/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/getting-start/">入门指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/getting-start/installation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/installation/">
+            安装
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/getting-start/building/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/getting-start/building/">
+            从源码构建
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/">语言指南</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/basics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/basics/">
+            基础知识
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/safety/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/safety/">
+            安全特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/memory/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/memory/">
+            内存管理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/namespaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/namespaces/">
+            命名空间
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/language-guide/datatypes/">数据类型</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/members/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/members/">
+            类型成员
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/attributes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/attributes/">
+            特性
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/initialization/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/initialization/">
+            初始化
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/extensions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/extensions/">
+            扩展
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/anon/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/anon/">
+            匿名类型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/globals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/globals/">
+            全局
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/datatypes/methodrefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/datatypes/methodrefs/">
+            方法引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interfaces/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interfaces/">
+            接口
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/statements/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/statements/">
+            语句
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/expressions/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/expressions/">
+            表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/interop/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/interop/">
+            互操作
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/generics/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/generics/">
+            泛型
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/reflection/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/reflection/">
+            反射
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/literals/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/literals/">
+            字面量
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/pattern/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/pattern/">
+            模式匹配
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/operators/" class="dd-item active">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/operators/">
+            运算符
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/errors/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/errors/">
+            错误处理
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/preprocessor/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/preprocessor/">
+            预处理器
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/strings/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/strings/">
+            字符串
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/typerefs/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/typerefs/">
+            类型引用
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/language-guide/comptime/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/language-guide/comptime/">
+            编译期（Comptime）
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/corlib/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/corlib/">核心库</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/projects/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/projects/">项目与工作区</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/platforms/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/BeefDocs/docs/platforms/">平台</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/ide/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/BeefDocs/docs/ide/">IDE</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/BeefDocs/docs/ide/themes/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/themes/">
+            主题
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/codegeneration/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/codegeneration/">
+            代码生成
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/commandline/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/commandline/">
+            命令行参数
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/profiling/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/profiling/">
+            性能分析
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/documentation/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/documentation/">
+            文档
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/hotcompile/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/hotcompile/">
+            热编译
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/BeefDocs/docs/ide/watch/" class="dd-item">
+        <div>
+          <a href="/BeefDocs/docs/ide/watch/">
+            调试器表达式
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/beefbuild/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/beefbuild/">BeefBuild</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/packman/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/packman/">包管理器</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/testing/">测试</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/BeefDocs/docs/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/BeefDocs/docs/faq/">常见问题</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/BeefDocs/docs/releases/" >
+   发布说明</option>
+    <option value="/BeefDocs/docs/foreward/" >
+   简介</option>
+    <option value="/BeefDocs/docs/license/" >
+   许可证</option>
+    <option value="/BeefDocs/docs/getting-start/" >
+   入门指南</option> 
+      <option value="/BeefDocs/docs/getting-start/installation/" >- 安装</option>
+      <option value="/BeefDocs/docs/getting-start/building/" >- 从源码构建</option>
+  
+    <option value="/BeefDocs/docs/language-guide/" >
+   语言指南</option> 
+      <option value="/BeefDocs/docs/language-guide/basics/" >- 基础知识</option>
+      <option value="/BeefDocs/docs/language-guide/safety/" >- 安全特性</option>
+      <option value="/BeefDocs/docs/language-guide/memory/" >- 内存管理</option>
+      <option value="/BeefDocs/docs/language-guide/namespaces/" >- 命名空间</option>
+    <option value="/BeefDocs/docs/language-guide/datatypes/" >
+  - 
+   数据类型</option> 
+      <option value="/BeefDocs/docs/language-guide/datatypes/members/" >-- 类型成员</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/attributes/" >-- 特性</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/initialization/" >-- 初始化</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/extensions/" >-- 扩展</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/anon/" >-- 匿名类型</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/globals/" >-- 全局</option>
+      <option value="/BeefDocs/docs/language-guide/datatypes/methodrefs/" >-- 方法引用</option>
+  
+      <option value="/BeefDocs/docs/language-guide/interfaces/" >- 接口</option>
+      <option value="/BeefDocs/docs/language-guide/statements/" >- 语句</option>
+      <option value="/BeefDocs/docs/language-guide/expressions/" >- 表达式</option>
+      <option value="/BeefDocs/docs/language-guide/interop/" >- 互操作</option>
+      <option value="/BeefDocs/docs/language-guide/generics/" >- 泛型</option>
+      <option value="/BeefDocs/docs/language-guide/reflection/" >- 反射</option>
+      <option value="/BeefDocs/docs/language-guide/literals/" >- 字面量</option>
+      <option value="/BeefDocs/docs/language-guide/pattern/" >- 模式匹配</option>
+      <option value="/BeefDocs/docs/language-guide/operators/"  selected>- 运算符</option>
+      <option value="/BeefDocs/docs/language-guide/errors/" >- 错误处理</option>
+      <option value="/BeefDocs/docs/language-guide/preprocessor/" >- 预处理器</option>
+      <option value="/BeefDocs/docs/language-guide/strings/" >- 字符串</option>
+      <option value="/BeefDocs/docs/language-guide/typerefs/" >- 类型引用</option>
+      <option value="/BeefDocs/docs/language-guide/comptime/" >- 编译期（Comptime）</option>
+  
+    <option value="/BeefDocs/docs/corlib/" >
+   核心库</option>
+    <option value="/BeefDocs/docs/projects/" >
+   项目与工作区</option> 
+  
+    <option value="/BeefDocs/docs/platforms/" >
+   平台</option> 
+  
+    <option value="/BeefDocs/docs/ide/" >
+   IDE</option> 
+      <option value="/BeefDocs/docs/ide/themes/" >- 主题</option>
+      <option value="/BeefDocs/docs/ide/codegeneration/" >- 代码生成</option>
+      <option value="/BeefDocs/docs/ide/commandline/" >- 命令行参数</option>
+      <option value="/BeefDocs/docs/ide/profiling/" >- 性能分析</option>
+      <option value="/BeefDocs/docs/ide/documentation/" >- 文档</option>
+      <option value="/BeefDocs/docs/ide/hotcompile/" >- 热编译</option>
+      <option value="/BeefDocs/docs/ide/watch/" >- 调试器表达式</option>
+  
+    <option value="/BeefDocs/docs/beefbuild/" >
+   BeefBuild</option>
+    <option value="/BeefDocs/docs/packman/" >
+   包管理器</option>
+    <option value="/BeefDocs/docs/testing/" >
+   测试</option>
+    <option value="/BeefDocs/docs/faq/" >
+   常见问题</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="">
+        </div>
+        <script type="text/javascript" src="/BeefDocs/docs/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/auto-complete.js"></script>
+        <link href="/BeefDocs/docs/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/2505817596.github.io\/BeefDocs\/docs\/";
+          
+        </script>
+        <script type="text/javascript" src="/BeefDocs/docs/js/search.js"></script>
+      </div>
+    
+
+    <h1>运算符</h1>
+    
+    
+    
+    
+
+<h2 id="运算符概览">运算符概览</h2>
+
+<p>以下运算符分组按优先级从高到低排列。</p>
+
+<h3 id="主运算符">主运算符</h3>
+
+<ul>
+<li><code>x.y</code> - 成员访问</li>
+<li><code>x..y(&lt;method args&gt;)</code> - 成员访问级联。将方法 <code>y</code> 的结果替换为 <code>x</code>，用于将多个方法调用串联到同一目标上。例如：<code>string..Append(&quot;name: &quot;).Append(name);</code> 尽管 <code>Append</code> 返回 <code>void</code>，但两个 <code>Append</code> 都作用于 <code>string</code>。</li>
+<li><code>x?.y</code> - 空条件成员访问。若 <code>x</code> 为 null，则结果为 null。</li>
+<li><code>f(x)</code> - 方法调用</li>
+<li><code>a[x]</code> - 数组索引</li>
+</ul>
+
+<h3 id="unary">一元运算符</h3>
+
+<ul>
+<li><code>x++</code> - 后缀自增，先返回自增前结果再递增 x</li>
+<li><code>x--</code> - 后缀自减，先返回自减前结果再递减 x</li>
+<li><code>++x</code> - 前缀自增，先递增 x 再返回新值</li>
+<li><code>--x</code> - 前缀自减，先递减 x 再返回新值</li>
+<li><code>~x</code> - 按位取反</li>
+<li><code>!x</code> - 逻辑取反</li>
+<li><code>(T)x</code> - 将 <code>x</code> 转换为类型 <code>T</code></li>
+<li><code>&amp;x</code> - 取 <code>x</code> 的地址</li>
+<li><code>*x</code> - 解引用指针 <code>x</code></li>
+<li><code>x(..y, &lt;other method args&gt;)</code> - 参数级联。将方法 <code>x</code> 的结果替换为 <code>y</code>，用于复用参数。例如参见 <a href="https://2505817596.github.io/BeefDocs/docs/language-guide/strings/#ease">字符串易用性</a>。</li>
+</ul>
+
+<h4 id="binary">乘除运算符</h4>
+
+<ul>
+<li><code>x * y</code> - 乘法</li>
+<li><code>x &amp;* y</code> - 禁用溢出检查的乘法</li>
+<li><code>x / y</code> - 除法。若 <code>x</code> 与 <code>y</code> 为整数，则结果为向零截断的整数。</li>
+<li><code>x % y</code> - 取余。若 <code>x</code> 与 <code>y</code> 为整数，则结果为 <code>x / y</code> 的余数。</li>
+</ul>
+
+<h4 id="加减运算符">加减运算符</h4>
+
+<ul>
+<li><code>x + y</code> - 加法</li>
+<li><code>x &amp;+ y</code> - 禁用溢出检查的加法</li>
+<li><code>x - y</code> - 减法</li>
+<li><code>x &amp;- y</code> - 禁用溢出检查的减法。允许两个无符号整数相减而不产生有符号整数。</li>
+</ul>
+
+<h3 id="移位运算符">移位运算符</h3>
+
+<ul>
+<li><code>x &lt;&lt; y</code> - 左移</li>
+<li><code>x &gt;&gt; y</code> - 右移。若 <code>x</code> 为有符号数，则左侧用符号位填充。</li>
+</ul>
+
+<h3 id="太空船运算符">太空船运算符</h3>
+
+<ul>
+<li><code>x &lt;=&gt; y</code> - 若 <code>x &lt; y</code> 返回负数，<code>x == y</code> 返回 0，<code>x &gt; y</code> 返回正数</li>
+</ul>
+
+<h3 id="比较运算符">比较运算符</h3>
+
+<ul>
+<li><code>x &lt; y</code></li>
+<li><code>x &gt; y</code></li>
+<li><code>x &lt;= y</code></li>
+<li><code>x &gt;= y</code></li>
+<li><code>x is T</code> - 若 <code>x</code> 可转换为类型 <code>T</code> 则结果为 true</li>
+<li><code>x as T</code> - 若可转换则将 <code>x</code> 转为 <code>T</code>，否则结果为 null</li>
+</ul>
+
+<h3 id="逻辑-and-运算符">逻辑 AND 运算符</h3>
+
+<ul>
+<li><code>x &amp; y</code> - 按位 AND</li>
+</ul>
+
+<h3 id="逻辑-xor-运算符">逻辑 XOR 运算符</h3>
+
+<ul>
+<li><code>x ^ y</code> - 按位 XOR</li>
+</ul>
+
+<h3 id="逻辑-or-运算符">逻辑 OR 运算符</h3>
+
+<ul>
+<li><code>x | y</code> - 按位 OR</li>
+</ul>
+
+<h3 id="相等运算符">相等运算符</h3>
+
+<ul>
+<li><code>x == y</code></li>
+<li><code>x === y</code> - 严格相等</li>
+<li><code>x != y</code></li>
+<li><code>x !== y</code> - 严格不等</li>
+</ul>
+
+<p>严格相等运算符可用于检查引用相等，跳过所有相等运算符重载。对于结构体或元组等值类型，严格相等会执行逐成员的严格相等检查。</p>
+
+<h3 id="条件-and-运算符">条件 AND 运算符</h3>
+
+<ul>
+<li><code>x &amp;&amp; y</code></li>
+</ul>
+
+<h3 id="条件-or-运算符">条件 OR 运算符</h3>
+
+<ul>
+<li><code>x || y</code></li>
+</ul>
+
+<h3 id="空合并运算符">空合并运算符</h3>
+
+<ul>
+<li><code>x ?? y</code> - 若 <code>x</code> 非空则结果为 <code>x</code>，否则为 <code>y</code></li>
+</ul>
+
+<h3 id="conditional">条件运算符</h3>
+
+<ul>
+<li><code>x ? y : z</code> - 当 <code>x</code> 为 true 时结果为 <code>y</code>，否则为 <code>z</code></li>
+</ul>
+
+<h3 id="assignment">赋值运算符</h3>
+
+<p>赋值结果为 <code>x</code> 的新值。</p>
+
+<ul>
+<li><code>x = y</code></li>
+<li><code>x += y</code></li>
+<li><code>x -= y</code></li>
+<li><code>x *= y</code></li>
+<li><code>x /= y</code></li>
+<li><code>x %= y</code></li>
+<li><code>x |= y</code></li>
+<li><code>x ^= y</code></li>
+<li><code>x &lt;&lt;= y</code></li>
+<li><code>x &gt;&gt;= y</code></li>
+<li><code>x ??= y</code></li>
+<li><code>=&gt; x</code> - 方法绑定运算符</li>
+</ul>
+
+<h4 id="typeattr">类型属性运算符</h4>
+
+<ul>
+<li><code>sizeof(T)</code> - <code>T</code> 的大小。注意引用类型总是返回原生指针大小</li>
+<li><code>alignof(T)</code> - <code>T</code> 的对齐</li>
+<li><code>strideof(T)</code> - <code>T</code> 的步长（按 <code>T</code> 的对齐方式对齐）</li>
+<li><code>alloctype(T)</code> - <code>new T()</code> 的结果，若 <code>T</code> 为引用类型则为 <code>T</code>，若为值类型则为 <code>T*</code></li>
+<li><code>comptype(x)</code> - 反射类型 <code>x</code> 的类型</li>
+<li><code>decltype(x)</code> - 表达式 <code>x</code> 的结果类型。允许任意表达式（包括方法调用），但仅用于确定类型，不生成可执行代码。</li>
+<li><code>nullable(T)</code> - 若 <code>T</code> 已是可空类型则为 <code>T</code>，否则为 <code>T?</code></li>
+<li><code>rettype(T)</code> - 委托或函数的返回类型</li>
+<li><code>typeof(T)</code> - <code>T</code> 的反射类型</li>
+<li><code>offsetof(T, field)</code> - <code>field</code> 在 <code>T</code> 中的字节偏移</li>
+<li><code>nameof(T, field)</code> - <code>field</code> 在 <code>T</code> 中的名称</li>
+</ul>
+
+<h3 id="引用运算符">引用运算符</h3>
+
+<ul>
+<li><code>ref x</code> - 传入 <code>ref</code> 参数或需要 <code>ref</code> 的值时必需</li>
+<li><code>out x</code> - 传入 <code>out</code> 参数时必需</li>
+<li><code>var x</code> - 从 <code>out</code> 参数创建新变量 <code>x</code></li>
+<li><code>let x</code> - 从 <code>out</code> 参数创建新常量/只读变量 <code>x</code></li>
+</ul>
+
+<h3 id="params-运算符">Params 运算符</h3>
+
+<ul>
+<li>params x - 当 x 为可变参数时，将这些参数传递给另一个可变参数。当 x 为委托或函数的 params 时，会在原地展开。</li>
+</ul>
+
+<p>示例参见 <a href="https://2505817596.github.io/BeefDocs/docs/language-guide/datatypes/members/#params">可变参数数量</a>。</p>
+
+<h3 id="range">范围运算符</h3>
+
+<ul>
+<li><code>x...y</code> - 创建包含式范围，从 x 到 y（含 y）</li>
+
+<li><p><code>x..&lt;y</code> - 创建排除式范围，从 x 到 y（不含 y）</p></li>
+
+<li><p><code>x...</code> - 创建索引范围，从 x 到集合末尾（含末尾）</p></li>
+
+<li><p><code>...y</code> - 创建索引范围，从集合起始到 y（含 y）</p></li>
+
+<li><p><code>x...^y</code> - 创建索引范围，从 x 到 y（含 y），但 y 从末尾计数（见下方 Index 运算符）。例如从列表第 <code>x</code> 个元素到从后往前数的第 <code>y</code> 个元素。</p></li>
+</ul>
+
+<p>示例参见 <a href="https://2505817596.github.io/BeefDocs/docs/language-guide/expressions/#range">范围表达式</a>。</p>
+
+<h3 id="末尾索引运算符">末尾索引运算符</h3>
+
+<ul>
+<li><code>^x</code> - 创建一个从末尾计数的 Index（<code>.FromEnd</code>），其中最后一个元素为 ^1（^0 等于集合的数量/长度）</li>
+</ul>
+
+<p><code>Index</code> 主要用于集合索引与范围构造。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">let</span> <span class="n">list</span> <span class="p">=</span> <span class="n">scope</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="m">5</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+
+<span class="k">let</span> <span class="n">first</span> <span class="p">=</span> <span class="n">list</span><span class="na">[0]</span><span class="p">;</span>
+<span class="c1">// first == 5
+</span><span class="c1"></span>
+<span class="c1">// 从末尾索引起点是 Count（此处为 3），超出范围，因此向前一位得到最后元素 -&gt; ^1
+</span><span class="c1"></span><span class="k">let</span> <span class="n">last</span> <span class="p">=</span> <span class="n">list</span><span class="na">[^1]</span><span class="p">;</span>
+<span class="c1">// last == 0
+</span></code></pre></div>
+<h2 id="类型转换">类型转换</h2>
+
+<p><code>(T)x</code> 类型转换运算符可直接执行多种类型转换，但有一些特殊情况：
+* 反装箱。<code>(T)obj</code> 其中 <code>obj</code> 为 <code>Object</code>、<code>T</code> 为值类型，会执行反装箱。该反装箱在 Debug 模式下（启用动态转换检查时）可能在运行时失败。可使用 <code>obj is T</code> 检查或 <code>obj as T?</code> 表达式安全反装箱。
+* 获取对象地址：<code>(void*)obj</code>（<code>obj</code> 为 Object 类型）实际上是反装箱请求，而非类型转换。<code>System.Internal.UnsafeCastToPtr</code> 可返回 Object 的地址作为 <code>void*</code>。
+* 转换为不相关类型。有时可使用双重转换实现原本非法的转换。例如 <code>(void*)handle</code> 中 <code>handle</code> 是带类型的基础类型 <code>struct Handle : int</code>，直接转为 <code>void*</code> 不允许，但 <code>(void*)(int)handle</code> 允许。</p>
+
+<h2 id="运算符重载">运算符重载</h2>
+
+<p>结构体与类可提供运算符重载。比较运算符的选择较灵活，不需要定义 &lt;、&lt;=、==、!=、&gt;、&gt;= 的全部组合。若存在“逆运算符”，会优先调用；或仅定义 &lt;=&gt; 运算符时，也可用于所有比较类型。</p>
+<div class="highlight"><pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">struct</span> <span class="nc">Vector2</span>
+<span class="p">{</span>
+	<span class="kt">float</span> <span class="n">x</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">y</span><span class="p">;</span>
+
+	<span class="k">public</span> <span class="k">this</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">float</span> <span class="n">y</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="n">y</span> <span class="p">=</span> <span class="n">y</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 二元 + 运算符 */</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="n">Vector2</span> <span class="k">operator</span><span class="p">+(</span><span class="n">Vector2</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Vector2</span> <span class="n">rhs</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="p">.(</span><span class="n">lhs</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">lhs</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 一元 &#39;-&#39; 运算符 */</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="n">Vector2</span> <span class="k">operator</span><span class="p">-(</span><span class="n">Vector2</span> <span class="n">val</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="p">.(-</span><span class="n">val</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="p">-</span><span class="n">val</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 一元 &#39;++&#39; 运算符 */</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="n">Vector2</span> <span class="k">operator</span><span class="p">++(</span><span class="n">Vector2</span> <span class="n">val</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="p">.(</span><span class="n">val</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">,</span> <span class="n">val</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="m">1</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 非静态一元 &#39;--&#39; 运算符 */</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="k">operator</span><span class="p">--()</span> <span class="n">mut</span>
+	<span class="p">{</span>
+		<span class="n">x</span><span class="p">--;</span>
+		<span class="n">y</span><span class="p">--;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 赋值 &#39;+=&#39; 运算符 */</span>
+	<span class="k">public</span> <span class="k">void</span> <span class="k">operator</span><span class="p">+=(</span><span class="n">Vector2</span> <span class="n">rhs</span><span class="p">)</span> <span class="n">mut</span>
+	<span class="p">{</span>
+		<span class="n">x</span> <span class="p">+=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+		<span class="n">y</span> <span class="p">+=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 比较运算符 */</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="k">operator</span><span class="p">&lt;=&gt;(</span><span class="n">Vector2</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Vector2</span> <span class="n">rhs</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="cm">/* 先比较 X，若 X 相等则比较 Y */</span>
+		<span class="kt">int</span> <span class="n">cmp</span> <span class="p">=</span> <span class="n">lhs</span><span class="p">.</span><span class="n">x</span> <span class="p">&lt;=&gt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">cmp</span> <span class="p">!=</span> <span class="m">0</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">cmp</span><span class="p">;</span>
+		<span class="k">return</span> <span class="n">lhs</span><span class="p">.</span><span class="n">y</span> <span class="p">&lt;=&gt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="cm">/* 来自 float[2] 的转换运算符 */</span>
+	<span class="k">public</span> <span class="k">static</span> <span class="k">operator</span> <span class="n">Vector2</span><span class="p">(</span><span class="kt">float</span><span class="na">[2]</span> <span class="n">val</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="p">.(</span><span class="n">val</span><span class="na">[0]</span><span class="p">,</span> <span class="n">val</span><span class="na">[1]</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>二元运算符可标记为 <code>[Commutable]</code> 特性，从而允许某些运算符变换。例如，可交换的 &ldquo;A &lt; B&rdquo; 运算符可用于 &ldquo;B &gt; A&rdquo;、&rdquo;!(A &gt;= B)&rdquo; 和 &ldquo;!(B &lt;= A)&ldquo;。可交换的 &ldquo;A == B&rdquo; 运算符可用于 &ldquo;B == A&rdquo;、&rdquo;!(A != B)&rdquo; 与 &ldquo;!(B != A)&ldquo;。</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/BeefDocs/docs/language-guide/pattern/" title="模式匹配"> <i class="fa fa-chevron-left"></i><label>模式匹配</label></a>
+    <a class="nav nav-next" href="/BeefDocs/docs/language-guide/errors/" title="错误处理" style="margin-right: 0px;"><label>错误处理</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/beefytech/Beef_website/edit/master/beef-lang.org/content/language-guide/operators.md" target="blank"><i class="fa fa-code-fork"></i>
+        </a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/BeefDocs/docs/js/clipboard.min.js"></script>
+
+<link href="/BeefDocs/docs/css/featherlight.min.css" rel="stylesheet">
+<script src="/BeefDocs/docs/js/featherlight.min.js"></script>
+
+
+
+<script src="/BeefDocs/docs/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

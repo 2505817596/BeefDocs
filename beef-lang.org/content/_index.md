@@ -1,11 +1,11 @@
 +++
-title = "Beef Language"
+title = "Beef 语言"
 +++
 
-## Language guide overview
+## 语言指南概览
 
-The Beef language guide is a work in progress and serves as a introduction to the Beef programming language. 
+Beef 语言指南仍在完善中，用于介绍 Beef 编程语言。
 
-For those who like to learn by example, Beef includes several example projects which illustrate the basics of the language concepts. Source code for the Beef IDE and associated tools is available on GitHub and can serve as an example of full-scale projects. 
+如果你喜欢通过示例学习，Beef 自带多个示例项目，用于展示语言概念的基础。Beef IDE 与相关工具的源代码托管在 GitHub，可作为完整规模项目的参考。
 
 <img src="img/cowcar.png" />

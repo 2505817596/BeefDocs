@@ -1,27 +1,27 @@
 +++
-title = "Comptime"
+title = "编译期（Comptime）"
 weight = 80
 +++
 
-## Comptime
+## 编译期（Comptime）
 
-Beef offers compile-time features which can be used to execute code which evalutes to constant values or to generate code.
+Beef 提供编译期特性，可用于执行能求值为常量的代码或生成代码。
 
-### Compile-time method evaluation
+### 编译期方法求值
 
 ```C#
-/* Const value initialized from comptime evaluation of Vector3 constructor */
+/* 使用 Vector3 构造函数的编译期求值来初始化常量 */
 const Vector3 vec = .(1, 2, 3);
 
-/* Normal methods can be used at comptime */
+/* 普通方法也可在编译期使用 */
 static int32 Factorial(int32 n)
 {
     return n <= 1 ? 1 : (n * Factorial(n - 1));
 }
 const int fac = Factorial(8);
-var fac2 = [ConstEval]Factorial(9); /* call attribute forces comptime evaluation */
+var fac2 = [ConstEval]Factorial(9); /* 调用特性强制编译期求值 */
 
-/* This method can only be called at comptime. The 'var' return type allows this method to return different types at comptime based on the input */
+/* 该方法只能在编译期调用。'var' 返回类型允许它根据输入在编译期返回不同类型 */
 [Comptime(ConstEval=true)]
 static var StrToValue(String str)
 {
@@ -29,14 +29,14 @@ static var StrToValue(String str)
 		return float.Parse(str).Value;
 	return int.Parse(str).Value;
 }
-public const let cVal0 = StrToValue("123"); /* evaluates to 'int' */
-public const let cVal1 = StrToValue("1.23"); /* evaluates to 'float' */
+public const let cVal0 = StrToValue("123"); /* 求值为 'int' */
+public const let cVal1 = StrToValue("1.23"); /* 求值为 'float' */
 
-/* Note that returning scoped memory is legal at comptime even though it is illegal at runtime */
+/* 注意：返回作用域内存在编译期是合法的，但在运行期是不合法的 */
 static String GenerateString(String str, int a, int b) => scope $"{str}:{a}:{b}";
-const String cStr = GenerateString("Prefix", 12, 34); /* evalutes to string literal "Prefix:12:34" */
+const String cStr = GenerateString("Prefix", 12, 34); /* 求值为字符串字面量 "Prefix:12:34" */
 
-/* A Span result can be used to initialize a sized array */
+/* Span 结果可用于初始化定长数组 */
 public static Span<int32> GetSorted(String numList)
 {
 	List<int32> list = scope .();
@@ -49,25 +49,25 @@ public static Span<int32> GetSorted(String numList)
 	list.Sort();
 	return list;
 }
-const int32[?] iArr = GetSorted("8, 1, 3, 7"); /* evalutes to int32[4](1, 3, 7, 8) */
+const int32[?] iArr = GetSorted("8, 1, 3, 7"); /* 求值为 int32[4](1, 3, 7, 8) */
 ```
 
-Every comptime evaluation occurs in isolation - any static values modified during the evaluation of one method will not be visible to subsequent method evaluations. Certain side effects are restricted during comptime evaluation, such as file IO and access to external libraries.
+每次编译期求值都是隔离执行的——在一次方法求值过程中修改的静态值不会对后续方法求值可见。编译期求值限制某些副作用，例如文件 IO 与访问外部库。
 
-### Compile-time code generation
+### 编译期代码生成
 
-Code generation expands on the comptime method evaluation features, allowing for types to be modified at certain trigger points during compilation.
+代码生成在编译期方法求值特性的基础上扩展，允许在编译过程中某些触发点修改类型。
 
 ```C#
-/* Constant strings can be used to inject code into the call site at comptime. This string can be generated from a comptime method. */
+/* 常量字符串可在编译期注入到调用点。该字符串可由编译期方法生成。 */
 {
-  /* In this case it's the same as just pasting the string into the code right here. */
+  /* 在此例中等同于直接把字符串粘贴到代码中。 */
   Compiler.Mixin("int val = 99;");
 
   Console.WriteLine(val);
 }
 
-/* OnCompile attribute allows for code generation */
+/* OnCompile 特性允许代码生成 */
 class ClassA
 {
 	public int mA = 123;
@@ -82,13 +82,13 @@ class ClassA
 	}
 }
 
-/* This method emits a runtime scope timer into its call site. */
+/* 该方法会在调用点注入运行时作用域计时器。 */
 [Comptime]
 public static void TimeScope(String scopeName)
 {
 	let nameHash = (uint)scopeName.GetHashCode();
 
-  /* MixinRoot emits into the root non-comptime caller, rather than into this comptime method */
+  /* MixinRoot 会注入到最外层的非编译期调用者，而不是注入到该编译期方法中 */
 	Compiler.MixinRoot(scope $"""
 		let __timer_{nameHash} = scope System.Diagnostics.Stopwatch(true);
 		defer
@@ -98,7 +98,7 @@ public static void TimeScope(String scopeName)
 		""");
 }
 
-/* Adding this attribute to a type will generate a 'ToString' method using comptime reflection */
+/* 给类型添加该特性会通过编译期反射生成 'ToString' 方法 */
 [AttributeUsage(.Types)]
 struct IFancyToStringAttribute : Attribute, IOnTypeInit
 {
@@ -121,7 +121,7 @@ struct IFancyToStringAttribute : Attribute, IOnTypeInit
     }
 }
 
-/* Adding this attribute to a method will log method entry and returned Result<T> errors */
+/* 给方法添加该特性会记录方法入口，并记录返回的 Result<T> 错误 */
 [AttributeUsage(.Method)]
 struct LogAttribute : Attribute, IOnMethodInit
 {
@@ -152,7 +152,7 @@ interface ISerializable
 	public void Serialize(Serializer s);
 }
 
-/* Adding this attribute to a type will add and implement the ISerializable interface */
+/* 给类型添加该特性会添加并实现 ISerializable 接口 */
 struct SerializableAttribute : Attribute, IOnTypeInit
 {
 	[Comptime]
@@ -198,7 +198,7 @@ struct RangedAccessorAttribute : this(int minVal, int maxVal), Attribute, IOnFie
 	}
 }
 
-/* Creates a 'RangedVal' property wrapping 'Val' that only allows values of 10 through 20 */
+/* 创建一个包装 'Val' 的 'RangedVal' 属性，仅允许 10 到 20 的值 */
 [RangedAccessor(10, 20)]
 static int Val;
 
