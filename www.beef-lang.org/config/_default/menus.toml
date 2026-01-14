@@ -5,12 +5,12 @@
 
 [[main]]
   name = "文档"
-  url = "/docs"
+  url = "docs"
   weight = 20
 
 [[main]]
   name = "Doxygen 文档"
-  url = "/docs/doxygen/corlib/html/"
+  url = "docs/doxygen/corlib/html/"
   weight = 20
 
 [[main]]
